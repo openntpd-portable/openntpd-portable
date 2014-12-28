@@ -1,0 +1,39 @@
+--- config.orig	2014-12-28 12:15:23.139241646 -0600
++++ config.c	2014-12-28 12:15:58.843242420 -0600
+@@ -75,7 +75,9 @@
+ 	if ((h = calloc(1, sizeof(struct ntp_addr))) == NULL)
+ 		fatal(NULL);
+ 	sa_in = (struct sockaddr_in *)&h->ss;
++#ifdef SIN_LEN
+ 	sa_in->sin_len = sizeof(struct sockaddr_in);
++#endif
+ 	sa_in->sin_family = AF_INET;
+ 	sa_in->sin_addr.s_addr = ina.s_addr;
+ 
+@@ -97,7 +99,9 @@
+ 		if ((h = calloc(1, sizeof(struct ntp_addr))) == NULL)
+ 			fatal(NULL);
+ 		sa_in6 = (struct sockaddr_in6 *)&h->ss;
++#ifdef SIN6_LEN
+ 		sa_in6->sin6_len = sizeof(struct sockaddr_in6);
++#endif
+ 		sa_in6->sin6_family = AF_INET6;
+ 		memcpy(&sa_in6->sin6_addr,
+ 		    &((struct sockaddr_in6 *)res->ai_addr)->sin6_addr,
+@@ -141,12 +145,16 @@
+ 		h->ss.ss_family = res->ai_family;
+ 		if (res->ai_family == AF_INET) {
+ 			sa_in = (struct sockaddr_in *)&h->ss;
++#ifdef SIN_LEN
+ 			sa_in->sin_len = sizeof(struct sockaddr_in);
++#endif
+ 			sa_in->sin_addr.s_addr = ((struct sockaddr_in *)
+ 			    res->ai_addr)->sin_addr.s_addr;
+ 		} else {
+ 			sa_in6 = (struct sockaddr_in6 *)&h->ss;
++#ifdef SIN6_LEN
+ 			sa_in6->sin6_len = sizeof(struct sockaddr_in6);
++#endif
+ 			memcpy(&sa_in6->sin6_addr, &((struct sockaddr_in6 *)
+ 			    res->ai_addr)->sin6_addr, sizeof(struct in6_addr));
+ 		}
