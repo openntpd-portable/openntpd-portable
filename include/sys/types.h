@@ -18,6 +18,12 @@
 #define __dead
 #endif
 
+#if !defined(HAVE_ATTRIBUTE__WEAK_ALIAS) && !defined(__weak_alias)
+#define __weak_alias(alias,sym) \
+    __asm__(".weak " __STRING(alias) " ; " \
+	    __STRING(alias) " = " __STRING(sym))
+#endif
+
 #if !defined(HAVE_ATTRIBUTE__BOUNDED__) && !defined(__bounded__)
 # define __bounded__(x, y, z)
 #endif
