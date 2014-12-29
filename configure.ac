@@ -76,25 +76,23 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[
 CFLAGS="$CFLAGS $CLANG_CFLAGS"
 LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
+# check functions that are expected to be in libc
 AC_CHECK_FUNCS([adjfreq arc4random_uniform asprintf explicit_bzero])
 AC_CHECK_FUNCS([getentropy memmem poll reallocarray])
 AC_CHECK_FUNCS([setproctitle setgroups])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strtonum])
-AC_CHECK_FUNCS([SHA512Init])
-AC_CHECK_FUNC([MD5Init],,
-	[AC_SEARCH_LIBS([MD5Init],[md])])
 
-# check if arc4random is in the system or in libcrypto
-AC_CHECK_FUNC([arc4random],,
-	[AC_SEARCH_LIBS([arc4random],[crypto])])
+# check auxiliary libraries that might contain other functions
+AC_SEARCH_LIBS([arc4random], [crypto])
+AC_SEARCH_LIBS([ibuf_open], [util])
+AC_SEARCH_LIBS([MD5Init], [md])
+AC_SEARCH_LIBS([SHA512Init], [md])
 
-AC_CHECK_FUNC([ibuf_open],,
-	[AC_SEARCH_LIBS([ibuf_open],[util])])
+AC_CHECK_FUNCS([arc4random ibuf_open MD5Init SHA512Init])
 
 # Share test results with automake
 AM_CONDITIONAL([HAVE_ADJFREQ], [test "x$ac_cv_func_adjfreq" = xyes])
-AM_CONDITIONAL([HAVE_ARC4RANDOM],
-	[test "x$ac_cv_func_arc4random" = xyes -o "ac_cv_search_arc4random" != xno])
+AM_CONDITIONAL([HAVE_ARC4RANDOM], [test "x$ac_cv_func_arc4random" = xyes])
 AM_CONDITIONAL([HAVE_ARC4RANDOM_UNIFORM], [test "x$ac_cv_func_arc4random_uniform" = xyes])
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
 AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
@@ -109,8 +107,7 @@ AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRNDUP], [test "x$ac_cv_func_strndup" = xyes])
 AM_CONDITIONAL([HAVE_STRNLEN], [test "x$ac_cv_func_strnlen" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
-AM_CONDITIONAL([HAVE_MD5],
-	[test "x$ac_cv_func_MD5Init" = xyes -o "ac_cv_search_MD5Init" != xno])
+AM_CONDITIONAL([HAVE_MD5], [test "x$ac_cv_func_MD5Init" = xyes])
 AM_CONDITIONAL([HAVE_SHA512], [test "x$ac_cv_func_SHA512Init" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 
