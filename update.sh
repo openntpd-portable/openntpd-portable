@@ -33,7 +33,7 @@ cp $libc_inc/sha2.h include/sha2_openbsd.h
 cp $libutil_src/imsg.h include/
 cp $libutil_src/imsg.c compat/
 cp $libutil_src/imsg-buffer.c compat/
-(cd compat; $PATCH < $patches/imsg.patch)
+(cd compat; $PATCH < $patches/patch-imsg.c)
 
 for i in explicit_bzero.c strlcpy.c strlcat.c strndup.c strnlen.c; do
 	$CP $libc_src/string/$i compat
@@ -53,13 +53,11 @@ $CP $libcrypto_src/crypto/arc4random_*.h compat
 for i in client.c config.c control.c log.c ntp.c ntp.h ntp_dns.c ntp_msg.c \
 	ntpd.c ntpd.h parse.y sensors.c server.c util.c \
 	ntpctl.8 ntpd.8 ntpd.conf.5 ; do
-	echo Copying `basename $i`
+	file=`basename $i`
+	echo Copying $file
 	$CP $ntpd_src/$i .
+	if [ -e $patches/patch-$file ]; then
+		echo Patching $file
+		$PATCH < $patches/patch-$file
+	fi
 done
-$PATCH < $patches/client.patch
-$PATCH < $patches/config.patch
-$PATCH < $patches/ntp.patch
-$PATCH < $patches/ntpd.patch
-$PATCH < $patches/parse.patch
-$PATCH < $patches/server.patch
-$PATCH < $patches/util.patch
