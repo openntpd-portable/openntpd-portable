@@ -80,11 +80,13 @@ AC_CHECK_FUNCS([adjfreq arc4random_uniform asprintf explicit_bzero])
 AC_CHECK_FUNCS([getentropy memmem poll reallocarray])
 AC_CHECK_FUNCS([setproctitle setgroups])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strtonum])
-AC_CHECK_FUNCS([MD5Init SHA512Init])
+AC_CHECK_FUNCS([SHA512Init])
+AC_CHECK_FUNC([MD5Init],,
+	[AC_SEARCH_LIBS([MD5Init],[md])])
 
 # check if arc4random is in the system or in libcrypto
 AC_CHECK_FUNC([arc4random],,
-    [AC_SEARCH_LIBS([arc4random],[crypto])])
+	[AC_SEARCH_LIBS([arc4random],[crypto])])
 
 AC_CHECK_FUNC([ibuf_open],,
 	[AC_SEARCH_LIBS([ibuf_open],[util])])
