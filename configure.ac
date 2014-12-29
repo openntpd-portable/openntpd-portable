@@ -22,9 +22,8 @@ case $host_os in
 		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		;;
 	*openbsd*)
-		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has __bounded__])
-		AC_DEFINE([HAVE_ATTRIBUTE__WEAK_ALIAS], [1], [OpenBSD gcc has __weak_alias])
-		AC_DEFINE([HAVE_ATTRIBUTE__DEAD], [1], [OpenBSD gcc has __dead])
+		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD has __bounded__])
+		AC_DEFINE([HAVE_ATTRIBUTE__DEAD], [1], [OpenBSD has __dead])
 		HAVE_SENSORS=true
 		;;
 	*solaris*)
