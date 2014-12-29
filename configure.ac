@@ -23,6 +23,7 @@ case $host_os in
 		;;
 	*openbsd*)
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD gcc has __bounded__])
+		AC_DEFINE([HAVE_ATTRIBUTE__WEAK_ALIAS], [1], [OpenBSD gcc has __weak_alias])
 		AC_DEFINE([HAVE_ATTRIBUTE__DEAD], [1], [OpenBSD gcc has __dead])
 		HAVE_SENSORS=true
 		;;
@@ -79,7 +80,7 @@ AC_CHECK_FUNCS([adjfreq arc4random_uniform asprintf explicit_bzero])
 AC_CHECK_FUNCS([getentropy memmem poll reallocarray])
 AC_CHECK_FUNCS([setproctitle setgroups])
 AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strtonum])
-AC_CHECK_FUNCS([MD5Init])
+AC_CHECK_FUNCS([MD5Init SHA512Init])
 
 # check if arc4random is in the system or in libcrypto
 AC_CHECK_FUNC([arc4random],,
@@ -106,6 +107,7 @@ AM_CONDITIONAL([HAVE_STRNDUP], [test "x$ac_cv_func_strndup" = xyes])
 AM_CONDITIONAL([HAVE_STRNLEN], [test "x$ac_cv_func_strnlen" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_MD5], [test "x$ac_cv_func_MD5Init" = xyes])
+AM_CONDITIONAL([HAVE_SHA512], [test "x$ac_cv_func_SHA512Init" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 
 # overrides for arc4random_buf implementations with known issues
@@ -137,7 +139,7 @@ if test "x$ac_cv_have___va_copy" = "xyes" ; then
 	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
 fi
 
-AC_CHECK_HEADERS([sys/timex.h])
+AC_CHECK_HEADERS([sys/timex.h md5.h sha2.h])
 
 AC_CONFIG_FILES([
 	Makefile

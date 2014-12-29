@@ -12,9 +12,9 @@ if [ ! -d openbsd ]; then
 		git clone $OPENNTPD_GIT/openbsd
 	fi
 fi
-#(cd openbsd
-# git checkout master
-# git pull --rebase)
+(cd openbsd
+ git checkout master
+ git pull --rebase)
 
 # setup source paths
 dir=`pwd`
@@ -25,12 +25,14 @@ libutil_src=$dir/openbsd/src/lib/libutil
 ntpd_src=$dir/openbsd/src/usr.sbin/ntpd
 
 CP='cp -p'
+PATCH='patch -p0 -s --posix'
 
-cp $libc_inc/md5.h include/
+cp $libc_inc/md5.h include/md5_openbsd.h
+cp $libc_inc/sha2.h include/sha2_openbsd.h
 cp $libutil_src/imsg.h include/
 cp $libutil_src/imsg.c compat/
 cp $libutil_src/imsg-buffer.c compat/
-(cd compat; patch -p0 < imsg.patch)
+(cd compat; $PATCH < imsg.patch)
 
 for i in explicit_bzero.c strlcpy.c strlcat.c strndup.c strnlen.c; do
 	$CP $libc_src/string/$i compat
@@ -41,7 +43,10 @@ $CP $libc_src/crypt/arc4random.c compat
 $CP $libc_src/crypt/arc4random_uniform.c compat
 $CP $libc_src/crypt/chacha_private.h compat
 $CP $libc_src/hash/md5.c compat
-$CP $libcrypto_src/crypto/getentropy_*.c compat
+$CP $libc_src/hash/sha2.c compat
+for i in $libcrypto_src/crypto/getentropy_*.c; do
+	sed -e 's/openssl\/sha.h/sha2.h/' < $i > compat/`basename $i`
+done
 $CP $libcrypto_src/crypto/arc4random_*.h compat
 
 for i in client.c config.c control.c log.c ntp.c ntp.h ntp_dns.c ntp_msg.c \
@@ -49,10 +54,10 @@ for i in client.c config.c control.c log.c ntp.c ntp.h ntp_dns.c ntp_msg.c \
 	ntpctl.8 ntpd.8 ntpd.conf.5 ; do
 	cp $ntpd_src/$i .
 done
-patch -p0 < client.patch
-patch -p0 < config.patch
-patch -p0 < ntp.patch
-patch -p0 < ntpd.patch
-patch -p0 < parse.patch
-patch -p0 < server.patch
-patch -p0 < util.patch
+$PATCH < client.patch
+$PATCH < config.patch
+$PATCH < ntp.patch
+$PATCH < ntpd.patch
+$PATCH < parse.patch
+$PATCH < server.patch
+$PATCH < util.patch
