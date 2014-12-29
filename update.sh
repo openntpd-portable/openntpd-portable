@@ -18,6 +18,7 @@ fi
 
 # setup source paths
 dir=`pwd`
+patches=$dir/patches
 libc_inc=$dir/openbsd/src/include
 libc_src=$dir/openbsd/src/lib/libc
 libcrypto_src=$dir/openbsd/src/lib/libcrypto
@@ -32,7 +33,7 @@ cp $libc_inc/sha2.h include/sha2_openbsd.h
 cp $libutil_src/imsg.h include/
 cp $libutil_src/imsg.c compat/
 cp $libutil_src/imsg-buffer.c compat/
-(cd compat; $PATCH < imsg.patch)
+(cd compat; $PATCH < $patches/imsg.patch)
 
 for i in explicit_bzero.c strlcpy.c strlcat.c strndup.c strnlen.c; do
 	$CP $libc_src/string/$i compat
@@ -55,10 +56,10 @@ for i in client.c config.c control.c log.c ntp.c ntp.h ntp_dns.c ntp_msg.c \
 	echo Copying `basename $i`
 	$CP $ntpd_src/$i .
 done
-$PATCH < client.patch
-$PATCH < config.patch
-$PATCH < ntp.patch
-$PATCH < ntpd.patch
-$PATCH < parse.patch
-$PATCH < server.patch
-$PATCH < util.patch
+$PATCH < $patches/client.patch
+$PATCH < $patches/config.patch
+$PATCH < $patches/ntp.patch
+$PATCH < $patches/ntpd.patch
+$PATCH < $patches/parse.patch
+$PATCH < $patches/server.patch
+$PATCH < $patches/util.patch
