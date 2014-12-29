@@ -25,7 +25,7 @@ libutil_src=$dir/openbsd/src/lib/libutil
 ntpd_src=$dir/openbsd/src/usr.sbin/ntpd
 
 CP='cp -p'
-PATCH='patch -p0 -s --posix'
+PATCH='patch -p0 -s'
 
 cp $libc_inc/md5.h include/md5_openbsd.h
 cp $libc_inc/sha2.h include/sha2_openbsd.h
@@ -52,7 +52,8 @@ $CP $libcrypto_src/crypto/arc4random_*.h compat
 for i in client.c config.c control.c log.c ntp.c ntp.h ntp_dns.c ntp_msg.c \
 	ntpd.c ntpd.h parse.y sensors.c server.c util.c \
 	ntpctl.8 ntpd.8 ntpd.conf.5 ; do
-	cp $ntpd_src/$i .
+	echo Copying `basename $i`
+	$CP $ntpd_src/$i .
 done
 $PATCH < client.patch
 $PATCH < config.patch
