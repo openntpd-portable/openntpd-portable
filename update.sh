@@ -7,7 +7,7 @@ openntpd_version=`cat VERSION`
 echo "pulling upstream openbsd source"
 if [ ! -d openbsd ]; then
 	if [ -z "$OPENNTPD_GIT" ]; then
-		git clone https://github.com/openntpd-portable/openntpd-openbsd.git
+		git clone https://github.com/openntpd-portable/openntpd-openbsd.git openbsd
 	else
 		git clone $OPENNTPD_GIT/openbsd
 	fi
