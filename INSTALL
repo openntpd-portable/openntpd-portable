@@ -8,6 +8,14 @@ implementation or the one built into LibreSSL.
 2. Building / Installation
 --------------------------
 
+If you have checked this source using Git, follow these initial steps to
+prepare the source tree for building:
+
+ 1. ensure you have the following packages installed:
+      automake, autoconf, git, libtool
+ 2. run './autogen.sh' to prepare the source tree for building
+    or run './dist.sh' to prepare a tarball.
+
 To install OpenNTPD with default options:
 
 ./configure
