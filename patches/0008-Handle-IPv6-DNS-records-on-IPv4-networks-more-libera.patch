@@ -1,0 +1,40 @@
+From c26c6628e7ea92d6f3f1c128db15da199787a1fd Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Tue, 30 Dec 2014 09:10:22 -0600
+Subject: [PATCH 08/12] Handle IPv6 DNS records on IPv4 networks more liberally
+
+Rather than fail on IPv4 only networks when seeing an IPv6 DNS record,
+just give a warning.
+
+Debian bug ID: 500676.
+Original Author: Stefan Praszalowicz <stefan.praszalowicz@avedya.com>
+---
+ src/usr.sbin/ntpd/client.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
+index 9b9b522..0271068 100644
+--- a/src/usr.sbin/ntpd/client.c
++++ b/src/usr.sbin/ntpd/client.c
+@@ -138,9 +138,15 @@ client_query(struct ntp_peer *p)
+ 	if (p->query->fd == -1) {
+ 		struct sockaddr *sa = (struct sockaddr *)&p->addr->ss;
+ 
+-		if ((p->query->fd = socket(p->addr->ss.ss_family, SOCK_DGRAM,
+-		    0)) == -1)
+-			fatal("client_query socket");
++		p->query->fd = socket(p->addr->ss.ss_family, SOCK_DGRAM, 0);
++		if (p->query->fd == -1)
++			if (errno == EAFNOSUPPORT) {
++				log_warn("client_query socket");
++				client_nextaddr(p);
++				set_next(p, error_interval());
++				return (-1);
++			} else
++				fatal("client_query socket");
+ 
+ #ifdef SO_RTABLE
+ 		if (p->rtable != -1 &&
+-- 
+1.9.1
+

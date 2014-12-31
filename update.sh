@@ -56,8 +56,9 @@ for i in client.c config.c control.c log.c ntp.c ntp.h ntp_dns.c ntp_msg.c \
 	file=`basename $i`
 	echo Copying $file
 	$CP $ntpd_src/$i .
-	if [ -e $patches/patch-$file ]; then
-		echo Patching $file
-		$PATCH < $patches/patch-$file
-	fi
+done
+
+for i in patches/*.patch; do
+	echo Patching $i
+	$PATCH -p4 < $i
 done

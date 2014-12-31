@@ -1,0 +1,40 @@
+From 53006c85af7c8b69afa3847e12107588c1460c5a Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Tue, 30 Dec 2014 08:58:26 -0600
+Subject: [PATCH 01/12] include time.h for clock_gettime
+
+---
+ src/usr.sbin/ntpd/ntpd.c | 1 +
+ src/usr.sbin/ntpd/util.c | 2 ++
+ 2 files changed, 3 insertions(+)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index 4634fae..17ebf67 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -30,6 +30,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <time.h>
+ #include <unistd.h>
+ #include <err.h>
+ 
+diff --git a/src/usr.sbin/ntpd/util.c b/src/usr.sbin/ntpd/util.c
+index 9d78d6e..638dc92 100644
+--- a/src/usr.sbin/ntpd/util.c
++++ b/src/usr.sbin/ntpd/util.c
+@@ -17,8 +17,10 @@
+  */
+ 
+ #include <sys/time.h>
++
+ #include <limits.h>
+ #include <stdio.h>
++#include <time.h>
+ 
+ #include "ntpd.h"
+ 
+-- 
+1.9.1
+

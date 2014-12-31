@@ -1,0 +1,34 @@
+From f67a51ea7b11f1082dac77beb632f4d71f397584 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Tue, 30 Dec 2014 09:01:57 -0600
+Subject: [PATCH 04/12] remove unused dns_pid
+
+---
+ src/usr.sbin/ntpd/ntp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
+index 2eb4285..ddbcedd 100644
+--- a/src/usr.sbin/ntpd/ntp.c
++++ b/src/usr.sbin/ntpd/ntp.c
+@@ -79,7 +79,7 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
+ 	u_int			 pfd_elms = 0, idx2peer_elms = 0;
+ 	u_int			 listener_cnt, new_cnt, sent_cnt, trial_cnt;
+ 	u_int			 ctl_cnt;
+-	pid_t			 pid, dns_pid;
++	pid_t			 pid;
+ 	struct pollfd		*pfd = NULL;
+ 	struct servent		*se;
+ 	struct listen_addr	*la;
+@@ -118,7 +118,7 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
+ 	close(pipe_prnt[0]);
+ 	if (socketpair(AF_UNIX, SOCK_STREAM, PF_UNSPEC, pipe_dns) == -1)
+ 		fatal("socketpair");
+-	dns_pid = ntp_dns(pipe_dns, nconf, pw);
++	ntp_dns(pipe_dns, nconf, pw);
+ 	close(pipe_dns[1]);
+ 
+ 	if (stat(pw->pw_dir, &stb) == -1)
+-- 
+1.9.1
+

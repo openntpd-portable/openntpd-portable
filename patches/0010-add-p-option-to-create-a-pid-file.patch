@@ -1,0 +1,150 @@
+From 9a6c847be092266d0cc6d7d1010b614e1253ba65 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Wed, 31 Dec 2014 08:26:41 -0600
+Subject: [PATCH 10/12] add -p option to create a pid file
+
+This is used in both the Gentoo and Debian ports.
+
+Origin: https://bugs.gentoo.org/show_bug.cgi?id=493082
+---
+ src/usr.sbin/ntpd/ntpd.8 |  4 ++++
+ src/usr.sbin/ntpd/ntpd.c | 33 ++++++++++++++++++++++++++++-----
+ src/usr.sbin/ntpd/ntpd.h |  1 +
+ 3 files changed, 33 insertions(+), 5 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.8 b/src/usr.sbin/ntpd/ntpd.8
+index 18b12e8..9eb1fee 100644
+--- a/src/usr.sbin/ntpd/ntpd.8
++++ b/src/usr.sbin/ntpd/ntpd.8
+@@ -25,6 +25,7 @@
+ .Bk -words
+ .Op Fl dnSsv
+ .Op Fl f Ar file
++.Op Fl p Ar file
+ .Ek
+ .Sh DESCRIPTION
+ The
+@@ -56,6 +57,9 @@ instead of the default
+ .It Fl n
+ Configtest mode.
+ Only check the configuration file for validity.
++.It Fl p Ar file
++Write pid to
++.Ar file
+ .It Fl S
+ Do not set the time immediately at startup.
+ This is the default.
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index 17ebf67..2d5809c 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -84,6 +84,18 @@ sighdlr(int sig)
+ 	}
+ }
+ 
++void
++writepid(struct ntpd_conf *lconf)
++{
++	if (lconf->pid_file != NULL) {
++		FILE *f = fopen(lconf->pid_file, "w");
++		if (f == NULL)
++			fatal("couldn't open pid file");
++		fprintf(f, "%ld\n", (long) getpid());
++		fclose(f);
++	}
++}
++
+ __dead void
+ usage(void)
+ {
+@@ -92,7 +104,7 @@ usage(void)
+ 	if (strcmp(__progname, "ntpctl") == 0)
+ 		fprintf(stderr, "usage: ntpctl [-s all | peers | Sensors | status]\n");
+ 	else
+-		fprintf(stderr, "usage: %s [-dnSsv] [-f file]\n",
++		fprintf(stderr, "usage: %s [-dnSsv] [-f file] [-p file]\n",
+ 		    __progname);
+ 	exit(1);
+ }
+@@ -123,7 +135,7 @@ main(int argc, char *argv[])
+ 
+ 	log_init(1);		/* log to stderr until daemonized */
+ 
+-	while ((ch = getopt(argc, argv, "df:nsSv")) != -1) {
++	while ((ch = getopt(argc, argv, "df:np:sSv")) != -1) {
+ 		switch (ch) {
+ 		case 'd':
+ 			lconf.debug = 1;
+@@ -134,6 +146,9 @@ main(int argc, char *argv[])
+ 		case 'n':
+ 			lconf.noaction = 1;
+ 			break;
++		case 'p':
++			lconf.pid_file = optarg;
++			break;
+ 		case 's':
+ 			lconf.settime = 1;
+ 			break;
+@@ -174,9 +189,11 @@ main(int argc, char *argv[])
+ 	reset_adjtime();
+ 	if (!lconf.settime) {
+ 		log_init(lconf.debug);
+-		if (!lconf.debug)
++		if (!lconf.debug) {
+ 			if (daemon(1, 0))
+ 				fatal("daemon");
++			writepid(&lconf);
++		}
+ 	} else
+ 		timeout = SETTIME_TIMEOUT * 1000;
+ 
+@@ -223,9 +240,11 @@ main(int argc, char *argv[])
+ 			log_init(lconf.debug);
+ 			log_debug("no reply received in time, skipping initial "
+ 			    "time setting");
+-			if (!lconf.debug)
++			if (!lconf.debug) {
+ 				if (daemon(1, 0))
+ 					fatal("daemon");
++				writepid(&lconf);
++			}
+ 		}
+ 
+ 		if (nfds > 0 && (pfd[PFD_PIPE].revents & POLLOUT))
+@@ -264,6 +283,8 @@ main(int argc, char *argv[])
+ 	msgbuf_clear(&ibuf->w);
+ 	free(ibuf);
+ 	log_info("Terminating");
++	if (lconf.pid_file != NULL)
++		unlink(lconf.pid_file);
+ 	return (0);
+ }
+ 
+@@ -339,9 +360,11 @@ dispatch_imsg(struct ntpd_conf *lconf)
+ 			memcpy(&d, imsg.data, sizeof(d));
+ 			ntpd_settime(d);
+ 			/* daemonize now */
+-			if (!lconf->debug)
++			if (!lconf->debug) {
+ 				if (daemon(1, 0))
+ 					fatal("daemon");
++				writepid(lconf);
++			}
+ 			lconf->settime = 0;
+ 			timeout = INFTIM;
+ 			break;
+diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
+index aa9858b..f8d6382 100644
+--- a/src/usr.sbin/ntpd/ntpd.h
++++ b/src/usr.sbin/ntpd/ntpd.h
+@@ -187,6 +187,7 @@ struct ntpd_conf {
+ 	u_int8_t					debug;
+ 	u_int8_t					noaction;
+ 	u_int8_t					filters;
++	char						*pid_file;
+ };
+ 
+ struct ctl_show_status {
+-- 
+1.9.1
+
