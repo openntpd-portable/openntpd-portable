@@ -49,6 +49,48 @@ libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libcompat_la_SOURCES =
 libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
+if !HAVE_ADJFREQ
+if HOST_FREEBSD
+libcompat_la_SOURCES += compat/adjfreq_freebsd.c
+endif
+if HOST_LINUX
+libcompat_la_SOURCES += compat/adjfreq_linux.c
+endif
+if HOST_DARWIN
+libcompat_la_SOURCES += compat/adjfreq_osx.c
+endif
+if HOST_SOLARIS
+libcompat_la_SOURCES += compat/adjfreq_solaris.c
+endif
+endif
+
+if !HAVE_ASPRINTF
+libcompat_la_SOURCES += compat/bsd-asprintf.c
+endif
+
+if !HAVE_CLOCK_GETRES
+libcompat_la_SOURCES += compat/clock_getres.c
+endif
+
+if !HAVE_CLOCK_GETTIME
+if HOST_DARWIN
+libcompat_la_SOURCES += compat/mach-clock_gettime.c
+endif
+endif
+
+if !HAVE_IMSG
+libcompat_la_SOURCES += compat/imsg.c
+libcompat_la_SOURCES += compat/imsg-buffer.c
+endif
+
+if !HAVE_MD5
+libcompat_la_SOURCES += compat/md5.c
+endif
+
+if !HAVE_REALLOCARRAY
+libcompat_la_SOURCES += compat/reallocarray.c
+endif
+
 if !HAVE_SETPROCTITLE
 libcompat_la_SOURCES += compat/setproctitle.c
 endif
@@ -65,43 +107,12 @@ if !HAVE_STRTONUM
 libcompat_la_SOURCES += compat/strtonum.c
 endif
 
-if !HAVE_ASPRINTF
-libcompat_la_SOURCES += compat/bsd-asprintf.c
-endif
-
-if !HAVE_REALLOCARRAY
-libcompat_la_SOURCES += compat/reallocarray.c
-endif
-
-if !HAVE_MD5
-libcompat_la_SOURCES += compat/md5.c
-endif
-
-if !HAVE_IMSG
-libcompat_la_SOURCES += compat/imsg.c
-libcompat_la_SOURCES += compat/imsg-buffer.c
-endif
-
-if !HAVE_ADJFREQ
-libcompat_la_SOURCES += compat/bsd-adjfreq.c
-endif
-
-if !HAVE_CLOCK_GETRES
-libcompat_la_SOURCES += compat/clock_getres.c
-endif
-
 if !HAVE_SETRESGID
 libcompat_la_SOURCES += compat/bsd-setresgid.c
 endif
 
 if !HAVE_SETRESUID
 libcompat_la_SOURCES += compat/bsd-setresuid.c
-endif
-
-if !HAVE_CLOCK_GETTIME
-if HOST_DARWIN
-libcompat_la_SOURCES += compat/mach-clock_gettime.c
-endif
 endif
 
 if !HAVE_ARC4RANDOM

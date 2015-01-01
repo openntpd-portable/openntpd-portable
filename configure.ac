@@ -145,7 +145,7 @@ if test "x$ac_cv_have___va_copy" = "xyes" ; then
 	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
 fi
 
-AC_CHECK_HEADERS([sys/timex.h md5.h sha2.h])
+AC_CHECK_HEADERS([md5.h sha2.h])
 AC_CHECK_HEADERS([sys/sensors.h],
 	AM_CONDITIONAL(HAVE_SENSORS, true),
 	AM_CONDITIONAL(HAVE_SENSORS, false)

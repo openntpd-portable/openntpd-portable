@@ -14,38 +14,13 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-/* RCSID("$Id$"); */
-
 #include <sys/types.h>
-#include <unistd.h>
-
-#ifdef HAVE_SYS_TIMEX_H
 # include <sys/timex.h>
-#endif
 
-#ifdef adjfreq
-# undef adjfreq
-#endif
+#include <unistd.h>
 
 #include "ntp.h"
 #include "ntpd.h"
-
-#ifndef NTP_ADJTIME
-
-#include <errno.h>
-
-/*
- * Some sad but very popular platforms do not appear to provide a mechanism to
- * adjust the time frequency at all!
- */
-int
-adjfreq(const int64_t *freq, int64_t *oldfreq)
-{
-	errno = ENOSYS;
-	return -1;
-}
-
-#else
 
 /*
  * adjfreq (old)freq = nanosec. per seconds shifted left 32 bits
@@ -59,11 +34,7 @@ adjfreq(const int64_t *freq, int64_t *oldfreq)
 	int64_t newfreq;
 
 	if (freq != NULL) {
-#if defined(__linux__)
 		txc.modes = ADJ_FREQUENCY;
-#else
-		txc.modes = MOD_FREQUENCY;
-#endif
 		txc.freq = *freq / 1e3 / (1LL << 16);
 
 		if ((ntp_adjtime(&txc)) == -1)
@@ -86,5 +57,3 @@ adjfreq(const int64_t *freq, int64_t *oldfreq)
 
 	return 0;
 }
-
-#endif
