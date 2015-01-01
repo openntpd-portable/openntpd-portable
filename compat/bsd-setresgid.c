@@ -30,7 +30,7 @@ setresgid(gid_t rgid, gid_t egid, gid_t sgid)
 	# else
 	if (setegid(egid) == -1)
 		return -1;
-	if (setgid(rgid)) == -1)
+	if (setgid(rgid) == -1)
 		return -1;
 	# endif
 
