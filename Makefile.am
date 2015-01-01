@@ -23,13 +23,10 @@ ntpd_SOURCES += ntp_msg.c
 ntpd_SOURCES += ntpd.c
 ntpd_SOURCES += ntpd.h
 ntpd_SOURCES += parse.y
-if !HAVE_ADJFREQ
-ntpd_SOURCES += bsd-adjfreq.c
-endif
 if HAVE_SENSORS
 ntpd_SOURCES += sensors.c
 else
-ntpd_SOURCES += fake-sensors.c
+ntpd_SOURCES += compat/fake-sensors.c
 endif
 ntpd_SOURCES += server.c
 ntpd_SOURCES += util.c
@@ -51,7 +48,6 @@ endif
 libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libcompat_la_SOURCES =
 libcompat_la_LIBADD = $(PLATFORM_LDADD)
-
 
 if !HAVE_SETPROCTITLE
 libcompat_la_SOURCES += compat/setproctitle.c
@@ -92,6 +88,10 @@ endif
 if !HAVE_IMSG
 libcompat_la_SOURCES += compat/imsg.c
 libcompat_la_SOURCES += compat/imsg-buffer.c
+endif
+
+if !HAVE_ADJFREQ
+libcompat_la_SOURCES += compat/bsd-adjfreq.c
 endif
 
 if !HAVE_CLOCK_GETRES
