@@ -6,19 +6,6 @@ OpenNTPD has a web site at http://www.openntpd.org/
 
 The current portable tree can be found at https://github.com/openntpd-portable
 
-Credits
--------
-OpenBSD's native ntpd was written by Henning Brauer and Alexander Guy.
-
-Portable OpenNTPD versions 3.9 and earlier were developed by Darren Tucker,
-with contributions from Christian Weisgerber, Jason Mader and Anthony
-O.Zabelin., and were based heavily on OpenSSH portable.
-
-This new portable version is based on the LibreSSL portable framework by Brent
-Cook. It includes patches from FreeBSD, Debian and Gentoo OpenNTPD packages,
-along with with compatibility code from the OpenSSH and original OpenNTPD
-portable trees.
-
 Platform Requirements
 ---------------------
 adjtime() and settimeofday() syscalls or equivalent.
