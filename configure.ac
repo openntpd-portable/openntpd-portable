@@ -87,7 +87,7 @@ AC_SEARCH_LIBS([arc4random], [crypto])
 AC_SEARCH_LIBS([clock_getres],[rt posix4])
 AC_SEARCH_LIBS([clock_gettime],[rt posix4])
 AC_SEARCH_LIBS([ibuf_open], [util])
-AC_SEARCH_LIBS([MD5Init], [md])
+AC_SEARCH_LIBS([MD5Init], [md md5])
 AC_SEARCH_LIBS([SHA512Init], [md])
 
 AC_CHECK_FUNCS([arc4random ibuf_open MD5Init SHA512Init])
