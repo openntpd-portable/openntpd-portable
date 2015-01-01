@@ -1,0 +1,42 @@
+From b427630990b65377a7369b3d61e51ce02be1ec93 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Thu, 1 Jan 2015 07:18:11 -0600
+Subject: [PATCH 15/15] allow overriding default user and file locations
+
+Allow the build process to override the default ntpd file paths and
+default user.
+---
+ src/usr.sbin/ntpd/ntpd.h | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
+index 5ac0bbb..136bdd2 100644
+--- a/src/usr.sbin/ntpd/ntpd.h
++++ b/src/usr.sbin/ntpd/ntpd.h
+@@ -33,10 +33,20 @@
+ #include "ntp.h"
+ #include <imsg.h>
+ 
++#ifndef NTPD_USER
+ #define	NTPD_USER	"_ntp"
+-#define	CONFFILE	"/etc/ntpd.conf"
+-#define DRIFTFILE	"/var/db/ntpd.drift"
+-#define	CTLSOCKET	"/var/run/ntpd.sock"
++#endif
++
++#ifndef	SYSCONFDIR
++#define	SYSCONFDIR	"/etc"
++#endif
++#define	CONFFILE	SYSCONFDIR "/ntpd.conf"
++
++#ifndef	LOCALSTATEDIR
++#define	LOCALSTATEDIR	"/var"
++#endif
++#define	DRIFTFILE	LOCALSTATEDIR "/db/ntpd.drift"
++#define	CTLSOCKET	LOCALSTATEDIR "/run/ntpd.sock"
+ 
+ #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
+ #define	INTERVAL_QUERY_PATHETIC		60
+-- 
+1.9.1
+

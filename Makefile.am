@@ -1,3 +1,20 @@
+#
+# Copyright (c) 2014 Brent Cook
+# Parts based on Makefile.in from Portable OpenNTPD:
+# Copyright (c) 2004-2008 Darren Tucker.
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 AM_CPPFLAGS = -I$(top_srcdir)/include
 SUBDIRS = include
 
@@ -10,6 +27,9 @@ noinst_LTLIBRARIES = libcompat.la libcompatnoopt.la
 dist_man_MANS = ntpctl.8 ntpd.8 ntpd.conf.5
 
 ntpd_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
+ntpd_CFLAGS += -DSYSCONFDIR=\"$(sysconfdir)\"
+ntpd_CFLAGS += -DLOCALSTATEDIR=\"$(localstatedir)\"
+
 ntpd_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD) libcompat.la libcompatnoopt.la
 
 ntpd_SOURCES = client.c
@@ -32,9 +52,46 @@ ntpd_SOURCES += server.c
 ntpd_SOURCES += util.c
 
 install-exec-hook:
-	ln -f $(DESTDIR)$(sbindir)/ntpd $(DESTDIR)$(sbindir)/ntpctl
+	@ln -f "$(DESTDIR)$(sbindir)/ntpd" "$(DESTDIR)$(sbindir)/ntpctl"
+	@if [ ! -d "$(DESTDIR)$(sysconfdir)" ]; then \
+		$(INSTALL) -m 755 -d "$(DESTDIR)$(sysconfdir)"; \
+	fi
+	@if [ ! -f "$(DESTDIR)$(sysconfdir)/ntpd.conf" ]; then \
+		$(INSTALL) -m 644 "$(srcdir)/ntpd.conf" "$(DESTDIR)$(sysconfdir)/ntpd.conf"; \
+	else \
+		echo "$(DESTDIR)$(sysconfdir)/ntpd.conf already exists, install will not overwrite"; \
+	fi
+	@if [ ! -d "$(PRIVSEP_PATH)" ]; then \
+		echo; \
+		echo " Please created a privilege separation directory for ntpd." ; \
+		echo " # mkdir -p \"$(PRIVSEP_PATH)\"" ; \
+		echo " # chown 0 \"$(PRIVSEP_PATH)\"" ; \
+		echo " # chgrp 0 \"$(PRIVSEP_PATH)\"" ; \
+		echo " # chmod 0755 "$(PRIVSEP_PATH)\""" ; \
+	fi
+	@if egrep "^$(PRIVSEP_USER):" /etc/group >/dev/null; then \
+		: ; \
+	else \
+		echo; \
+		echo " Please create a dedicated group for ntpd." ; \
+		echo " This is system-dependant, possibly:" ; \
+		echo " # groupadd $(PRIVSEP_USER)" ; \
+	fi
+	@if egrep "^$(PRIVSEP_USER):" /etc/passwd >/dev/null; then \
+		: ; \
+	else \
+		echo; \
+		echo " Please create a dedicated user for ntpd and ensure it can" ; \
+		echo " not be used to log in.  This is system-dependant, possibly:" ; \
+		echo " # useradd -g $(PRIVSEP_USER) -s /sbin/nologin -d $(PRIVSEP_PATH) -c 'OpenNTP daemon' $(PRIVSEP_USER)" ; \
+	fi
+	echo
+
 uninstall-local:
-	-rm -f $(DESTDIR)$(sbindir)/ntpctl
+	@if cmp -s "$(DESTDIR)$(sysconfdir)/ntpd.conf" "$(srcdir)/ntpd.conf"; then \
+		rm -f "$(DESTDIR)$(sysconfdir)/ntpd.conf"; \
+	fi
+	@rm -f "$(DESTDIR)$(sbindir)/ntpctl"
 
 # compatibility functions that need to be built without optimizations
 libcompatnoopt_la_CFLAGS = -O0

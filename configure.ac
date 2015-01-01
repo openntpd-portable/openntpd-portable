@@ -1,3 +1,22 @@
+#
+# Copyright (c) 2014 Brent Cook
+# Parts based on configure.ac from Portable OpenNTPD:
+# Copyright (c) 2004-2008 Darren Tucker
+# which itself was based on configure.ac from OpenSSH:
+# Copyright (c) 1999-2004 Damien Miller
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 AC_INIT([OpenNTPD], m4_esyscmd([tr -d '\n' < VERSION]))
 
 AC_CANONICAL_HOST
@@ -150,6 +169,24 @@ AC_CHECK_HEADERS([sys/sensors.h],
 	AM_CONDITIONAL(HAVE_SENSORS, true),
 	AM_CONDITIONAL(HAVE_SENSORS, false)
 )
+
+AC_ARG_WITH(privsep-user,
+	[  --with-privsep-user=user Specify privilege separation user],
+	[ AC_DEFINE_UNQUOTED(NTPD_USER, "$withval",
+	    [Unprivileged userid])
+	  PRIVSEP_USER=$withval ],
+	[ PRIVSEP_USER=_ntp ]
+)
+AC_SUBST(PRIVSEP_USER)
+
+AC_ARG_WITH(privsep-path,
+	[  --with-privsep-path=path Specify privilege separation chroot path],
+	[ AC_DEFINE_UNQUOTED(NTPD_CHROOT_DIR, "$withval",
+	    [Privilege separation chroot path])
+	  PRIVSEP_PATH=$withval ],
+	[ PRIVSEP_PATH=/var/empty ]
+)
+AC_SUBST(PRIVSEP_PATH)
 
 AC_CONFIG_FILES([
 	Makefile
