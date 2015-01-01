@@ -12,7 +12,7 @@ CFLAGS="$CFLAGS -Wall -std=gnu99 -g"
 case $host_os in
 	*darwin*)
 		HOST_OS=darwin
-		AC_DEFINE(SETEUID_BREAKS_SETUID,[],[setuid after seteuid doesn't work])
+		AC_DEFINE(SETEUID_BREAKS_SETUID,[],[setuid after seteuid does not work])
 		AC_DEFINE(BROKEN_SETREUID,[], [Broken setreuid])
 		AC_DEFINE(BROKEN_SETREGID,[], [Broken setregid])
 		AC_DEFINE(YYSTYPE_IS_DECLARED,[], [Broken bison])
@@ -41,12 +41,6 @@ AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
-
-AC_CHECK_FUNC([clock_gettime],,
-	[AC_SEARCH_LIBS([clock_gettime],[rt posix4])])
-
-AC_CHECK_FUNC([clock_getres],,
-	[AC_SEARCH_LIBS([clock_getres],[rt posix4])])
 
 AC_CHECK_FUNC([dl_iterate_phdr],,
 	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
@@ -90,11 +84,14 @@ AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strtonum])
 
 # check auxiliary libraries that might contain other functions
 AC_SEARCH_LIBS([arc4random], [crypto])
+AC_SEARCH_LIBS([clock_getres],[rt posix4])
+AC_SEARCH_LIBS([clock_gettime],[rt posix4])
 AC_SEARCH_LIBS([ibuf_open], [util])
 AC_SEARCH_LIBS([MD5Init], [md])
 AC_SEARCH_LIBS([SHA512Init], [md])
 
 AC_CHECK_FUNCS([arc4random ibuf_open MD5Init SHA512Init])
+AC_CHECK_FUNCS([clock_gettime clock_getres])
 
 # Share test results with automake
 AM_CONDITIONAL([HAVE_ADJFREQ], [test "x$ac_cv_func_adjfreq" = xyes])
