@@ -74,7 +74,7 @@ endif
 
 if !HAVE_CLOCK_GETTIME
 if HOST_DARWIN
-libcompat_la_SOURCES += compat/mach-clock_gettime.c
+libcompat_la_SOURCES += compat/clock_gettime_osx.c
 endif
 endif
 
