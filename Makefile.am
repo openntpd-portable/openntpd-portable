@@ -94,6 +94,24 @@ libcompat_la_SOURCES += compat/imsg.c
 libcompat_la_SOURCES += compat/imsg-buffer.c
 endif
 
+if !HAVE_CLOCK_GETRES
+libcompat_la_SOURCES += compat/clock_getres.c
+endif
+
+if !HAVE_SETRESGID
+libcompat_la_SOURCES += compat/bsd-setresgid.c
+endif
+
+if !HAVE_SETRESUID
+libcompat_la_SOURCES += compat/bsd-setresuid.c
+endif
+
+if !HAVE_CLOCK_GETTIME
+if HOST_DARWIN
+libcompat_la_SOURCES += compat/mach-clock_gettime.c
+endif
+endif
+
 if !HAVE_ARC4RANDOM
 libcompat_la_SOURCES += compat/arc4random.c
 

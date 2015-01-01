@@ -30,6 +30,23 @@
 #include "ntp.h"
 #include "ntpd.h"
 
+#ifndef NTP_ADJTIME
+
+#include <errno.h>
+
+/*
+ * Some sad but very popular platforms do not appear to provide a mechanism to
+ * adjust the time frequency at all!
+ */
+int
+adjfreq(const int64_t *freq, int64_t *oldfreq)
+{
+	errno = ENOSYS;
+	return -1;
+}
+
+#else
+
 /*
  * adjfreq (old)freq = nanosec. per seconds shifted left 32 bits
  * timex.freq is ppm / left shifted by SHIFT_USEC (16 bits), defined in timex.h
@@ -69,3 +86,5 @@ adjfreq(const int64_t *freq, int64_t *oldfreq)
 
 	return 0;
 }
+
+#endif
