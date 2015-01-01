@@ -2,7 +2,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/include
 SUBDIRS = include
 
 ACLOCAL_AMFLAGS = -Im4
-EXTRA_DIST = VERSION
+EXTRA_DIST = VERSION ntpd.conf
 CLEANFILES = parse.c
 
 sbin_PROGRAMS = ntpd
