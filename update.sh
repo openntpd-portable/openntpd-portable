@@ -35,7 +35,7 @@ cp $libutil_src/imsg.c compat/
 cp $libutil_src/imsg-buffer.c compat/
 (cd compat; $PATCH < $patches/patch-imsg.c)
 
-for i in explicit_bzero.c strlcpy.c strlcat.c strndup.c strnlen.c; do
+for i in explicit_bzero.c strlcpy.c strlcat.c; do
 	$CP $libc_src/string/$i compat
 done
 $CP $libc_src/stdlib/reallocarray.c compat

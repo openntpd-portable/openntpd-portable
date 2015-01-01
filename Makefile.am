@@ -61,14 +61,6 @@ if !HAVE_STRLCPY
 libcompat_la_SOURCES += compat/strlcpy.c
 endif
 
-if !HAVE_STRNDUP
-libcompat_la_SOURCES += compat/strndup.c
-# the only user of strnlen is strndup, so only build it if needed
-if !HAVE_STRNLEN
-libcompat_la_SOURCES += compat/strnlen.c
-endif
-endif
-
 if !HAVE_STRTONUM
 libcompat_la_SOURCES += compat/strtonum.c
 endif

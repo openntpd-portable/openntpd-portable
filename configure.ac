@@ -80,7 +80,7 @@ AC_CHECK_FUNCS([arc4random_uniform asprintf explicit_bzero])
 AC_CHECK_FUNCS([getentropy memmem poll reallocarray])
 AC_CHECK_FUNCS([setproctitle setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
-AC_CHECK_FUNCS([strlcat strlcpy strndup strnlen strtonum])
+AC_CHECK_FUNCS([strlcat strlcpy strtonum])
 
 # check auxiliary libraries that might contain other functions
 AC_SEARCH_LIBS([arc4random], [crypto])
@@ -114,8 +114,6 @@ AM_CONDITIONAL([HAVE_SETPROCTITLE], [test "x$ac_cv_func_setproctitle" = xyes])
 AM_CONDITIONAL([HAVE_SHA512], [test "x$ac_cv_func_SHA512Init" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
-AM_CONDITIONAL([HAVE_STRNDUP], [test "x$ac_cv_func_strndup" = xyes])
-AM_CONDITIONAL([HAVE_STRNLEN], [test "x$ac_cv_func_strnlen" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 
 # overrides for arc4random_buf implementations with known issues

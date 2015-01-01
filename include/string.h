@@ -17,24 +17,21 @@
 #include <strings.h>
 #endif
 
-#ifndef HAVE_STRLCPY
-size_t strlcpy(char *dst, const char *src, size_t siz);
+#ifndef HAVE_EXPLICIT_BZERO
+void explicit_bzero(void *, size_t);
+#endif
+
+#ifndef HAVE_MEMMEM
+void * memmem(const void *big, size_t big_len, const void *little,
+	size_t little_len);
 #endif
 
 #ifndef HAVE_STRLCAT
 size_t strlcat(char *dst, const char *src, size_t siz);
 #endif
 
-#ifndef HAVE_STRNDUP
-char * strndup(const char *str, size_t maxlen);
-/* the only user of strnlen is strndup, so only build it if needed */
-#ifndef HAVE_STRNLEN
-size_t strnlen(const char *str, size_t maxlen);
-#endif
-#endif
-
-#ifndef HAVE_EXPLICIT_BZERO
-void explicit_bzero(void *, size_t);
+#ifndef HAVE_STRLCPY
+size_t strlcpy(char *dst, const char *src, size_t siz);
 #endif
 
 #ifndef HAVE_TIMINGSAFE_BCMP
@@ -43,11 +40,6 @@ int timingsafe_bcmp(const void *b1, const void *b2, size_t n);
 
 #ifndef HAVE_TIMINGSAFE_MEMCMP
 int timingsafe_memcmp(const void *b1, const void *b2, size_t len);
-#endif
-
-#ifndef HAVE_MEMMEM
-void * memmem(const void *big, size_t big_len, const void *little,
-	size_t little_len);
 #endif
 
 #ifdef _WIN32
