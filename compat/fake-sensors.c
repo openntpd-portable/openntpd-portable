@@ -1,7 +1,6 @@
-/*	$OpenBSD: sensors.c,v 1.46 2012/09/20 12:43:16 patrick Exp $ */
-
 /*
  * Copyright (c) 2006 Henning Brauer <henning@openbsd.org>
+ * Copyright (c) 2014 Brent Cook <bcook@openbsd.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -18,6 +17,9 @@
 
 #include "ntpd.h"
 
+/*
+ * These stubs indicate that no sensors exist on systems without a sensor framework.
+ */
 void
 sensor_init(void)
 {

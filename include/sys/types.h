@@ -5,8 +5,8 @@
 
 #include_next <sys/types.h>
 
-#ifndef LIBCRYPTOCOMPAT_SYS_TYPES_H
-#define LIBCRYPTOCOMPAT_SYS_TYPES_H
+#ifndef LIBCOMPAT_SYS_TYPES_H
+#define LIBCOMPAT_SYS_TYPES_H
 
 #include <stdint.h>
 

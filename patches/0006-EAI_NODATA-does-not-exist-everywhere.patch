@@ -1,7 +1,7 @@
-From 447c73c470e1157036d8cfc3d3328a5ba48655f3 Mon Sep 17 00:00:00 2001
+From ec73e05867d8e80b1f5d056f35eea8f9011b8c3c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:04:08 -0600
-Subject: [PATCH 06/12] EAI_NODATA does not exist everywhere
+Subject: [PATCH 06/14] EAI_NODATA does not exist everywhere
 
 FreeBSD says it is deprecated and should be removed.
 ---
@@ -9,7 +9,7 @@ FreeBSD says it is deprecated and should be removed.
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index b651c62..9fa4c17 100644
+index b651c62..d571dd7 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
 @@ -128,8 +128,14 @@ host_dns(const char *s, struct ntp_addr **hn)
@@ -20,10 +20,10 @@ index b651c62..9fa4c17 100644
 -			return (0);
 +	switch (error) {
 +	case EAI_AGAIN:
++	case EAI_NONAME:
 +#ifdef EAI_NODATA
 +	case EAI_NODATA:
 +#endif
-+	case EAI_NONAME:
 +		return (0);
 +	}
  	if (error) {
