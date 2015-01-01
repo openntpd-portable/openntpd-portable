@@ -8,7 +8,6 @@
 #ifndef LIBCRYPTOCOMPAT_SYS_TYPES_H
 #define LIBCRYPTOCOMPAT_SYS_TYPES_H
 
-#include <db.h>
 #include <stdint.h>
 
 #ifdef __MINGW32__
@@ -22,5 +21,13 @@
 #if !defined(HAVE_ATTRIBUTE__BOUNDED__) && !defined(__bounded__)
 # define __bounded__(x, y, z)
 #endif
+
+/*
+ * Define BSD-style unsigned bits types for systems that do not have them.
+ */
+typedef uint8_t     u_int8_t;
+typedef uint16_t    u_int16_t;
+typedef uint32_t    u_int32_t;
+typedef uint64_t    u_int64_t;
 
 #endif
