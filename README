@@ -12,7 +12,7 @@ OpenBSD's native ntpd was written by Henning Brauer and Alexander Guy.
 
 Portable OpenNTPD versions 3.9 and earlier were developed by Darren Tucker,
 with contributions from Christian Weisgerber, Jason Mader and Anthony
-O.Zabelin., and was based heavily on OpenSSH portable.
+O.Zabelin., and were based heavily on OpenSSH portable.
 
 This new portable version is based on the LibreSSL portable framework by Brent
 Cook. It includes patches from FreeBSD, Debian and Gentoo OpenNTPD packages,
@@ -22,18 +22,16 @@ portable trees.
 Platform Requirements
 ---------------------
 adjtime() and settimeofday() syscalls or equivalent.
-either poll() or select().
 a working arc4random implementation, OpenSSL or LibreSSL
  (this project shares the same arc4random compatibility code from LibreSSL)
 
 At the time of writing the Portable version is known to build and work on:
-OpenBSD (5.6)
-Linux (Ubuntu 12.04, 14.04)
-FreeBSD (9.x, 10.x)
 
-Still in development / integrating fixes from the original OpenNTPD port
-Solaris (10.x, 11.x)
-Mac OS X (10.9)
+ - OpenBSD (5.6)
+ - Linux (Ubuntu 12.04, 14.04)
+ - FreeBSD (9.x, 10.x)
+ - Solaris (10.x, 11.x)
+ - Mac OS X (10.9)
 
-It may work on others, newer and older, but it's still a work in progress.
-Reports (success or otherwise) and/or diffs welcome.
+It may work on others operating systems, newer and older, but it's still a work
+in progress.  Reports (success or otherwise) and/or diffs welcome.
