@@ -56,6 +56,12 @@ install-exec-hook:
 	@if [ ! -d "$(DESTDIR)$(sysconfdir)" ]; then \
 		$(INSTALL) -m 755 -d "$(DESTDIR)$(sysconfdir)"; \
 	fi
+	@if [ ! -d "$(DESTDIR)$(localstatedir)/run" ]; then \
+		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/run"; \
+	fi
+	@if [ ! -d "$(DESTDIR)$(localstatedir)/db" ]; then \
+		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/db"; \
+	fi
 	@if [ ! -f "$(DESTDIR)$(sysconfdir)/ntpd.conf" ]; then \
 		$(INSTALL) -m 644 "$(srcdir)/ntpd.conf" "$(DESTDIR)$(sysconfdir)/ntpd.conf"; \
 	else \
