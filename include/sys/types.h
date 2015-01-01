@@ -8,6 +8,7 @@
 #ifndef LIBCRYPTOCOMPAT_SYS_TYPES_H
 #define LIBCRYPTOCOMPAT_SYS_TYPES_H
 
+#include <db.h>
 #include <stdint.h>
 
 #ifdef __MINGW32__
