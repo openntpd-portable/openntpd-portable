@@ -1,7 +1,7 @@
-From e73468f4e08442681c79e84edc62cf8e9f3b733a Mon Sep 17 00:00:00 2001
+From e6c8f113fb20f3768e3c35b2f23c694a61c7c5f2 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
-Subject: [PATCH 05/12] conditionally fill in sin_len/sin6_len if they exist
+Subject: [PATCH 11/16] conditionally fill in sin_len/sin6_len if they exist
 
 Should we even be setting these at all? Does anything really rely in
 this anymore?

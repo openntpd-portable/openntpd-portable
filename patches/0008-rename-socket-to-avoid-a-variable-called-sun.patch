@@ -1,7 +1,7 @@
-From 4283830eb8ae4cc1919271bb11f452d87c717b73 Mon Sep 17 00:00:00 2001
+From 8c872d895d50214a23aad90a7cb31a7a51a08e29 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 22:08:09 -0600
-Subject: [PATCH 13/13] rename socket to avoid a variable called 'sun'
+Subject: [PATCH 08/16] rename socket to avoid a variable called 'sun'
 
 Solaris defines 'sun' as a constant.
 ---
@@ -63,10 +63,10 @@ index 6c5b05d..eb3575b 100644
  			log_warn("control_accept: accept");
  		return (0);
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index b45f4ca..b6b3663 100644
+index 17ebf67..d764a50 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -554,7 +554,7 @@ writefreq(double d)
+@@ -527,7 +527,7 @@ writefreq(double d)
  void
  ctl_main(int argc, char *argv[])
  {
@@ -75,7 +75,7 @@ index b45f4ca..b6b3663 100644
  	struct imsg		 imsg;
  	struct imsgbuf		*ibuf_ctl;
  	int			 fd, n, done, ch, action;
-@@ -607,12 +607,12 @@ ctl_main(int argc, char *argv[])
+@@ -580,12 +580,12 @@ ctl_main(int argc, char *argv[])
  	if ((fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1)
  		err(1, "ntpctl: socket");
  

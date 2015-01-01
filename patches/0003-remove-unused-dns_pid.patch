@@ -1,7 +1,7 @@
-From f67a51ea7b11f1082dac77beb632f4d71f397584 Mon Sep 17 00:00:00 2001
+From be678b846a8bbeede06d66a630a64a19c589c45f Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:01:57 -0600
-Subject: [PATCH 04/12] remove unused dns_pid
+Subject: [PATCH 03/16] remove unused dns_pid
 
 ---
  src/usr.sbin/ntpd/ntp.c | 4 ++--

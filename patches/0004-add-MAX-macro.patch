@@ -1,14 +1,14 @@
-From 802b2ccf5257b840ed252a2bc1a6cb70a37b3f57 Mon Sep 17 00:00:00 2001
+From 06c8339b3a1bde6f71d437d792ae01d118832fb4 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 22:39:58 -0600
-Subject: [PATCH 14/14] add MAX macro
+Subject: [PATCH 04/16] add MAX macro
 
 ---
  src/usr.sbin/ntpd/ntpd.h | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index f8d6382..5ac0bbb 100644
+index aa9858b..61a447f 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -72,6 +72,10 @@

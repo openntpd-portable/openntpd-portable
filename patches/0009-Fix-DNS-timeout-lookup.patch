@@ -1,7 +1,7 @@
-From 6f091765d6ee996ad679868deb7f196c240c314e Mon Sep 17 00:00:00 2001
+From b3c2b2c8c9c4e59ad3518d10d3765cf35934d76c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:31:20 -0600
-Subject: [PATCH 11/12] Fix DNS timeout lookup
+Subject: [PATCH 09/16] Fix DNS timeout lookup
 
 Author: Paul B. Henson <henson@acm.org>
 Origin: https://bugs.gentoo.org/show_bug.cgi?id=493358
@@ -10,10 +10,10 @@ Origin: https://bugs.gentoo.org/show_bug.cgi?id=493358
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 2d5809c..b45f4ca 100644
+index d764a50..3622a13 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -123,6 +123,7 @@ main(int argc, char *argv[])
+@@ -111,6 +111,7 @@ main(int argc, char *argv[])
  	int			 pipe_chld[2];
  	struct passwd		*pw;
  	extern char 		*__progname;
@@ -21,7 +21,7 @@ index 2d5809c..b45f4ca 100644
  
  	if (strcmp(__progname, "ntpctl") == 0) {
  		ctl_main (argc, argv);
-@@ -222,6 +223,8 @@ main(int argc, char *argv[])
+@@ -205,6 +206,8 @@ main(int argc, char *argv[])
  		fatal(NULL);
  	imsg_init(ibuf, pipe_chld[0]);
  
@@ -30,7 +30,7 @@ index 2d5809c..b45f4ca 100644
  	while (quit == 0) {
  		pfd[PFD_PIPE].fd = ibuf->fd;
  		pfd[PFD_PIPE].events = POLLIN;
-@@ -234,7 +237,8 @@ main(int argc, char *argv[])
+@@ -217,7 +220,8 @@ main(int argc, char *argv[])
  				quit = 1;
  			}
  

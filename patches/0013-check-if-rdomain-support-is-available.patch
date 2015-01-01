@@ -1,7 +1,7 @@
-From 0ec5710f4872d4feb8ff96b61d4d4a7ca0fa7b09 Mon Sep 17 00:00:00 2001
+From 7774d16dece25b907809a2cba3ede6195798a641 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 07/12] check if rdomain support is available
+Subject: [PATCH 13/16] check if rdomain support is available
 
 ---
  src/usr.sbin/ntpd/client.c |  4 ++++
@@ -10,12 +10,12 @@ Subject: [PATCH 07/12] check if rdomain support is available
  3 files changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
-index e59112a..9b9b522 100644
+index 36d0d9e..4bfbf90 100644
 --- a/src/usr.sbin/ntpd/client.c
 +++ b/src/usr.sbin/ntpd/client.c
-@@ -142,10 +142,12 @@ client_query(struct ntp_peer *p)
- 		    0)) == -1)
- 			fatal("client_query socket");
+@@ -149,10 +149,12 @@ client_query(struct ntp_peer *p)
+ 				fatal("client_query socket");
+ 		}
  
 +#ifdef SO_RTABLE
  		if (p->rtable != -1 &&
@@ -26,7 +26,7 @@ index e59112a..9b9b522 100644
  		if (connect(p->query->fd, sa, SA_LEN(sa)) == -1) {
  			if (errno == ECONNREFUSED || errno == ENETUNREACH ||
  			    errno == EHOSTUNREACH || errno == EADDRNOTAVAIL) {
-@@ -248,10 +250,12 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime)
+@@ -255,10 +257,12 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime)
  		return (0);
  	}
  
