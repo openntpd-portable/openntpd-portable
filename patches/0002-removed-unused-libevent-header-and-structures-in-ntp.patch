@@ -1,8 +1,10 @@
-From da6f7a99e25c9fa0fca75576eaf29f0e8fe67441 Mon Sep 17 00:00:00 2001
+From 0d94976a5b804c445cb8c34d2d0665c379e86ee5 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 08:59:19 -0600
-Subject: [PATCH 02/16] removed unused libevent header and structures
+Subject: [PATCH 02/16] removed unused libevent header and structures in ntpd.h
 
+It does not appear anything actually uses libevent in ntpd, so remove
+the libevent-using structures from ntpd.h
 ---
  src/usr.sbin/ntpd/ntpd.h | 10 ----------
  1 file changed, 10 deletions(-)

@@ -1,8 +1,10 @@
-From 06c8339b3a1bde6f71d437d792ae01d118832fb4 Mon Sep 17 00:00:00 2001
+From a74e51f0e68d0d437c340a197ef7fcba8ab3b3aa Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 22:39:58 -0600
-Subject: [PATCH 04/16] add MAX macro
+Subject: [PATCH 04/16] add MAX macro, used in a few places in ntpd
 
+Do not assume that the system #includes happen to include a MAX macro
+somewhere along the way.
 ---
  src/usr.sbin/ntpd/ntpd.h | 4 ++++
  1 file changed, 4 insertions(+)

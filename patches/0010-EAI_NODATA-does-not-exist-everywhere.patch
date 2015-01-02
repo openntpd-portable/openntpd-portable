@@ -1,18 +1,24 @@
-From d874a2d6c44f3656289437b49002ba0f19ca63a2 Mon Sep 17 00:00:00 2001
+From 9404e4f538cde156e08393f7a88a62c631a5ab42 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:04:08 -0600
-Subject: [PATCH 12/16] EAI_NODATA does not exist everywhere
+Subject: [PATCH 10/16] EAI_NODATA does not exist everywhere
 
-FreeBSD says it is deprecated and should be removed.
+FreeBSD says it is deprecated #ifdef's it out.
+
+Linux glibc hides it and many other return codes behind __USE_GNU.
+  What is that supposed to mean?
+
+It seems the only effect of 'deprecating' this value has been that all
+portable software now has to have a special check instead.
 ---
  src/usr.sbin/ntpd/config.c | 10 ++++++++--
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index b651c62..d571dd7 100644
+index d660750..22b692b 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
-@@ -128,8 +128,14 @@ host_dns(const char *s, struct ntp_addr **hn)
+@@ -124,8 +124,14 @@ host_dns(const char *s, struct ntp_addr **hn)
  	hints.ai_family = PF_UNSPEC;
  	hints.ai_socktype = SOCK_DGRAM; /* DUMMY */
  	error = getaddrinfo(s, NULL, &hints, &res0);

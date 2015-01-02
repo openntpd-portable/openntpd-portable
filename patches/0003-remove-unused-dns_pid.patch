@@ -1,8 +1,10 @@
-From be678b846a8bbeede06d66a630a64a19c589c45f Mon Sep 17 00:00:00 2001
+From 8d9e3d91cfb94f11873d9bed1d7e877572bb5579 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:01:57 -0600
 Subject: [PATCH 03/16] remove unused dns_pid
 
+dns_pid is returned, but nothing is done with it. Was then intent to do
+some extra error handling here?
 ---
  src/usr.sbin/ntpd/ntp.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)

@@ -1,8 +1,10 @@
-From 53006c85af7c8b69afa3847e12107588c1460c5a Mon Sep 17 00:00:00 2001
+From 27f9b15fed29f671606ce6f5322c6407c0456615 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 08:58:26 -0600
-Subject: [PATCH 01/16] include time.h for clock_gettime
+Subject: [PATCH 01/16] include time.h for strftime, clock_gettime
 
+Add a missing include for time.h to get the definitions of
+clock_gettime and strftime.
 ---
  src/usr.sbin/ntpd/ntpd.c | 1 +
  src/usr.sbin/ntpd/util.c | 2 ++
