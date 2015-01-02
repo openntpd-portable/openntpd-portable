@@ -170,6 +170,12 @@ AC_CHECK_HEADERS([sys/sensors.h],
 	AM_CONDITIONAL(HAVE_SENSORS, false)
 )
 
+AC_CHECK_MEMBERS([struct sockaddr_in.sin_len], , ,
+	[ #include <netdb.h>
+	  #include <netinet/in.h>
+	  #include <sys/socket.h> ]
+)
+
 AC_ARG_WITH(privsep-user,
 	[  --with-privsep-user=user Specify privilege separation user],
 	[ AC_DEFINE_UNQUOTED(NTPD_USER, "$withval",
