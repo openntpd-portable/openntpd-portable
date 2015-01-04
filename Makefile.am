@@ -70,26 +70,31 @@ install-exec-hook:
 	@if [ ! -d "$(PRIVSEP_PATH)" ]; then \
 		echo; \
 		echo " Please created a privilege separation directory for ntpd." ; \
+		echo " On Linux / BSD systems, this will probably work:"; \
 		echo " # mkdir -p \"$(PRIVSEP_PATH)\"" ; \
 		echo " # chown 0 \"$(PRIVSEP_PATH)\"" ; \
 		echo " # chgrp 0 \"$(PRIVSEP_PATH)\"" ; \
 		echo " # chmod 0755 "$(PRIVSEP_PATH)\""" ; \
+		echo " For OS X, see README.OSX" ; \
 	fi
 	@if egrep "^$(PRIVSEP_USER):" /etc/group >/dev/null; then \
 		: ; \
 	else \
 		echo; \
 		echo " Please create a dedicated group for ntpd." ; \
-		echo " This is system-dependant, possibly:" ; \
+		echo " On Linux / BSD systems, this will probably work:"; \
 		echo " # groupadd $(PRIVSEP_USER)" ; \
+		echo " For OS X, see README.OSX" ; \
 	fi
 	@if egrep "^$(PRIVSEP_USER):" /etc/passwd >/dev/null; then \
 		: ; \
 	else \
 		echo; \
 		echo " Please create a dedicated user for ntpd and ensure it can" ; \
-		echo " not be used to log in.  This is system-dependant, possibly:" ; \
+		echo " not be used to log in." ; \
+		echo " On Linux / BSD systems, this will probably work:" ; \
 		echo " # useradd -g $(PRIVSEP_USER) -s /sbin/nologin -d $(PRIVSEP_PATH) -c 'OpenNTP daemon' $(PRIVSEP_USER)" ; \
+		echo " For OS X, see README.OSX" ; \
 	fi
 	echo
 

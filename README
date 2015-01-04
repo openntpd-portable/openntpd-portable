@@ -8,9 +8,11 @@ The current portable tree can be found at https://github.com/openntpd-portable
 
 Platform Requirements
 ---------------------
-adjtime() and settimeofday() syscalls or equivalent.
-a working arc4random implementation, OpenSSL or LibreSSL
- (this project shares the same arc4random compatibility code from LibreSSL)
+ - adjtime(2) and settimeofday(2) syscalls or equivalent.
+ - adjfreq(2) or an equivalent compatibility function for best results
+ - daemon(3), setresgid(2), setresuid(2) or equivalent
+ - A working arc4random(2) implementation, OpenSSL or LibreSSL
+     (this project shares the same arc4random compatibility code from LibreSSL)
 
 At the time of writing the Portable version is known to build and work on:
 
@@ -20,5 +22,11 @@ At the time of writing the Portable version is known to build and work on:
  - Solaris (10.x, 11.x)
  - Mac OS X (10.9)
 
-It may work on others operating systems, newer and older, but it's still a work
-in progress.  Reports (success or otherwise) and/or diffs welcome.
+OpenNTPD may work on other operating systems, newer and older, but the above
+ones are tested regularly by the developer.
+
+Reports (success or otherwise) are welcome. You may report bugs or submit pull
+requests at the GitHub project: https://github.com/openntpd-portable
+
+Thanks,
+  Brent Cook <bcook at openbsd.org>.

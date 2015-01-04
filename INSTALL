@@ -54,12 +54,28 @@ are moving the built binaries to another system) then you will need to
 do something like the following (although the exact commands required
 for creating the user and group are system dependant):
 
-# groupadd _ntp
-# useradd -g _ntp -s /sbin/nologin -d /var/empty/ntp -c 'OpenNTP daemon' _ntp
-# mkdir -p /var/empty/ntp
-# chown 0 /var/empty/ntp
-# chgrp 0 /var/empty/ntp
-# chmod 0755 /var/empty/ntp
+On most Linux and BSD systems, something like should work:
+
+ groupadd _ntp
+ useradd -g _ntp -s /sbin/nologin -d /var/empty/ntp -c 'OpenNTP daemon' _ntp
+ mkdir -p /var/empty/ntp
+ chown 0 /var/empty/ntp
+ chgrp 0 /var/empty/ntp
+ chmod 0755 /var/empty/ntp
+
+As of OS X 10.10, something this this should work similarly
+(thanks to jasper@ for suggesting)
+
+ dscl . create /Users/_ntp
+ dscl . create /Users/_ntp UserShell /sbin/nologin
+# Prevent user from showing up on the login screen
+ dscl . delete /Users/_ntp AuthenticationAuthority
+# Arbitrarily chosen UID that was free
+ dscl . create /Users/_ntp UniqueID 400
+ dscl . create /Users/_ntp PrimaryGroupID 400
+ dscl . create /Users/_ntp RealName "OpenNTPD user"
+ dseditgroup -o create _ntp
+ dscl . append /Groups/_ntp GroupMembership _ntp
 
 There are a few options to the configure script in addition to the ones
 provided by autoconf itself:
@@ -77,7 +93,7 @@ If you need to pass special options to the compiler or linker, you
 can specify these as environment variables before running ./configure.
 For example:
 
-CFLAGS="-O -m486" LDFLAGS="-s" LIBS="-lrubbish" LD="/usr/foo/ld" ./configure
+CFLAGS="-O2 " LDFLAGS="-s" ./configure
 
 
 3. Configuration
@@ -88,7 +104,7 @@ whatever you specified as your --sysconfdir (/usr/local/etc by default).
 
 If no configuration file exists, the default one is used.  The default
 configuration file uses a selection of publicly accessible "pool" servers
-(see http://twiki.ntp.org/bin/view/Servers/NTPPoolServers).
+(see http://support.ntp.org/bin/view/Servers/NTPPoolServers)
 
 
 4. Problems?
