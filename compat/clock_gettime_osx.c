@@ -24,19 +24,23 @@
 int
 clock_gettime(clockid_t clk_id, struct timespec *ts)
 {
-	static uint64_t timebase_factor = 0;
+	static uint64_t timebase_scale = 0;
 	mach_timebase_info_data_t timebase_info;
 	uint64_t nsec;
 
-        if (clk_id != CLOCK_REALTIME)
-                return -1;      /* not implemented */
+	/*
+	 * Only CLOCK_MONOTONIC is needed by ntpd
+	 */
+        if (clk_id != CLOCK_MONOTONIC)
+                return -1;
 
-	if (timebase_factor == 0) {
-		mach_timebase_info(&timebase_info);
-		timebase_factor = timebase_info.numer / timebase_info.denom;
+	if (timebase_scale == 0) {
+		if (mach_timebase_info(&timebase_info))
+			return -1;
+		timebase_scale = timebase_info.numer / timebase_info.denom;
 	}
 
-	nsec = mach_absolute_time() * timebase_factor;
+	nsec = mach_absolute_time() * timebase_scale;
 	ts->tv_sec  = nsec / 1000000000UL;
 	ts->tv_nsec = nsec % 1000000000UL;
 
