@@ -75,7 +75,7 @@ install-exec-hook:
 		echo " # chown 0 \"$(PRIVSEP_PATH)\"" ; \
 		echo " # chgrp 0 \"$(PRIVSEP_PATH)\"" ; \
 		echo " # chmod 0755 "$(PRIVSEP_PATH)\""" ; \
-		echo " For OS X, see README.OSX" ; \
+		echo " For OS X, see INSTALL for alternate instructions" ; \
 	fi
 	@if egrep "^$(PRIVSEP_USER):" /etc/group >/dev/null; then \
 		: ; \
@@ -84,7 +84,7 @@ install-exec-hook:
 		echo " Please create a dedicated group for ntpd." ; \
 		echo " On Linux / BSD systems, this will probably work:"; \
 		echo " # groupadd $(PRIVSEP_USER)" ; \
-		echo " For OS X, see README.OSX" ; \
+		echo " For OS X, see INSTALL for alternate instructions" ; \
 	fi
 	@if egrep "^$(PRIVSEP_USER):" /etc/passwd >/dev/null; then \
 		: ; \
@@ -94,7 +94,7 @@ install-exec-hook:
 		echo " not be used to log in." ; \
 		echo " On Linux / BSD systems, this will probably work:" ; \
 		echo " # useradd -g $(PRIVSEP_USER) -s /sbin/nologin -d $(PRIVSEP_PATH) -c 'OpenNTP daemon' $(PRIVSEP_USER)" ; \
-		echo " For OS X, see README.OSX" ; \
+		echo " For OS X, see INSTALL for alternate instructions" ; \
 	fi
 	echo
 
