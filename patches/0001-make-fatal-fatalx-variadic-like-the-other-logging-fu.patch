@@ -1,0 +1,120 @@
+From 7720c6cbb7ff30abc1c4d85aada869294cc3db47 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Sun, 4 Jan 2015 22:19:51 -0600
+Subject: [PATCH 01/12] make fatal/fatalx variadic like the other logging
+ functions
+
+this factors out the guts of log_warn and adds logerr
+---
+ src/usr.sbin/ntpd/log.c  | 54 +++++++++++++++++++++++++++---------------------
+ src/usr.sbin/ntpd/ntpd.h |  4 ++--
+ 2 files changed, 32 insertions(+), 26 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/log.c b/src/usr.sbin/ntpd/log.c
+index 618f4cc..e92924e 100644
+--- a/src/usr.sbin/ntpd/log.c
++++ b/src/usr.sbin/ntpd/log.c
+@@ -71,29 +71,33 @@ vlog(int pri, const char *fmt, va_list ap)
+ 		vsyslog(pri, fmt, ap);
+ }
+ 
+-
+ void
+-log_warn(const char *emsg, ...)
++vlogerr(int pri, const char *fmt, va_list ap)
+ {
+ 	char	*nfmt;
+-	va_list	 ap;
+ 
+ 	/* best effort to even work in out of memory situations */
+-	if (emsg == NULL)
+-		logit(LOG_CRIT, "%s", strerror(errno));
+-	else {
+-		va_start(ap, emsg);
+-
+-		if (asprintf(&nfmt, "%s: %s", emsg, strerror(errno)) == -1) {
++	if (fmt) {
++		if (asprintf(&nfmt, "%s: %s", fmt, strerror(errno)) == -1) {
+ 			/* we tried it... */
+-			vlog(LOG_CRIT, emsg, ap);
++			vlog(LOG_CRIT, fmt, ap);
+ 			logit(LOG_CRIT, "%s", strerror(errno));
+ 		} else {
+ 			vlog(LOG_CRIT, nfmt, ap);
+ 			free(nfmt);
+ 		}
+-		va_end(ap);
+-	}
++	} else
++		logit(LOG_CRIT, "%s", strerror(errno));
++}
++
++void
++log_warn(const char *emsg, ...)
++{
++	va_list	 ap;
++
++	va_start(ap, emsg);
++	vlogerr(LOG_CRIT, emsg, ap);
++	va_end(ap);
+ }
+ 
+ void
+@@ -129,25 +133,27 @@ log_debug(const char *emsg, ...)
+ }
+ 
+ void
+-fatal(const char *emsg)
++fatal(const char *emsg, ...)
+ {
+-	if (emsg == NULL)
+-		logit(LOG_CRIT, "fatal: %s", strerror(errno));
+-	else
+-		if (errno)
+-			logit(LOG_CRIT, "fatal: %s: %s",
+-			    emsg, strerror(errno));
+-		else
+-			logit(LOG_CRIT, "fatal: %s", emsg);
++	va_list	 ap;
++
++	va_start(ap, emsg);
++	vlogerr(LOG_CRIT, emsg, ap);
++	va_end(ap);
+ 
+ 	exit(1);
+ }
+ 
+ void
+-fatalx(const char *emsg)
++fatalx(const char *emsg, ...)
+ {
+-	errno = 0;
+-	fatal(emsg);
++	va_list	 ap;
++
++	va_start(ap, emsg);
++	vlog(LOG_CRIT, emsg, ap);
++	va_end(ap);
++
++	exit(1);
+ }
+ 
+ const char *
+diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
+index 4a768d8..31bc5a0 100644
+--- a/src/usr.sbin/ntpd/ntpd.h
++++ b/src/usr.sbin/ntpd/ntpd.h
+@@ -269,8 +269,8 @@ void		 log_warn(const char *, ...);
+ void		 log_warnx(const char *, ...);
+ void		 log_info(const char *, ...);
+ void		 log_debug(const char *, ...);
+-void		 fatal(const char *);
+-void		 fatalx(const char *);
++void		 fatal(const char *, ...);
++void		 fatalx(const char *, ...);
+ const char	*log_sockaddr(struct sockaddr *);
+ 
+ /* ntp.c */
+-- 
+1.9.1
+

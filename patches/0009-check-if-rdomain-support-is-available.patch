@@ -1,7 +1,7 @@
-From fb2f9a8e680d63de0c2e389522e31d0592836a0b Mon Sep 17 00:00:00 2001
+From a89812ee1a8d97346d6410206d9dbf49b1915076 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 13/16] check if rdomain support is available
+Subject: [PATCH 09/12] check if rdomain support is available
 
 ---
  src/usr.sbin/ntpd/client.c |  4 ++++
@@ -10,7 +10,7 @@ Subject: [PATCH 13/16] check if rdomain support is available
  3 files changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
-index 36d0d9e..4bfbf90 100644
+index c18d8c5..a06d5fe 100644
 --- a/src/usr.sbin/ntpd/client.c
 +++ b/src/usr.sbin/ntpd/client.c
 @@ -149,10 +149,12 @@ client_query(struct ntp_peer *p)

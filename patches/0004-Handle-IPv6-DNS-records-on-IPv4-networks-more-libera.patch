@@ -1,7 +1,7 @@
-From abc0fb186de14dae5cacae4d1a8352c7f78106f6 Mon Sep 17 00:00:00 2001
+From 9d6d657754752aa3530e4669a91a7293039c9e81 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:10:22 -0600
-Subject: [PATCH 08/16] Handle IPv6 DNS records on IPv4 networks more liberally
+Subject: [PATCH 04/12] Handle IPv6 DNS records on IPv4 networks more liberally
 
 Rather than fail on IPv4 only networks when seeing an IPv6 DNS record,
 just give a warning.
@@ -13,7 +13,7 @@ Original Author: Stefan Praszalowicz <stefan.praszalowicz@avedya.com>
  1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
-index e59112a..36d0d9e 100644
+index 115f543..c18d8c5 100644
 --- a/src/usr.sbin/ntpd/client.c
 +++ b/src/usr.sbin/ntpd/client.c
 @@ -138,9 +138,16 @@ client_query(struct ntp_peer *p)

@@ -1,19 +1,19 @@
-From 0b2940a2ba2e04fe876b7e8828d05e2d6b750797 Mon Sep 17 00:00:00 2001
+From 137e34d4af16d3f4c4b15de019e50a719db6cc5a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 13:06:38 -0600
-Subject: [PATCH 06/16] be more verbose when logging privsep errors
+Subject: [PATCH 02/12] be more verbose when logging privsep errors
 
 Make it easy for a sysadmin to diagnose a privilege separation path
 problem without looking at the source code.
 ---
- src/usr.sbin/ntpd/ntp.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ src/usr.sbin/ntpd/ntp.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index ddbcedd..26701c8 100644
+index 8c46bfc..1553cc0 100644
 --- a/src/usr.sbin/ntpd/ntp.c
 +++ b/src/usr.sbin/ntpd/ntp.c
-@@ -121,10 +121,15 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
+@@ -121,10 +121,13 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
  	ntp_dns(pipe_dns, nconf, pw);
  	close(pipe_dns[1]);
  
@@ -22,13 +22,11 @@ index ddbcedd..26701c8 100644
 -	if (stb.st_uid != 0 || (stb.st_mode & (S_IWGRP|S_IWOTH)) != 0)
 -		fatalx("bad privsep dir permissions");
 +	if (stat(pw->pw_dir, &stb) == -1) {
-+		log_warn("privsep dir %s could not be opened", pw->pw_dir);
-+		exit(1);
++		fatal("privsep dir %s could not be opened", pw->pw_dir);
 +	}
 +	if (stb.st_uid != 0 || (stb.st_mode & (S_IWGRP|S_IWOTH)) != 0) {
-+		log_warnx("bad privsep dir %s permissions: %o",
++		fatalx("bad privsep dir %s permissions: %o",
 +		    pw->pw_dir, stb.st_mode);
-+		exit(1);
 +	}
  	if (chroot(pw->pw_dir) == -1)
  		fatal("chroot");

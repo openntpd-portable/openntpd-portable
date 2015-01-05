@@ -1,7 +1,7 @@
-From 510fd86ed75868a82be55f3b16040ea02fb06fc4 Mon Sep 17 00:00:00 2001
+From de91ec8c1d059734ee4a5d8ce8074f969ffb66c9 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
-Subject: [PATCH 16/16] add -p option to create a pid file
+Subject: [PATCH 12/12] add -p option to create a pid file
 
 This is used in both the Gentoo and Debian ports.
 
@@ -35,7 +35,7 @@ index 18b12e8..9eb1fee 100644
  Do not set the time immediately at startup.
  This is the default.
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 3622a13..b6b3663 100644
+index f891c56..a0a31b4 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -84,6 +84,18 @@ sighdlr(int sig)
@@ -134,10 +134,10 @@ index 3622a13..b6b3663 100644
  			timeout = INFTIM;
  			break;
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index efb0c61..136bdd2 100644
+index 1bcd3ad..927dc21 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
-@@ -201,6 +201,7 @@ struct ntpd_conf {
+@@ -199,6 +199,7 @@ struct ntpd_conf {
  	u_int8_t					debug;
  	u_int8_t					noaction;
  	u_int8_t					filters;
