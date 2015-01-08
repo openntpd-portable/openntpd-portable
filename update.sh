@@ -50,7 +50,7 @@ for i in $libcrypto_src/crypto/getentropy_*.c; do
 done
 $CP $libcrypto_src/crypto/arc4random_*.h compat
 
-for i in client.c config.c control.c log.c ntp.c ntp.h ntp_dns.c ntp_msg.c \
+for i in client.c config.c control.c log.c log.h ntp.c ntp.h ntp_dns.c ntp_msg.c \
 	ntpd.c ntpd.h parse.y sensors.c server.c util.c \
 	ntpctl.8 ntpd.8 ntpd.conf.5 ; do
 	file=`basename $i`

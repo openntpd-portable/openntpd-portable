@@ -36,6 +36,7 @@ ntpd_SOURCES = client.c
 ntpd_SOURCES += config.c
 ntpd_SOURCES += control.c
 ntpd_SOURCES += log.c
+ntpd_SOURCES += log.h
 ntpd_SOURCES += ntp.c
 ntpd_SOURCES += ntp.h
 ntpd_SOURCES += ntp_dns.c

@@ -1,13 +1,16 @@
-From a89812ee1a8d97346d6410206d9dbf49b1915076 Mon Sep 17 00:00:00 2001
+From f63703fb97ea4c24e89908aa8041fc059b860abf Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 09/12] check if rdomain support is available
+Subject: [PATCH 08/11] check if rdomain support is available.
 
+Handle FreeBSD's calling rdomain 'FIB'.
+ - from naddy@openbsd.org
 ---
  src/usr.sbin/ntpd/client.c |  4 ++++
+ src/usr.sbin/ntpd/ntpd.h   |  6 ++++++
  src/usr.sbin/ntpd/parse.y  |  2 ++
  src/usr.sbin/ntpd/server.c | 11 ++++++++++-
- 3 files changed, 16 insertions(+), 1 deletion(-)
+ 4 files changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
 index c18d8c5..a06d5fe 100644
@@ -39,8 +42,25 @@ index c18d8c5..a06d5fe 100644
  
  	for (cmsg = CMSG_FIRSTHDR(&somsg); cmsg != NULL;
  	    cmsg = CMSG_NXTHDR(&somsg, cmsg)) {
+diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
+index 464353c..e5e7f4e 100644
+--- a/src/usr.sbin/ntpd/ntpd.h
++++ b/src/usr.sbin/ntpd/ntpd.h
+@@ -41,6 +41,12 @@
+ #define DRIFTFILE	"/var/db/ntpd.drift"
+ #define	CTLSOCKET	"/var/run/ntpd.sock"
+ 
++#if defined(SO_SETFIB)
++#define	SO_RTABLE	SO_SETFIB
++#define	SIOCGIFRDOMAIN	SIOCGIFFIB
++#define	ifr_rdomainid	ifr_fib
++#endif
++
+ #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
+ #define	INTERVAL_QUERY_PATHETIC		60
+ #define	INTERVAL_QUERY_AGGRESSIVE	5
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index fb6e2f1..3f4065f 100644
+index 74e3fcd..09a6d9d 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
 @@ -313,10 +313,12 @@ weight		: WEIGHT NUMBER	{

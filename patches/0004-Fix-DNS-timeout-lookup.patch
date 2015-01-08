@@ -1,7 +1,7 @@
-From 0b6965286d45f91bac192a7983c76a38bff2d783 Mon Sep 17 00:00:00 2001
+From e600fb2d0a4423ecad5d3961b51fb55b70889918 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:31:20 -0600
-Subject: [PATCH 05/12] Fix DNS timeout lookup
+Subject: [PATCH 04/11] Fix DNS timeout lookup
 
 Author: Paul B. Henson <henson@acm.org>
 Origin: https://bugs.gentoo.org/show_bug.cgi?id=493358
@@ -10,10 +10,10 @@ Origin: https://bugs.gentoo.org/show_bug.cgi?id=493358
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index b674ab4..f891c56 100644
+index cfc7e56..9ce169c 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -111,6 +111,7 @@ main(int argc, char *argv[])
+@@ -110,6 +110,7 @@ main(int argc, char *argv[])
  	int			 pipe_chld[2];
  	struct passwd		*pw;
  	extern char 		*__progname;

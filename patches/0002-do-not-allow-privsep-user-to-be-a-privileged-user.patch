@@ -1,7 +1,7 @@
-From a27d00d02e1c1bba00bcb5195c1aa90fc557fd60 Mon Sep 17 00:00:00 2001
+From 360d2de5b706fda9555348d4df4eb78a5eed7b3d Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 13:26:29 -0600
-Subject: [PATCH 03/12] do not allow privsep user to be a privileged user
+Subject: [PATCH 02/11] do not allow privsep user to be a privileged user
 
 This may need to be a function call for different platforms with
 different capability / privilege mechanisms.

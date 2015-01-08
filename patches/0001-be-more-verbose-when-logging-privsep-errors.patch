@@ -1,7 +1,7 @@
-From 137e34d4af16d3f4c4b15de019e50a719db6cc5a Mon Sep 17 00:00:00 2001
+From 76505eff3c813ccdc4bece27e96f26cf04a1ffca Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 13:06:38 -0600
-Subject: [PATCH 02/12] be more verbose when logging privsep errors
+Subject: [PATCH 01/11] be more verbose when logging privsep errors
 
 Make it easy for a sysadmin to diagnose a privilege separation path
 problem without looking at the source code.
