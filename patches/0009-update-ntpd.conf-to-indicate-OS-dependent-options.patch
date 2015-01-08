@@ -1,4 +1,4 @@
-From 9c3c4a91d822a4abf6c204a73ffde3abc4b8aad8 Mon Sep 17 00:00:00 2001
+From a57ccaaaeb7b17c7fc8429c7daa1fa501084d895 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:20:03 -0600
 Subject: [PATCH 09/11] update ntpd.conf to indicate OS-dependent options

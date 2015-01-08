@@ -1,4 +1,4 @@
-From ce2a92acf47861cf55d00a7f8ccd7037758c0f63 Mon Sep 17 00:00:00 2001
+From 245c60ac577e8969e1c235c5e1388d2f5b92278e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:00:12 -0600
 Subject: [PATCH 06/11] Use LOG_NTP syslog facility if it is available
@@ -6,13 +6,22 @@ Subject: [PATCH 06/11] Use LOG_NTP syslog facility if it is available
 FreeBSD PR:     114191
 Submitted by:   Robert Archer <freebsd@deathbeforedecaf.net>
 ---
- src/usr.sbin/ntpd/log.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ src/usr.sbin/ntpd/log.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/log.c b/src/usr.sbin/ntpd/log.c
-index 1d8304b..3b751b5 100644
+index 1d8304b..5d34709 100644
 --- a/src/usr.sbin/ntpd/log.c
 +++ b/src/usr.sbin/ntpd/log.c
+@@ -17,7 +17,7 @@
+  */
+ 
+ #include <sys/socket.h>
+-
++#include <netinet/in.h>
+ #include <errno.h>
+ #include <netdb.h>
+ #include <pwd.h>
 @@ -30,6 +30,10 @@
  
  #include "log.h"
