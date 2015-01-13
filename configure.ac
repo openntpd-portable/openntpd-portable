@@ -35,6 +35,7 @@ case $host_os in
 		AC_DEFINE(BROKEN_SETREUID,[], [Broken setreuid])
 		AC_DEFINE(BROKEN_SETREGID,[], [Broken setregid])
 		AC_DEFINE(YYSTYPE_IS_DECLARED,[], [Broken bison])
+		AC_DEFINE([SPT_TYPE], [SPT_REUSEARGV])
 		;;
 	*freebsd*)
 		HOST_OS=freebsd
@@ -43,6 +44,7 @@ case $host_os in
 	*linux*)
 		HOST_OS=linux
 		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		AC_DEFINE([SPT_TYPE], [SPT_REUSEARGV])
 		;;
 	*openbsd*)
 		AC_DEFINE([HAVE_ATTRIBUTE__BOUNDED__], [1], [OpenBSD has __bounded__])

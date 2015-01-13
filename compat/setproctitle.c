@@ -33,6 +33,7 @@
 
 #ifndef HAVE_SETPROCTITLE
 
+#include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -120,7 +121,7 @@ setproctitle(const char *fmt, ...)
 {
 #if SPT_TYPE != SPT_NONE
 	va_list ap;
-	char buf[1024], ptitle[1024];
+	char buf[1024];
 	size_t len;
 	int r;
 	extern char *__progname;
@@ -145,16 +146,14 @@ setproctitle(const char *fmt, ...)
 	va_end(ap);
 	if (r == -1 || (size_t)r >= sizeof(buf) - len)
 		return;
-	strnvis(ptitle, buf, sizeof(ptitle),
-	    VIS_CSTYLE|VIS_NL|VIS_TAB|VIS_OCTAL);
 
 #if SPT_TYPE == SPT_PSTAT
-	pst.pst_command = ptitle;
-	pstat(PSTAT_SETCMD, pst, strlen(ptitle), 0, 0);
+	pst.pst_command = buf;
+	pstat(PSTAT_SETCMD, pst, strlen(buf), 0, 0);
 #elif SPT_TYPE == SPT_REUSEARGV
 /*	debug("setproctitle: copy \"%s\" into len %d",
 	    buf, argv_env_len); */
-	len = strlcpy(argv_start, ptitle, argv_env_len);
+	len = strlcpy(argv_start, buf, argv_env_len);
 	for(; len < argv_env_len; len++)
 		argv_start[len] = SPT_PADCHAR;
 #endif

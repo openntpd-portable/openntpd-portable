@@ -22,6 +22,7 @@ void *reallocarray(void *, size_t, size_t);
 #endif
 
 #ifndef HAVE_SETPROCTITLE
+void compat_init_setproctitle(int argc, char *argv[]);
 void setproctitle(const char *fmt, ...);
 #endif
 
