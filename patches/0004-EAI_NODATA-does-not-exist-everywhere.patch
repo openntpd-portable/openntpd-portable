@@ -1,7 +1,7 @@
-From d15a3b100ee3b497582df84d91c9ff989654cd37 Mon Sep 17 00:00:00 2001
+From c77077c654c3d8ca31c0090cc02f4b96e33bf921 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:04:08 -0600
-Subject: [PATCH 05/11] EAI_NODATA does not exist everywhere
+Subject: [PATCH 04/12] EAI_NODATA does not exist everywhere
 
 FreeBSD says it is deprecated #ifdef's it out.
 
@@ -15,10 +15,10 @@ portable software now has to have a special check instead.
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index d660750..22b692b 100644
+index c814183..ce5d860 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
-@@ -124,8 +124,14 @@ host_dns(const char *s, struct ntp_addr **hn)
+@@ -133,8 +133,14 @@ host_dns(const char *s, struct ntp_addr **hn)
  	hints.ai_family = PF_UNSPEC;
  	hints.ai_socktype = SOCK_DGRAM; /* DUMMY */
  	error = getaddrinfo(s, NULL, &hints, &res0);

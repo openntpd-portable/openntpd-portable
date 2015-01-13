@@ -1,7 +1,7 @@
-From b35888969063fb5b34db8847dfaa54f2bd4512f4 Mon Sep 17 00:00:00 2001
+From c89cf6a3be32c9aaf57c97a5a866936355a59448 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
-Subject: [PATCH 10/11] allow overriding default user and file locations
+Subject: [PATCH 09/12] allow overriding default user and file locations
 
 Allow the build process to override the default ntpd file paths and
 default user.
@@ -10,7 +10,7 @@ default user.
  1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index e5e7f4e..2be060a 100644
+index 03d6b0c..962e1cc 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -36,10 +36,20 @@

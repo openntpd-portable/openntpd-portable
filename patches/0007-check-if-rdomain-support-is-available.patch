@@ -1,7 +1,7 @@
-From 61ae467395cfbd7675ad2731e7db7f84b2ab39fd Mon Sep 17 00:00:00 2001
+From aff7968cefbc6d9d04f961456324bd352d7af401 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 08/11] check if rdomain support is available.
+Subject: [PATCH 07/12] check if rdomain support is available.
 
 Handle FreeBSD's calling rdomain 'FIB'.
  - from naddy@openbsd.org
@@ -13,7 +13,7 @@ Handle FreeBSD's calling rdomain 'FIB'.
  4 files changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
-index c18d8c5..a06d5fe 100644
+index 3d4714e..339120b 100644
 --- a/src/usr.sbin/ntpd/client.c
 +++ b/src/usr.sbin/ntpd/client.c
 @@ -149,10 +149,12 @@ client_query(struct ntp_peer *p)
@@ -43,7 +43,7 @@ index c18d8c5..a06d5fe 100644
  	for (cmsg = CMSG_FIRSTHDR(&somsg); cmsg != NULL;
  	    cmsg = CMSG_NXTHDR(&somsg, cmsg)) {
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 464353c..e5e7f4e 100644
+index 45e14bb..03d6b0c 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -41,6 +41,12 @@
@@ -60,10 +60,10 @@ index 464353c..e5e7f4e 100644
  #define	INTERVAL_QUERY_PATHETIC		60
  #define	INTERVAL_QUERY_AGGRESSIVE	5
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index 74e3fcd..09a6d9d 100644
+index f3db4ae..42a49f7 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
-@@ -313,10 +313,12 @@ weight		: WEIGHT NUMBER	{
+@@ -307,10 +307,12 @@ weight		: WEIGHT NUMBER	{
  			opts.weight = $2;
  		}
  rtable		: RTABLE NUMBER {
@@ -77,7 +77,7 @@ index 74e3fcd..09a6d9d 100644
  		}
  		;
 diff --git a/src/usr.sbin/ntpd/server.c b/src/usr.sbin/ntpd/server.c
-index 2dbb01f..3c74c24 100644
+index 66d8bbe..f17891f 100644
 --- a/src/usr.sbin/ntpd/server.c
 +++ b/src/usr.sbin/ntpd/server.c
 @@ -39,7 +39,10 @@ setup_listeners(struct servent *se, struct ntpd_conf *lconf, u_int *cnt)

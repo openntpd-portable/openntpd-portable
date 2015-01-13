@@ -1,7 +1,7 @@
-From 76505eff3c813ccdc4bece27e96f26cf04a1ffca Mon Sep 17 00:00:00 2001
+From 04a35c5a5dd28b844727616281ce1f758dca61b2 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 13:06:38 -0600
-Subject: [PATCH 01/11] be more verbose when logging privsep errors
+Subject: [PATCH 01/12] be more verbose when logging privsep errors
 
 Make it easy for a sysadmin to diagnose a privilege separation path
 problem without looking at the source code.
@@ -10,7 +10,7 @@ problem without looking at the source code.
  1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index 8c46bfc..1553cc0 100644
+index 87b769b..625364a 100644
 --- a/src/usr.sbin/ntpd/ntp.c
 +++ b/src/usr.sbin/ntpd/ntp.c
 @@ -121,10 +121,13 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,

@@ -1,7 +1,7 @@
-From 360d2de5b706fda9555348d4df4eb78a5eed7b3d Mon Sep 17 00:00:00 2001
+From 0d10418b24f6cc808c3d57ce787aeddc694f32ec Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 13:26:29 -0600
-Subject: [PATCH 02/11] do not allow privsep user to be a privileged user
+Subject: [PATCH 02/12] do not allow privsep user to be a privileged user
 
 This may need to be a function call for different platforms with
 different capability / privilege mechanisms.
@@ -10,7 +10,7 @@ different capability / privilege mechanisms.
  1 file changed, 6 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index 1553cc0..9c96c47 100644
+index 625364a..c8f095e 100644
 --- a/src/usr.sbin/ntpd/ntp.c
 +++ b/src/usr.sbin/ntpd/ntp.c
 @@ -145,6 +145,12 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,

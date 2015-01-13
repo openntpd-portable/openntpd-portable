@@ -1,7 +1,7 @@
-From 245c60ac577e8969e1c235c5e1388d2f5b92278e Mon Sep 17 00:00:00 2001
+From dade0523067059717aa6288ece18d23c5d5b7292 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
-Date: Tue, 30 Dec 2014 09:00:12 -0600
-Subject: [PATCH 06/11] Use LOG_NTP syslog facility if it is available
+Date: Mon, 12 Jan 2015 21:16:54 -0600
+Subject: [PATCH 05/12] Use LOG_NTP syslog facility if it is available
 
 FreeBSD PR:     114191
 Submitted by:   Robert Archer <freebsd@deathbeforedecaf.net>

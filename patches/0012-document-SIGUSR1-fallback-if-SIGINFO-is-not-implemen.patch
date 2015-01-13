@@ -1,0 +1,30 @@
+From b7279a3996e26ad55f44af044f131339e24b8b40 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Mon, 12 Jan 2015 21:17:35 -0600
+Subject: [PATCH 12/12] document SIGUSR1 fallback if SIGINFO is not
+ implemented.
+
+---
+ src/usr.sbin/ntpd/ntpd.8 | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.8 b/src/usr.sbin/ntpd/ntpd.8
+index 9eb1fee..b15912f 100644
+--- a/src/usr.sbin/ntpd/ntpd.8
++++ b/src/usr.sbin/ntpd/ntpd.8
+@@ -126,7 +126,11 @@ When
+ .Pq engine
+ receives a
+ .Dv SIGINFO
+-signal, it writes its peer and sensor status to
++signal (or a
++.Dv SIGUSR1
++signal on systems without
++.Dv SIGINFO),
++it writes its peer and sensor status to
+ .Xr syslog 3 .
+ .Sh FILES
+ .Bl -tag -width "/var/db/ntpd.driftXXX" -compact
+-- 
+1.9.1
+
