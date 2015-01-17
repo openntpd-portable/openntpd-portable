@@ -32,4 +32,6 @@
 #define SHA512_Update(ctx, buf, len) SHA512Update(ctx, (void *)buf, len)
 #define SHA512_Final(digest, ctx) SHA512Final(digest, ctx)
 
+#include <machine/endian.h>
+
 #endif

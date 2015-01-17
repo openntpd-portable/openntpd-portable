@@ -18,3 +18,4 @@ noinst_HEADERS += Makefile.in
 noinst_HEADERS += poll.h
 noinst_HEADERS += time.h
 noinst_HEADERS += stdio.h
+noinst_HEADERS += machine/endian.h

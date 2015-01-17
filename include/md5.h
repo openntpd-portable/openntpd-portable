@@ -16,4 +16,7 @@
 #endif
 
 #include "md5_openbsd.h"
+
+#include <machine/endian.h>
+
 #endif
