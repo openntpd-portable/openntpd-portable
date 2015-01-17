@@ -17,3 +17,4 @@ noinst_HEADERS += stdlib.h
 noinst_HEADERS += Makefile.in
 noinst_HEADERS += poll.h
 noinst_HEADERS += time.h
+noinst_HEADERS += stdio.h
