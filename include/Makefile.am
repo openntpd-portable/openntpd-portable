@@ -5,6 +5,7 @@ noinst_HEADERS += netinet/in.h
 noinst_HEADERS += sys/queue.h
 noinst_HEADERS += sys/types.h
 noinst_HEADERS += sys/time.h
+noinst_HEADERS += sys/mman.h
 noinst_HEADERS += err.h
 noinst_HEADERS += imsg.h
 noinst_HEADERS += string.h
