@@ -1,4 +1,4 @@
-From 486586cc9977c7d1fc10c47810b1ea6a9479d659 Mon Sep 17 00:00:00 2001
+From b5d9a8e7f8991c6a50992171d836aff3d92b7fea Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
 Subject: [PATCH 10/12] add -p option to create a pid file
@@ -35,7 +35,7 @@ index 18b12e8..9eb1fee 100644
  Do not set the time immediately at startup.
  This is the default.
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 8ac1d14..af6d74d 100644
+index 052c240..d7efc25 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -83,6 +83,18 @@ sighdlr(int sig)
@@ -100,7 +100,7 @@ index 8ac1d14..af6d74d 100644
  
 @@ -223,9 +240,11 @@ main(int argc, char *argv[])
  			log_init(lconf.debug);
- 			log_debug("no reply received in time, skipping initial "
+ 			log_warnx("no reply received in time, skipping initial "
  			    "time setting");
 -			if (!lconf.debug)
 +			if (!lconf.debug) {

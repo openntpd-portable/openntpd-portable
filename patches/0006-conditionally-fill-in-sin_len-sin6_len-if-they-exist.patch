@@ -1,4 +1,4 @@
-From 79b2bc332cfdaf28db9c91ff3efa59b58399d210 Mon Sep 17 00:00:00 2001
+From 7f1cdb9b4cf9d20c59a3d7adf84cf8aeaaab3b0b Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
 Subject: [PATCH 06/12] conditionally fill in sin_len/sin6_len if they exist

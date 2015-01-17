@@ -1,4 +1,4 @@
-From aff7968cefbc6d9d04f961456324bd352d7af401 Mon Sep 17 00:00:00 2001
+From 991f5af3c5543d4e1870e35392c9eda53ae89dcc Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
 Subject: [PATCH 07/12] check if rdomain support is available.

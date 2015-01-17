@@ -1,4 +1,4 @@
-From c77077c654c3d8ca31c0090cc02f4b96e33bf921 Mon Sep 17 00:00:00 2001
+From e885aae66f83f69ba38e33ef0ac706e9fe25f609 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:04:08 -0600
 Subject: [PATCH 04/12] EAI_NODATA does not exist everywhere
