@@ -1,3 +1,14 @@
+NetBSD port of OpenNTPD.
+
+It seems to looks fine at my NetBSD environment.
+
+I think there is probably mistakes, so I want someone to check and correct.
+
+
+
+
+Original README, See below.
+-- -- -- -- -- -- -- -- -- 
 This is a new port of OpenBSD's native ntpd to other Unix flavours adding
 autoconf support and the necessary compatibility layer.  It is based on
 portability code from the OpenSSH and LibreSSL portable projects.
