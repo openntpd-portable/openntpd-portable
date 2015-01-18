@@ -41,6 +41,9 @@ case $host_os in
 		HOST_OS=freebsd
 		AC_SUBST([PROG_LDADD], ['-lthr'])
 		;;
+	*netbsd*)
+		HOST_OS=netbsd
+		;;
 	*linux*)
 		HOST_OS=linux
 		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
@@ -60,6 +63,7 @@ esac
 
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
+AM_CONDITIONAL([HOST_NETBSD], [test x$HOST_OS = xnetbsd])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])
 AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
 
@@ -139,7 +143,7 @@ AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 
 # overrides for arc4random_buf implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM],
-	[test "x$HOST_OS" != xdarwin -a "x$HOST_OS" != xfreebsd -a "x$ac_cv_func_arc4random" = xyes])
+	[test "x$HOST_OS" != xdarwin -a "x$HOST_OS" != xfreebsd -a "x$HOST_OS" != xnetbsd -a "x$ac_cv_func_arc4random" = xyes])
 
 AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
