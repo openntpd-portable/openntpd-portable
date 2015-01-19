@@ -12,8 +12,11 @@
 #include <sys/time.h>
 #include <stdint.h>
 
-#ifndef HAVE_ARC4RANDOM_BUF
+#ifndef HAVE_ARC4RANDOM_
 uint32_t arc4random(void);
+#endif
+
+#ifndef HAVE_ARC4RANDOM_UNIFORM
 uint32_t arc4random_uniform(uint32_t);
 #endif
 

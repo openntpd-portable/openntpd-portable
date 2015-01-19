@@ -97,7 +97,7 @@ LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([adjfreq ntp_adjtime adjtimex])
-AC_CHECK_FUNCS([arc4random_uniform asprintf explicit_bzero])
+AC_CHECK_FUNCS([arc4random arc4random_uniform asprintf explicit_bzero])
 AC_CHECK_FUNCS([getentropy memmem poll reallocarray])
 AC_CHECK_FUNCS([setproctitle setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
@@ -137,9 +137,11 @@ AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 
-# overrides for arc4random_buf implementations with known issues
+# overrides for arc4random implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM],
 	[test "x$HOST_OS" != xdarwin -a "x$HOST_OS" != xfreebsd -a "x$ac_cv_func_arc4random" = xyes])
+AM_CONDITIONAL([HAVE_ARC4RANDOM_UNIFORM],
+	[test "x$HOST_OS" != xdarwin -a "x$HOST_OS" != xfreebsd -a "x$ac_cv_func_arc4random_uniform" = xyes])
 
 AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
