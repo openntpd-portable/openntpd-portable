@@ -1,17 +1,17 @@
-From 7f1cdb9b4cf9d20c59a3d7adf84cf8aeaaab3b0b Mon Sep 17 00:00:00 2001
+From a4991f440faa3e9b073c522b62438a32b7fb6ef3 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
-Subject: [PATCH 06/12] conditionally fill in sin_len/sin6_len if they exist
+Subject: [PATCH 06/13] conditionally fill in sin_len/sin6_len if they exist
 
 ---
  src/usr.sbin/ntpd/config.c | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index ce5d860..58e387f 100644
+index 677139e..9777110 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
-@@ -73,7 +73,9 @@ host_v4(const char *s)
+@@ -71,7 +71,9 @@ host_v4(const char *s)
  	if ((h = calloc(1, sizeof(struct ntp_addr))) == NULL)
  		fatal(NULL);
  	sa_in = (struct sockaddr_in *)&h->ss;
@@ -21,7 +21,7 @@ index ce5d860..58e387f 100644
  	sa_in->sin_family = AF_INET;
  	sa_in->sin_addr.s_addr = ina.s_addr;
  
-@@ -95,7 +97,9 @@ host_v6(const char *s)
+@@ -93,7 +95,9 @@ host_v6(const char *s)
  		if ((h = calloc(1, sizeof(struct ntp_addr))) == NULL)
  			fatal(NULL);
  		sa_in6 = (struct sockaddr_in6 *)&h->ss;
@@ -31,7 +31,7 @@ index ce5d860..58e387f 100644
  		sa_in6->sin6_family = AF_INET6;
  		memcpy(&sa_in6->sin6_addr,
  		    &((struct sockaddr_in6 *)res->ai_addr)->sin6_addr,
-@@ -156,12 +160,16 @@ host_dns(const char *s, struct ntp_addr **hn)
+@@ -154,12 +158,16 @@ host_dns(const char *s, struct ntp_addr **hn)
  		h->ss.ss_family = res->ai_family;
  		if (res->ai_family == AF_INET) {
  			sa_in = (struct sockaddr_in *)&h->ss;

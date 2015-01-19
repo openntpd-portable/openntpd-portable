@@ -1,14 +1,14 @@
-From eb870881c4da0b69676b13a528c40e026e2149f6 Mon Sep 17 00:00:00 2001
+From 198aa5cd7cf86d9c10dbdf24291e1f8afbb12410 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
-Subject: [PATCH 11/12] initialize setproctitle where needed
+Subject: [PATCH 11/13] initialize setproctitle where needed
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index d7efc25..fb870ad 100644
+index f89532f..ea8cf70 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -111,6 +111,11 @@ usage(void)

@@ -1,7 +1,7 @@
-From b5d9a8e7f8991c6a50992171d836aff3d92b7fea Mon Sep 17 00:00:00 2001
+From 1f659267b350fadc3b430a9723c69c780d2eea6f Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
-Subject: [PATCH 10/12] add -p option to create a pid file
+Subject: [PATCH 10/13] add -p option to create a pid file
 
 This is used in both the Gentoo and Debian ports.
 
@@ -35,7 +35,7 @@ index 18b12e8..9eb1fee 100644
  Do not set the time immediately at startup.
  This is the default.
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 052c240..d7efc25 100644
+index ee1ecb5..f89532f 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -83,6 +83,18 @@ sighdlr(int sig)
