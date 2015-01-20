@@ -204,7 +204,7 @@ AC_ARG_WITH(privsep-path,
 	[ AC_DEFINE_UNQUOTED(NTPD_CHROOT_DIR, "$withval",
 	    [Privilege separation chroot path])
 	  PRIVSEP_PATH=$withval ],
-	[ PRIVSEP_PATH=/var/empty/ntp ]
+	[ PRIVSEP_PATH=/var/empty ]
 )
 AC_SUBST(PRIVSEP_PATH)
 

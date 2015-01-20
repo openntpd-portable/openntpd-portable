@@ -57,11 +57,20 @@ for creating the user and group are system dependant):
 On most Linux and BSD systems, something like should work:
 
  groupadd _ntp
- useradd -g _ntp -s /sbin/nologin -d /var/empty/ntp -c 'OpenNTP daemon' _ntp
- mkdir -p /var/empty/ntp
- chown 0 /var/empty/ntp
- chgrp 0 /var/empty/ntp
- chmod 0755 /var/empty/ntp
+ useradd -g _ntp -s /sbin/nologin -d /var/empty -c 'OpenNTP daemon' _ntp
+ mkdir -p /var/empty
+ chown 0 /var/empty
+ chgrp 0 /var/empty
+ chmod 0755 /var/empty
+
+NOTE:
+If you installed a previous OpenNTPD release and created a /var/empty/ntp
+directory, please delete the /var/empty/ntp directory and adjust the _ntp
+user's home directory to point to /var/empty instead.
+
+This is important because, if you have any other daemons that also use
+/var/empty as a home directory, they will all have an empty privilege
+separation directory.
 
 As of OS X 10.10, something this this should work similarly
 (thanks to jasper@ for suggesting)

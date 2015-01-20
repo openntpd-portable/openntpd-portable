@@ -66,7 +66,8 @@ install-exec-hook:
 	@if [ ! -f "$(DESTDIR)$(sysconfdir)/ntpd.conf" ]; then \
 		$(INSTALL) -m 644 "$(srcdir)/ntpd.conf" "$(DESTDIR)$(sysconfdir)/ntpd.conf"; \
 	else \
-		echo "$(DESTDIR)$(sysconfdir)/ntpd.conf already exists, install will not overwrite"; \
+		echo; \
+		echo " $(DESTDIR)$(sysconfdir)/ntpd.conf already exists, install will not overwrite"; \
 	fi
 	@if [ ! -d "$(PRIVSEP_PATH)" ]; then \
 		echo; \
@@ -99,6 +100,17 @@ install-exec-hook:
 		echo " On Linux / BSD systems, this will probably work:" ; \
 		echo ; \
 		echo "   useradd -g $(PRIVSEP_USER) -s /sbin/nologin -d $(PRIVSEP_PATH) -c 'OpenNTP daemon' $(PRIVSEP_USER)" ; \
+	fi
+	@if [ -d $(PRIVSEP_PATH) ]; then \
+		if [ `ls -A $(PRIVSEP_PATH)|wc -l` != "0" ]; then \
+		echo; \
+		echo " WARNING: the privilege separation path is specified as $(PRIVSEP_PATH), " ; \
+		echo "          but this directory contains files!" ; \
+		echo ; \
+		echo " Please ensure that $(PRIVSEP_PATH) is empty. If you installed a previous " ; \
+		echo " OpenNTPD version and created a user with a home directory at /var/empty/ntpd, " ; \
+		echo " please adjust that user to use /var/empty instead and delete /var/empty/ntpd." ; \
+		fi; \
 	fi
 	@echo
 
