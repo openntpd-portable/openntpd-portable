@@ -1,8 +1,8 @@
 noinst_HEADERS =
 noinst_HEADERS += signal.h
 noinst_HEADERS += unistd.h
-noinst_HEADERS += netinet/in.h
 noinst_HEADERS += sys/queue.h
+noinst_HEADERS += sys/socket.h
 noinst_HEADERS += sys/types.h
 noinst_HEADERS += sys/time.h
 noinst_HEADERS += err.h
