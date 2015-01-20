@@ -19,6 +19,7 @@ At the time of writing the Portable version is known to build and work on:
  - OpenBSD (5.6)
  - Linux (Ubuntu 12.04, 14.04)
  - FreeBSD (9.x, 10.x)
+ - NetBSD (6.1.5)
  - Solaris (10.x, 11.x)
  - Mac OS X (10.9)
 

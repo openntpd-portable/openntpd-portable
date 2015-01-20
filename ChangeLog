@@ -10,18 +10,21 @@ the GitHub mirror.
 	* Added support for setting the process title on Linux and OS X.
 	  The different processes are now possible to tell apart by role in
 	  the process list.
+	* Import NetBSD support.
 	* Various bugfixes and refinements from the community.
 
 2015-01-08  OpenNTPD 5.7p1
 
-	* Support for a new build infrastructure based on the LibreSSL framework.
-	  Source code is integrated directly from the OpenBSD tree with few manual
-	  changes, easing maintenance.
+	* Support for a new build infrastructure based on the LibreSSL
+	  framework. Source code is integrated directly from the OpenBSD tree
+	  with few manual changes, easing maintenance.
 	* Removed support for several OSes pending test reports and updated
 	  portability code.
-	* Supports the Simple Network Time Protocol version 4 as described in RFC 5905
+	* Supports the Simple Network Time Protocol version 4 as described in
+	  RFC 5905
 	* Added route virtualization (rdomain) support.
 	* Added ntpctl(8), which allows for querying ntpd(8) at runtime.
-	* Finer-grained clock adjustment via adjfreq / ntp_adjtime where available.
+	* Finer-grained clock adjustment via adjfreq / ntp_adjtime where
+	  available.
 	* Improved latency on heavily-loaded machines.
 

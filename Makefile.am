@@ -125,6 +125,9 @@ endif
 if HOST_LINUX
 libcompat_la_SOURCES += compat/adjfreq_linux.c
 endif
+if HOST_NETBSD
+libcompat_la_SOURCES += compat/adjfreq_netbsd.c
+endif
 if HOST_DARWIN
 libcompat_la_SOURCES += compat/adjfreq_osx.c
 endif
@@ -197,6 +200,9 @@ if !HAVE_SHA512
 libcompat_la_SOURCES += compat/sha2.c
 endif
 endif
+if HOST_NETBSD
+libcompat_la_SOURCES += compat/getentropy_netbsd.c
+endif
 if HOST_DARWIN
 libcompat_la_SOURCES += compat/getentropy_osx.c
 if !HAVE_SHA512
@@ -219,6 +225,7 @@ endif
 noinst_HEADERS = compat/arc4random.h
 noinst_HEADERS += compat/arc4random_freebsd.h
 noinst_HEADERS += compat/arc4random_linux.h
+noinst_HEADERS += compat/arc4random_netbsd.h
 noinst_HEADERS += compat/arc4random_osx.h
 noinst_HEADERS += compat/arc4random_solaris.h
 noinst_HEADERS += compat/arc4random_win.h
