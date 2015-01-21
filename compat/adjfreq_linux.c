@@ -15,7 +15,7 @@
  */
 
 #include <sys/types.h>
-# include <sys/timex.h>
+#include <sys/timex.h>
 
 #include <unistd.h>
 
@@ -37,20 +37,20 @@ adjfreq(const int64_t *freq, int64_t *oldfreq)
 		txc.modes = ADJ_FREQUENCY;
 		txc.freq = *freq / 1e3 / (1LL << 16);
 
-		if ((ntp_adjtime(&txc)) == -1)
-			log_warn("ntp_adjtime (2) failed");
+		if ((adjtimex(&txc)) == -1)
+			log_warn("adjtimex failed");
 
-		log_debug("ntp_adjtime adjusted frequency by %fppm",
+		log_debug("adjtimex adjusted frequency by %fppm",
 			  ((txc.freq * 1e3) *  (1LL<<16) / 1e3 / (1LL << 32)));
 	}
 	if (oldfreq != NULL) {
 		txc.modes = 0;
-		if ((ntp_adjtime(&txc)) == -1) {
-			log_warn("ntp_adjtime (1) failed");
+		if ((adjtimex(&txc)) == -1) {
+			log_warn("adjtimex failed");
 			return -1;
 		}
 		newfreq = (txc.freq * 1e3) *  (1LL<<16);
-		log_debug("ntp_adjtime returns frequency of %fppm",
+		log_debug("adjtimex returns frequency of %fppm",
 			  newfreq / 1e3 / (1LL << 32));
 		*oldfreq = newfreq;
 	}
