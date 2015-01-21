@@ -1,17 +1,19 @@
-From 198aa5cd7cf86d9c10dbdf24291e1f8afbb12410 Mon Sep 17 00:00:00 2001
+From 026e34d46265334276120711dc80f42ea20c3b82 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 11/13] initialize setproctitle where needed
 
+We need to save a copy of argv and __progname to avoid setproctitle
+clobbering them.
 ---
- src/usr.sbin/ntpd/ntpd.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ src/usr.sbin/ntpd/ntpd.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index f89532f..ea8cf70 100644
+index f5f0dbb..26463f6 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -111,6 +111,11 @@ usage(void)
+@@ -111,6 +111,13 @@ usage(void)
  #define POLL_MAX		8
  #define PFD_PIPE		0
  
@@ -20,13 +22,17 @@ index f89532f..ea8cf70 100644
 +static char **saved_argv;
 +#endif
 +
++char *get_progname(char *argv0);
++
  int
  main(int argc, char *argv[])
  {
-@@ -134,6 +139,17 @@ main(int argc, char *argv[])
+@@ -134,6 +141,19 @@ main(int argc, char *argv[])
  
  	log_init(1);		/* log to stderr until daemonized */
  
++	__progname = get_progname(argv[0]);
++
 +#ifndef HAVE_SETPROCTITLE
 +	int i;
 +	/* Prepare for later setproctitle emulation */

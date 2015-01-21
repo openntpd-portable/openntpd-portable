@@ -1,4 +1,4 @@
-From 0a55dd5a69636bcb8047e84e63f41cac6d8ac4ae Mon Sep 17 00:00:00 2001
+From 125039fad99de2ad2ac0c0738c692dae14c48bfb Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 21:16:54 -0600
 Subject: [PATCH 05/13] Use LOG_NTP syslog facility if it is available

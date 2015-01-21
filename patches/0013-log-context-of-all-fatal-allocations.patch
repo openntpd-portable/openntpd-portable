@@ -1,4 +1,4 @@
-From c33a7dbd5827d8cf3e81193ea128d9b29a596c4c Mon Sep 17 00:00:00 2001
+From a53fb3d0ccb42e59b0ce2e3fa6f141da106a7294 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 19 Jan 2015 04:37:59 -0600
 Subject: [PATCH 13/13] log context of all fatal allocations
@@ -87,7 +87,7 @@ index c8f095e..7db98f6 100644
  				p += sizeof(h->ss);
  				dlen -= sizeof(h->ss);
 diff --git a/src/usr.sbin/ntpd/ntp_dns.c b/src/usr.sbin/ntpd/ntp_dns.c
-index 7d0236f..6abe3a4 100644
+index 14e6b76..b77d486 100644
 --- a/src/usr.sbin/ntpd/ntp_dns.c
 +++ b/src/usr.sbin/ntpd/ntp_dns.c
 @@ -87,7 +87,7 @@ ntp_dns(int pipe_ntp[2], struct ntpd_conf *nconf, struct passwd *pw)
@@ -100,10 +100,10 @@ index 7d0236f..6abe3a4 100644
  
  	while (quit_dns == 0) {
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index ea8cf70..65503d9 100644
+index 26463f6..b65deb7 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -235,7 +235,7 @@ main(int argc, char *argv[])
+@@ -239,7 +239,7 @@ main(int argc, char *argv[])
  	close(pipe_chld[1]);
  
  	if ((ibuf = malloc(sizeof(struct imsgbuf))) == NULL)
@@ -112,7 +112,7 @@ index ea8cf70..65503d9 100644
  	imsg_init(ibuf, pipe_chld[0]);
  
  	while (quit == 0) {
-@@ -619,7 +619,7 @@ ctl_main(int argc, char *argv[])
+@@ -623,7 +623,7 @@ ctl_main(int argc, char *argv[])
  			break;
  		}
  	}
@@ -121,7 +121,7 @@ index ea8cf70..65503d9 100644
  		usage();
  		/* NOTREACHED */
  
-@@ -635,7 +635,7 @@ ctl_main(int argc, char *argv[])
+@@ -639,7 +639,7 @@ ctl_main(int argc, char *argv[])
  		err(1, "connect: %s", sockname);
  
  	if ((ibuf_ctl = malloc(sizeof(struct imsgbuf))) == NULL)

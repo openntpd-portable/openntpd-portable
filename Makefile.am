@@ -174,6 +174,8 @@ if !HAVE_MD5
 libcompat_la_SOURCES += compat/md5.c
 endif
 
+libcompat_la_SOURCES += compat/progname.c
+
 if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += compat/reallocarray.c
 endif
