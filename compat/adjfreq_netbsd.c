@@ -31,7 +31,7 @@
 int
 adjfreq(const int64_t *freq, int64_t *oldfreq)
 {
-	struct timex txc;
+	struct timex txc = { 0 };
 	int64_t newfreq;
 
 	if (freq != NULL) {
