@@ -63,6 +63,10 @@ On most Linux and BSD systems, something like should work:
  chgrp 0 /var/empty
  chmod 0755 /var/empty
 
+/var/empty here is a chroot directory used by ntpd for privilege separation of
+the DNS and NTP processes. This directory should not contain any files, must be
+owned by root, and must not be group or world-writable.
+
 NOTE:
 If you installed a previous OpenNTPD release and created a /var/empty/ntp
 directory, please delete the /var/empty/ntp directory and adjust the _ntp
