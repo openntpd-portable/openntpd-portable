@@ -28,8 +28,8 @@ ntpd_src=$dir/openbsd/src/usr.sbin/ntpd
 CP='cp -p'
 PATCH='patch -p0 -s'
 
-cp $libc_inc/md5.h include/md5_openbsd.h
-cp $libc_inc/sha2.h include/sha2_openbsd.h
+sed '/DECLS/d' $libc_inc/md5.h > include/md5_openbsd.h
+sed '/DECLS/d' $libc_inc/sha2.h > include/sha2_openbsd.h
 cp $libutil_src/imsg.h include/
 cp $libutil_src/imsg.c compat/
 cp $libutil_src/imsg-buffer.c compat/
