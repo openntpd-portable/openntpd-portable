@@ -76,7 +76,7 @@ This is important because, if you have any other daemons that also use
 /var/empty as a home directory, they will all have an empty privilege
 separation directory.
 
-As of OS X 10.10, something this this should work similarly
+As of OS X 10.10, something like this should work similarly
 (thanks to jasper@ for suggesting)
 
  dscl . create /Users/_ntp
