@@ -98,9 +98,9 @@ provided by autoconf itself:
 	is "_ntp".
 
 --with-privsep-path=path
-	Normally ntpd will always use the home directory of the privsep user
-	to chroot to, however use of this option will cause ntpd to always
-	use the specified directory.
+	ntpd will always use the home directory of the privsep user
+	to chroot to, but specifying this parameter will change the
+	post-installation checks and instructions to match the specified path.
 
 If you need to pass special options to the compiler or linker, you
 can specify these as environment variables before running ./configure.
