@@ -1,7 +1,7 @@
-From a53fb3d0ccb42e59b0ce2e3fa6f141da106a7294 Mon Sep 17 00:00:00 2001
+From 707c861ce1cb0168aced9d796d44dafb95a841ab Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 19 Jan 2015 04:37:59 -0600
-Subject: [PATCH 13/13] log context of all fatal allocations
+Subject: [PATCH 11/11] log context of all fatal allocations
 
 ---
  src/usr.sbin/ntpd/config.c  | 8 ++++----
@@ -12,7 +12,7 @@ Subject: [PATCH 13/13] log context of all fatal allocations
  5 files changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index 9777110..56b50d2 100644
+index b3d198e..77af63c 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
 @@ -41,7 +41,7 @@ host(const char *s, struct ntp_addr **hn)
@@ -42,7 +42,7 @@ index 9777110..56b50d2 100644
  		sa_in6 = (struct sockaddr_in6 *)&h->ss;
  #ifdef SIN6_LEN
  		sa_in6->sin6_len = sizeof(struct sockaddr_in6);
-@@ -154,7 +154,7 @@ host_dns(const char *s, struct ntp_addr **hn)
+@@ -155,7 +155,7 @@ host_dns(const char *s, struct ntp_addr **hn)
  		    res->ai_family != AF_INET6)
  			continue;
  		if ((h = calloc(1, sizeof(struct ntp_addr))) == NULL)
@@ -52,7 +52,7 @@ index 9777110..56b50d2 100644
  		if (res->ai_family == AF_INET) {
  			sa_in = (struct sockaddr_in *)&h->ss;
 diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index c8f095e..7db98f6 100644
+index 4a0d09b..3558ec6 100644
 --- a/src/usr.sbin/ntpd/ntp.c
 +++ b/src/usr.sbin/ntpd/ntp.c
 @@ -112,7 +112,7 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
@@ -64,7 +64,7 @@ index c8f095e..7db98f6 100644
  	hotplugfd = sensor_hotplugfd();
  
  	close(pipe_prnt[0]);
-@@ -166,10 +166,10 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
+@@ -160,10 +160,10 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
  	signal(SIGCHLD, SIG_DFL);
  
  	if ((ibuf_main = malloc(sizeof(struct imsgbuf))) == NULL)
@@ -77,7 +77,7 @@ index c8f095e..7db98f6 100644
  	imsg_init(ibuf_dns, pipe_dns[0]);
  
  	TAILQ_FOREACH(p, &conf->ntp_peers, entry)
-@@ -508,7 +508,7 @@ ntp_dispatch_imsg_dns(void)
+@@ -502,7 +502,7 @@ ntp_dispatch_imsg_dns(void)
  			while (dlen >= sizeof(struct sockaddr_storage)) {
  				if ((h = calloc(1, sizeof(struct ntp_addr))) ==
  				    NULL)

@@ -1,7 +1,7 @@
-From ff82cc8278eafc04ee00f1e847c7424d857b2907 Mon Sep 17 00:00:00 2001
+From f284fcbe288ed0a227a44cdd715b1c5668d4b112 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
-Subject: [PATCH 10/13] add -p option to create a pid file
+Subject: [PATCH 08/11] add -p option to create a pid file
 
 This is used in both the Gentoo and Debian ports.
 

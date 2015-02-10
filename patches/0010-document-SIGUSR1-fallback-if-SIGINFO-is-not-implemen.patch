@@ -1,7 +1,7 @@
-From 0763f9baeb5f915dce6da779cc57a6e374f92cf7 Mon Sep 17 00:00:00 2001
+From 51d62c2c4c019ee1e5db2fef7a53df602b76d646 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 21:17:35 -0600
-Subject: [PATCH 12/13] document SIGUSR1 fallback if SIGINFO is not
+Subject: [PATCH 10/11] document SIGUSR1 fallback if SIGINFO is not
  implemented.
 
 ---

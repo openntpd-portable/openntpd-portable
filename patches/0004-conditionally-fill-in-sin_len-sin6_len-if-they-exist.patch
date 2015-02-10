@@ -1,14 +1,14 @@
-From c7bfa2373a06fbed91ca35cac664b1b92cf6a8d0 Mon Sep 17 00:00:00 2001
+From b670f88c2b3aebb8b338aa855193ddd8c06d6319 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
-Subject: [PATCH 06/13] conditionally fill in sin_len/sin6_len if they exist
+Subject: [PATCH 04/11] conditionally fill in sin_len/sin6_len if they exist
 
 ---
  src/usr.sbin/ntpd/config.c | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index 677139e..9777110 100644
+index 45f2d87..b3d198e 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
 @@ -71,7 +71,9 @@ host_v4(const char *s)
@@ -31,7 +31,7 @@ index 677139e..9777110 100644
  		sa_in6->sin6_family = AF_INET6;
  		memcpy(&sa_in6->sin6_addr,
  		    &((struct sockaddr_in6 *)res->ai_addr)->sin6_addr,
-@@ -154,12 +158,16 @@ host_dns(const char *s, struct ntp_addr **hn)
+@@ -155,12 +159,16 @@ host_dns(const char *s, struct ntp_addr **hn)
  		h->ss.ss_family = res->ai_family;
  		if (res->ai_family == AF_INET) {
  			sa_in = (struct sockaddr_in *)&h->ss;
