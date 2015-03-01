@@ -20,8 +20,8 @@
 
 #include <unistd.h>
 
-#include "ntp.h"
-#include "ntpd.h"
+#include <ntp.h>
+#include <ntpd.h>
 
 /*
  * adjfreq (old)freq = nanosec. per seconds shifted left 32 bits

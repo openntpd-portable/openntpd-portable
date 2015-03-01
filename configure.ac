@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2014 Brent Cook
+# Copyright (c) 2014-2015 Brent Cook
 # Parts based on configure.ac from Portable OpenNTPD:
 # Copyright (c) 2004-2008 Darren Tucker
 # which itself was based on configure.ac from OpenSSH:
@@ -222,6 +222,8 @@ AC_SUBST(PRIVSEP_PATH)
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
+	compat/Makefile
+	src/Makefile
 ])
 
 AC_OUTPUT

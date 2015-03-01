@@ -55,10 +55,12 @@ for i in client.c config.c control.c log.c log.h ntp.c ntp.h ntp_dns.c ntp_msg.c
 	ntpctl.8 ntpd.8 ntpd.conf.5 ; do
 	file=`basename $i`
 	echo Copying $file
-	$CP $ntpd_src/$i .
+	$CP $ntpd_src/$i src
 done
 
-for i in patches/*.patch; do
+(cd src
+for i in ../patches/*.patch; do
 	echo Patching $i
 	$PATCH -p4 < $i
 done
+)
