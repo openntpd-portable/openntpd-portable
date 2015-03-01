@@ -1,7 +1,7 @@
-From 3208d0b0529a09765c0674cbc4c57ab26ab30fc9 Mon Sep 17 00:00:00 2001
+From f22fd1f0b3f4f5ec49c668f95776cee5214ea7e9 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
-Subject: [PATCH 09/11] initialize setproctitle where needed
+Subject: [PATCH 09/10] initialize setproctitle where needed
 
 We need to save a copy of argv and __progname to avoid setproctitle
 clobbering them.
@@ -10,10 +10,10 @@ clobbering them.
  1 file changed, 20 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index f5f0dbb..26463f6 100644
+index 304e050..4d2d11d 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -111,6 +111,13 @@ usage(void)
+@@ -112,6 +112,13 @@ usage(void)
  #define POLL_MAX		8
  #define PFD_PIPE		0
  
@@ -27,7 +27,7 @@ index f5f0dbb..26463f6 100644
  int
  main(int argc, char *argv[])
  {
-@@ -134,6 +141,19 @@ main(int argc, char *argv[])
+@@ -135,6 +142,19 @@ main(int argc, char *argv[])
  
  	log_init(1);		/* log to stderr until daemonized */
  

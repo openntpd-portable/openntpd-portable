@@ -1,7 +1,7 @@
-From f284fcbe288ed0a227a44cdd715b1c5668d4b112 Mon Sep 17 00:00:00 2001
+From 39b0d8bc55f07cc2d15c7a60ee77c41e00b8c9b1 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
-Subject: [PATCH 08/11] add -p option to create a pid file
+Subject: [PATCH 08/10] add -p option to create a pid file
 
 This is used in both the Gentoo and Debian ports.
 
@@ -35,7 +35,7 @@ index 18b12e8..9eb1fee 100644
  Do not set the time immediately at startup.
  This is the default.
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index e2c189c..f5f0dbb 100644
+index a02d9f5..304e050 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -83,6 +83,18 @@ sighdlr(int sig)
@@ -57,16 +57,16 @@ index e2c189c..f5f0dbb 100644
  __dead void
  usage(void)
  {
-@@ -91,7 +103,7 @@ usage(void)
- 	if (strcmp(__progname, "ntpctl") == 0)
- 		fprintf(stderr, "usage: ntpctl [-s all | peers | Sensors | status]\n");
+@@ -92,7 +104,7 @@ usage(void)
+ 		fprintf(stderr,
+ 		    "usage: ntpctl [-s all | peers | Sensors | status]\n");
  	else
 -		fprintf(stderr, "usage: %s [-dnSsv] [-f file]\n",
 +		fprintf(stderr, "usage: %s [-dnSsv] [-f file] [-p file]\n",
  		    __progname);
  	exit(1);
  }
-@@ -122,7 +134,7 @@ main(int argc, char *argv[])
+@@ -123,7 +135,7 @@ main(int argc, char *argv[])
  
  	log_init(1);		/* log to stderr until daemonized */
  
@@ -75,7 +75,7 @@ index e2c189c..f5f0dbb 100644
  		switch (ch) {
  		case 'd':
  			lconf.debug = 1;
-@@ -134,6 +146,9 @@ main(int argc, char *argv[])
+@@ -135,6 +147,9 @@ main(int argc, char *argv[])
  		case 'n':
  			lconf.noaction = 1;
  			break;
@@ -85,7 +85,7 @@ index e2c189c..f5f0dbb 100644
  		case 's':
  			lconf.settime = 1;
  			break;
-@@ -174,9 +189,11 @@ main(int argc, char *argv[])
+@@ -175,9 +190,11 @@ main(int argc, char *argv[])
  	reset_adjtime();
  	if (!lconf.settime) {
  		log_init(lconf.debug);
@@ -98,7 +98,7 @@ index e2c189c..f5f0dbb 100644
  	} else
  		timeout = SETTIME_TIMEOUT * 1000;
  
-@@ -223,9 +240,11 @@ main(int argc, char *argv[])
+@@ -224,9 +241,11 @@ main(int argc, char *argv[])
  			log_init(lconf.debug);
  			log_warnx("no reply received in time, skipping initial "
  			    "time setting");
@@ -111,7 +111,7 @@ index e2c189c..f5f0dbb 100644
  		}
  
  		if (nfds > 0 && (pfd[PFD_PIPE].revents & POLLOUT))
-@@ -264,6 +283,8 @@ main(int argc, char *argv[])
+@@ -265,6 +284,8 @@ main(int argc, char *argv[])
  	msgbuf_clear(&ibuf->w);
  	free(ibuf);
  	log_info("Terminating");
@@ -120,7 +120,7 @@ index e2c189c..f5f0dbb 100644
  	return (0);
  }
  
-@@ -339,9 +360,11 @@ dispatch_imsg(struct ntpd_conf *lconf)
+@@ -337,9 +358,11 @@ dispatch_imsg(struct ntpd_conf *lconf)
  			memcpy(&d, imsg.data, sizeof(d));
  			ntpd_settime(d);
  			/* daemonize now */
@@ -134,13 +134,13 @@ index e2c189c..f5f0dbb 100644
  			timeout = INFTIM;
  			break;
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 962e1cc..73d7fe1 100644
+index cfbd603..8f13b00 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
-@@ -206,6 +206,7 @@ struct ntpd_conf {
- 	u_int8_t					debug;
- 	u_int8_t					noaction;
- 	u_int8_t					filters;
+@@ -237,6 +237,7 @@ struct ntpd_conf {
+ 	u_int						constraint_errors;
+ 	u_int8_t					*ca;
+ 	size_t						ca_len;
 +	char						*pid_file;
  };
  

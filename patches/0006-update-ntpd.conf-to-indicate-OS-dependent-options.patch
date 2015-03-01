@@ -1,7 +1,7 @@
-From f6ca535f9c7d8094633465d44d974495a0d3a5c6 Mon Sep 17 00:00:00 2001
+From 78693e2c2d509ef30ca5a2f942657b94887bdc4e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:20:03 -0600
-Subject: [PATCH 06/11] update ntpd.conf to indicate OS-dependent options
+Subject: [PATCH 06/10] update ntpd.conf to indicate OS-dependent options
 
 Also, clarify listening behavior based on a patch from
 Dererk <dererk@debian.org>
@@ -11,10 +11,10 @@ Debian bug ID: 575705
  1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
-index 3e9b5b4..6315f47 100644
+index accc87b..8ece0de 100644
 --- a/src/usr.sbin/ntpd/ntpd.conf.5
 +++ b/src/usr.sbin/ntpd/ntpd.conf.5
-@@ -38,9 +38,14 @@ They are as follows:
+@@ -38,9 +38,14 @@ The basic configuration options are as follows:
  .It Xo Ic listen on Ar address
  .Op Ic rtable Ar table-id
  .Xc
