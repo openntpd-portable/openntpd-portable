@@ -13,6 +13,8 @@ Platform Requirements
  - daemon(3), setresgid(2), setresuid(2) or equivalent
  - A working arc4random(2) implementation, OpenSSL or LibreSSL
      (this project shares the same arc4random compatibility code from LibreSSL)
+ - libtls (included with LibreSSL 2.1.4 or higher) is required for HTTPS time
+   constraint validation.
 
 At the time of writing the Portable version is known to build and work on:
 

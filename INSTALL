@@ -98,6 +98,10 @@ provided by autoconf itself:
 	is "_ntp". The home directory of this user will be used for privilege
 	separation.
 
+--with-cacert=[path]
+	Specify the CA certificate location for HTTPS constraint validation.
+	Defaults to /etc/ssl/certs/ca-certificates.crt
+
 If you need to pass special options to the compiler or linker, you
 can specify these as environment variables before running ./configure.
 For example:
