@@ -21,7 +21,7 @@
 int
 constraint_init(struct constraint *cstr)
 {
-	return (1);
+	return (0);
 }
 
 
@@ -39,7 +39,7 @@ constraint_check_child(void)
 int
 constraint_dispatch_msg(struct pollfd *pfd)
 {
-	return (1);
+	return (0);
 }
 
 void
