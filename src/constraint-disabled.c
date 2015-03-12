@@ -48,12 +48,6 @@ constraint_dns(u_int32_t id, u_int8_t *data, size_t len)
 }
 
 int
-constraint_cmp(const void *a, const void *b)
-{
-	return (*(const time_t *)a - *(const time_t *)b);
-}
-
-int
 constraint_check(double val)
 {
 	return (-1);
