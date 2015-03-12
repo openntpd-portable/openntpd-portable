@@ -221,13 +221,7 @@ AC_ARG_WITH(privsep-user,
 )
 AC_SUBST(PRIVSEP_USER)
 
-AC_ARG_WITH(privsep-path,
-	[  --with-privsep-path=path Specify privilege separation chroot path],
-	[ AC_DEFINE_UNQUOTED(NTPD_CHROOT_DIR, "$withval",
-	    [Privilege separation chroot path])
-	  PRIVSEP_PATH=$withval ],
-	[ PRIVSEP_PATH=/var/empty ]
-)
+PRIVSEP_PATH=/var/empty
 AC_SUBST(PRIVSEP_PATH)
 
 AC_CONFIG_FILES([

@@ -64,8 +64,8 @@ On most Linux and BSD systems, something like should work:
  chmod 0755 /var/empty
 
 /var/empty here is a chroot directory used by ntpd for privilege separation of
-the DNS and NTP processes. This directory should not contain any files, must be
-owned by root, and must not be group or world-writable.
+the DNS and NTP processes. This directory should be completely empty, owned by
+root, and must not be group or world-writable.
 
 NOTE:
 If you installed a previous OpenNTPD release and created a /var/empty/ntp
@@ -90,17 +90,13 @@ As of OS X 10.10, something like this should work similarly
  dseditgroup -o create _ntp
  dscl . append /Groups/_ntp GroupMembership _ntp
 
-There are a few options to the configure script in addition to the ones
+There are few options to the configure script in addition to the ones
 provided by autoconf itself:
 
 --with-privsep-user=[user]
 	Specify unprivileged user used for privilege separation.  The default
-	is "_ntp".
-
---with-privsep-path=path
-	ntpd will always use the home directory of the privsep user
-	to chroot to, but specifying this parameter will change the
-	post-installation checks and instructions to match the specified path.
+	is "_ntp". The home directory of this user will be used for privilege
+	separation.
 
 If you need to pass special options to the compiler or linker, you
 can specify these as environment variables before running ./configure.
