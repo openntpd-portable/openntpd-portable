@@ -1,4 +1,4 @@
-From 7ad3fc7eef6695250b03c931d41975f54674e0d9 Mon Sep 17 00:00:00 2001
+From 2c3e47ccae2f7e15ca324489968e208c215fef5a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 07/10] allow overriding default user and file locations
@@ -6,11 +6,11 @@ Subject: [PATCH 07/10] allow overriding default user and file locations
 Allow the build process to override the default ntpd file paths and
 default user.
 ---
- src/usr.sbin/ntpd/ntpd.h | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ src/usr.sbin/ntpd/ntpd.h | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 28ab1ba..cfbd603 100644
+index 28ab1ba..4d5b3ad 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -36,10 +36,20 @@
@@ -37,6 +37,16 @@ index 28ab1ba..cfbd603 100644
  
  #if defined(SO_SETFIB)
  #define	SO_RTABLE	SO_SETFIB
+@@ -88,7 +98,9 @@
+ #define CONSTRAINT_PORT			"443"	/* HTTPS port */
+ #define	CONSTRAINT_MAXHEADERLENGTH	8192
+ #define CONSTRAINT_PASSFD		(STDERR_FILENO + 1)
++#ifndef CONSTRAINT_CA
+ #define CONSTRAINT_CA			"/etc/ssl/cert.pem"
++#endif
+ 
+ enum client_state {
+ 	STATE_NONE,
 -- 
 1.9.1
 
