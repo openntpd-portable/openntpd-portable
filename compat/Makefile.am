@@ -62,6 +62,10 @@ libcompat_la_SOURCES += clock_gettime_osx.c
 endif
 endif
 
+if !HAVE_CLOSEFROM
+libcompat_la_SOURCES += closefrom.c
+endif
+
 if !HAVE_IMSG
 libcompat_la_SOURCES += imsg.c
 libcompat_la_SOURCES += imsg-buffer.c

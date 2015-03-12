@@ -33,6 +33,11 @@ ntpd_LDADD += $(top_builddir)/compat/libcompatnoopt.la
 
 ntpd_SOURCES = client.c
 ntpd_SOURCES += config.c
+if HAVE_LIBTLS
+ntpd_SOURCES += constraint.c
+else
+ntpd_SOURCES += constraint-disabled.c
+endif
 ntpd_SOURCES += control.c
 ntpd_SOURCES += log.c
 ntpd_SOURCES += log.h

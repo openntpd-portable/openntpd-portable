@@ -64,6 +64,7 @@ compat/strtonum.c
 
 client.c
 config.c
+constraint.c
 control.c
 include/imsg.h
 include/md5_openbsd.h

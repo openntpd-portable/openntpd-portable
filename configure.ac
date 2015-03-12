@@ -26,7 +26,7 @@ AC_CONFIG_MACRO_DIR([m4])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AC_SUBST([USER_CFLAGS], "$CFLAGS")
-CFLAGS="$CFLAGS -Wall -std=gnu99 -g"
+CFLAGS="-O2 -Wall -std=gnu99 -g"
 
 case $host_os in
 	*darwin*)
@@ -43,7 +43,7 @@ case $host_os in
 		;;
 	*linux*)
 		HOST_OS=linux
-		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
+		CFLAGS="$CFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_GNU_SOURCE"
 		AC_DEFINE([SPT_TYPE], [SPT_REUSEARGV])
 		;;
 	*netbsd*)
@@ -102,10 +102,10 @@ LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([adjfreq ntp_adjtime adjtimex])
 AC_CHECK_FUNCS([arc4random arc4random_uniform asprintf explicit_bzero])
-AC_CHECK_FUNCS([getentropy memmem poll reallocarray])
+AC_CHECK_FUNCS([closefrom getentropy memmem poll reallocarray])
 AC_CHECK_FUNCS([setproctitle setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
-AC_CHECK_FUNCS([strlcat strlcpy strtonum])
+AC_CHECK_FUNCS([strlcat strlcpy strtonum sysconf])
 
 # check auxiliary libraries that might contain other functions
 AC_SEARCH_LIBS([arc4random], [crypto])
@@ -118,11 +118,16 @@ AC_SEARCH_LIBS([SHA512Init], [md])
 AC_CHECK_FUNCS([arc4random ibuf_open MD5Init SHA512Init])
 AC_CHECK_FUNCS([clock_gettime clock_getres])
 
+# check for libtls
+AC_SEARCH_LIBS([tls_init],[tls])
+AC_CHECK_FUNCS([tls_config_set_ca_mem])
+
 # Share test results with automake
 AM_CONDITIONAL([HAVE_ADJFREQ], [test "x$ac_cv_func_adjfreq" = xyes])
 AM_CONDITIONAL([HAVE_ARC4RANDOM], [test "x$ac_cv_func_arc4random" = xyes])
 AM_CONDITIONAL([HAVE_ARC4RANDOM_UNIFORM], [test "x$ac_cv_func_arc4random_uniform" = xyes])
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
+AM_CONDITIONAL([HAVE_CLOSEFROM], [test "x$ac_cv_func_closefrom" = xyes])
 AM_CONDITIONAL([HAVE_CLOCK_GETRES], [test "x$ac_cv_func_clock_getres" = xyes])
 AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "x$ac_cv_func_clock_gettime" = xyes])
 AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
@@ -140,6 +145,11 @@ AM_CONDITIONAL([HAVE_SHA512], [test "x$ac_cv_func_SHA512Init" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
+AM_CONDITIONAL([HAVE_SYSCONF], [test "x$ac_cv_func_sysconf" = xyes])
+AM_CONDITIONAL([HAVE_LIBTLS], [test "x$ac_cv_func_tls_config_set_ca_mem" = xyes])
+if test "x$ac_cv_func_tls_config_set_ca_mem" = "xyes" ; then
+        AC_DEFINE([HAVE_LIBTLS], [1])
+fi
 
 # overrides for arc4random implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM],

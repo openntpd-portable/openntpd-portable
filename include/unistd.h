@@ -14,6 +14,10 @@ int getentropy(void *buf, size_t buflen);
 
 #include <grp.h>
 
+#ifndef HAVE_CLOSEFROM
+int closefrom(int fd);
+#endif
+
 #ifndef HAVE_SETGROUPS
 int setgroups(int ngroups, const gid_t *gidset);
 #endif
