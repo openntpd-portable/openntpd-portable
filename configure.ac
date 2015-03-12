@@ -119,7 +119,8 @@ AC_CHECK_FUNCS([arc4random ibuf_open MD5Init SHA512Init])
 AC_CHECK_FUNCS([clock_gettime clock_getres])
 
 # check for libtls
-AC_SEARCH_LIBS([tls_init],[tls])
+AC_SEARCH_LIBS([tls_config_set_ca_mem],[tls],
+	       [LIBS="$LIBS -ltls -lssl -lcrypto"],,[-lssl -lcrypto])
 AC_CHECK_FUNCS([tls_config_set_ca_mem])
 
 # Share test results with automake
