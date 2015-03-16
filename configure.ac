@@ -230,7 +230,13 @@ AC_ARG_WITH(cacert,
 )
 AC_SUBST(CONSTRAINT_CA)
 
-PRIVSEP_PATH=/var/empty
+AC_ARG_WITH(privsep-path,
+	[  --with-privsep-path=path Specify privilege separation chroot path],
+	[ AC_DEFINE_UNQUOTED(NTPD_CHROOT_DIR, "$withval",
+	    [Privilege separation chroot path])
+	  PRIVSEP_PATH=$withval ],
+	[ PRIVSEP_PATH=/var/empty ]
+)
 AC_SUBST(PRIVSEP_PATH)
 
 AC_CONFIG_FILES([
