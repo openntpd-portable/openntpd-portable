@@ -223,7 +223,7 @@ AC_SUBST(PRIVSEP_USER)
 
 AC_ARG_WITH(cacert,
 	[  --with-cacert=path       CA certificate location for HTTPS constraint validation],
-	[ AC_DEFINE_UNQUOTED(NTPD_USER, "$withval",
+	[ AC_DEFINE_UNQUOTED(CONSTRAINT_CA, "$withval",
 	    [CA certificate path])
 	  CONSTRAINT_CA=$withval ],
 	[ CONSTRAINT_CA=/etc/ssl/certs/ca-certificates.crt ]
