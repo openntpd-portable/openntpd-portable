@@ -1,6 +1,21 @@
 For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
+2015-03-23  OpenNTPD 5.7p4
+	* Added support for HTTPS constraints to validate NTP responses.
+	  See the man page and example config file for how to configure it.
+	  The initial announcement:
+	  http://marc.info/?l=openbsd-tech&m=142356166731390&w=2 is an
+	  explanation of the rationale and how the feature works.
+	* Workaround an apparent bug in Solaris adjtime that cause the clock
+	  to report sync/unsync continuously.
+	* Workaround an issue on systems with 32-bit time_t that causes an
+	  overflow if the system time is later than early 2036.
+
+	The libtls library, as shipped with LibreSSL 2.1.4 or later, is
+	required to use the HTTPS constraint feature, though it is not
+	required to use OpenNTPD.
+
 2015-01-27  OpenNTPD 5.7p3
 	* Fixed issue resolving hostnames when the network is initially
 	  unavailable.
