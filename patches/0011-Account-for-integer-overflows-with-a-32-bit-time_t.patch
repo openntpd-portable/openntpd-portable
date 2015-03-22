@@ -1,0 +1,64 @@
+From 0155adc8a0e61c0b1b7dc8febcba049b0d84bb31 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Sun, 22 Mar 2015 16:18:20 -0500
+Subject: [PATCH 11/11] Account for integer overflows with a 32-bit time_t
+
+If the current time is set past Feb. 2036, adding the NTP epoch offset
+overflows the time_t. While all systems in 2036 should have been running
+with a larger time_t for some time, today an invalid system clock cannot
+be reset with the overflow.
+
+Thanks to @Romua1d on github for point it out.
+---
+ src/usr.sbin/ntpd/client.c |  6 +++++-
+ src/usr.sbin/ntpd/util.c   | 12 ++++++++++--
+ 2 files changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
+index d47869b..70879c0 100644
+--- a/src/usr.sbin/ntpd/client.c
++++ b/src/usr.sbin/ntpd/client.c
+@@ -269,7 +269,11 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime)
+ 		if (cmsg->cmsg_level == SOL_SOCKET &&
+ 		    cmsg->cmsg_type == SCM_TIMESTAMP) {
+ 			memcpy(&tv, CMSG_DATA(cmsg), sizeof(tv));
+-			T4 += tv.tv_sec + JAN_1970 + 1.0e-6 * tv.tv_usec;
++			/*
++			 * account for overflow that occurs on OSes that still
++			 * have a 32-bit time_t.
++			 */
++			T4 += (uint64_t)tv.tv_sec + JAN_1970 + 1.0e-6 * tv.tv_usec;
+ 			break;
+ 		}
+ 	}
+diff --git a/src/usr.sbin/ntpd/util.c b/src/usr.sbin/ntpd/util.c
+index 0867ed7..e9f6d50 100644
+--- a/src/usr.sbin/ntpd/util.c
++++ b/src/usr.sbin/ntpd/util.c
+@@ -45,13 +45,21 @@ gettime(void)
+ 	if (gettimeofday(&tv, NULL) == -1)
+ 		fatal("gettimeofday");
+ 
+-	return (tv.tv_sec + JAN_1970 + 1.0e-6 * tv.tv_usec);
++	/*
++	 * account for overflow that occurs on OSes that still
++	 * have a 32-bit time_t.
++	 */
++	return ((uint64_t)tv.tv_sec + JAN_1970 + 1.0e-6 * tv.tv_usec);
+ }
+ 
+ double
+ gettime_from_timeval(struct timeval *tv)
+ {
+-	return (tv->tv_sec + JAN_1970 + 1.0e-6 * tv->tv_usec);
++	/*
++	 * account for overflow that occurs on OSes that still
++	 * have a 32-bit time_t.
++	 */
++	return ((uint64_t)tv->tv_sec + JAN_1970 + 1.0e-6 * tv->tv_usec);
+ }
+ 
+ time_t
+-- 
+1.9.1
+
