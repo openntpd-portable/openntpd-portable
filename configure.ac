@@ -212,32 +212,30 @@ AC_CHECK_MEMBERS([struct sockaddr_in.sin_len], , ,
 	  #include <sys/socket.h> ]
 )
 
-AC_ARG_WITH(privsep-user,
-	[  --with-privsep-user=user Specify privilege separation user],
-	[ AC_DEFINE_UNQUOTED(NTPD_USER, "$withval",
-	    [Unprivileged userid])
-	  PRIVSEP_USER=$withval ],
-	[ PRIVSEP_USER=_ntp ]
+AC_ARG_WITH([privsep-user],
+	AS_HELP_STRING([--with-privsep-user=user],
+		       [Privilege separation user for ntpd to use]),
+	PRIVSEP_USER="$withval",
+	PRIVSEP_USER="_ntp"
 )
+AC_DEFINE_UNQUOTED(NTPD_USER, "$PRIVSEP_USER", [Unprivileged user])
 AC_SUBST(PRIVSEP_USER)
 
-AC_ARG_WITH(cacert,
-	[  --with-cacert=path       CA certificate location for HTTPS constraint validation],
-	[ AC_DEFINE_UNQUOTED(CONSTRAINT_CA, "$withval",
-	    [CA certificate path])
-	  CONSTRAINT_CA=$withval ],
-	[ CONSTRAINT_CA=/etc/ssl/certs/ca-certificates.crt ]
-)
-AC_SUBST(CONSTRAINT_CA)
-
-AC_ARG_WITH(privsep-path,
-	[  --with-privsep-path=path Specify privilege separation chroot path],
-	[ AC_DEFINE_UNQUOTED(NTPD_CHROOT_DIR, "$withval",
-	    [Privilege separation chroot path])
-	  PRIVSEP_PATH=$withval ],
-	[ PRIVSEP_PATH=/var/empty ]
+AC_ARG_WITH([privsep-path],
+	AS_HELP_STRING([--with-privsep-path=path],
+		       [Privilege separation chroot path to check on install]),
+	PRIVSEP_PATH="$withval",
+	PRIVSEP_PATH="/var/empty"
 )
 AC_SUBST(PRIVSEP_PATH)
+
+AC_ARG_WITH([cacert],
+	AS_HELP_STRING([--with-cacert=path],
+		       [CA certificate location for HTTPS constraint validation]),
+	CONSTRAINT_CA="$withval",
+	CONSTRAINT_CA="/etc/ssl/cert.pem"
+)
+AC_DEFINE_UNQUOTED(CONSTRAINT_CA, "$CONSTRAINT_CA", [CA certificate path])
 
 AC_CONFIG_FILES([
 	Makefile
