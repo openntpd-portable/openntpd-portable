@@ -1,7 +1,7 @@
 For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
-2015-03-23  OpenNTPD 5.7p4
+2015-03-24  OpenNTPD 5.7p4
 	* Added support for HTTPS constraints to validate NTP responses.
 	  See the man page and example config file for how to configure it.
 	  The initial announcement:
