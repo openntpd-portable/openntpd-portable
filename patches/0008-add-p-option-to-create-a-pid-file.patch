@@ -1,7 +1,7 @@
-From 39b0d8bc55f07cc2d15c7a60ee77c41e00b8c9b1 Mon Sep 17 00:00:00 2001
+From c699cfbb1e9fb4acc10f12642ce497e38c013391 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
-Subject: [PATCH 08/10] add -p option to create a pid file
+Subject: [PATCH 08/11] add -p option to create a pid file
 
 This is used in both the Gentoo and Debian ports.
 
@@ -13,7 +13,7 @@ Origin: https://bugs.gentoo.org/show_bug.cgi?id=493082
  3 files changed, 33 insertions(+), 5 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.8 b/src/usr.sbin/ntpd/ntpd.8
-index 18b12e8..9eb1fee 100644
+index af56fb9..b11b5ca 100644
 --- a/src/usr.sbin/ntpd/ntpd.8
 +++ b/src/usr.sbin/ntpd/ntpd.8
 @@ -25,6 +25,7 @@
@@ -24,7 +24,7 @@ index 18b12e8..9eb1fee 100644
  .Ek
  .Sh DESCRIPTION
  The
-@@ -56,6 +57,9 @@ instead of the default
+@@ -59,6 +60,9 @@ instead of the default
  .It Fl n
  Configtest mode.
  Only check the configuration file for validity.
@@ -35,7 +35,7 @@ index 18b12e8..9eb1fee 100644
  Do not set the time immediately at startup.
  This is the default.
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index a02d9f5..304e050 100644
+index 045bdd4..c7935bf 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -83,6 +83,18 @@ sighdlr(int sig)
@@ -59,7 +59,7 @@ index a02d9f5..304e050 100644
  {
 @@ -92,7 +104,7 @@ usage(void)
  		fprintf(stderr,
- 		    "usage: ntpctl [-s all | peers | Sensors | status]\n");
+ 		    "usage: ntpctl -s all | peers | Sensors | status\n");
  	else
 -		fprintf(stderr, "usage: %s [-dnSsv] [-f file]\n",
 +		fprintf(stderr, "usage: %s [-dnSsv] [-f file] [-p file]\n",
@@ -134,10 +134,10 @@ index a02d9f5..304e050 100644
  			timeout = INFTIM;
  			break;
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index cfbd603..8f13b00 100644
+index 4d5b3ad..6403391 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
-@@ -237,6 +237,7 @@ struct ntpd_conf {
+@@ -239,6 +239,7 @@ struct ntpd_conf {
  	u_int						constraint_errors;
  	u_int8_t					*ca;
  	size_t						ca_len;

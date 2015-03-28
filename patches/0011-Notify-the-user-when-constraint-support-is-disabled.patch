@@ -1,0 +1,66 @@
+From c964f9f8a4ca92d961255935ac1ed2f681702607 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Fri, 27 Mar 2015 23:14:15 -0500
+Subject: [PATCH 11/11] Notify the user when constraint support is disabled.
+
+Update the manpage and make a constraint line a fatal error if it is
+configured but ntpd is built without libtls present.
+From Paul B. Henson.
+---
+ src/usr.sbin/ntpd/config.c    | 3 +++
+ src/usr.sbin/ntpd/ntp.c       | 2 ++
+ src/usr.sbin/ntpd/ntpd.conf.5 | 7 +++++--
+ 3 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
+index 2e39604..779aed6 100644
+--- a/src/usr.sbin/ntpd/config.c
++++ b/src/usr.sbin/ntpd/config.c
+@@ -218,6 +218,9 @@ new_constraint(void)
+ 		fatal("new_constraint calloc");
+ 	p->id = ++constraint_maxid;
+ 
++#ifndef HAVE_LIBTLS
++	fatal("constraint configured without libtls support");
++#endif
+ 	return (p);
+ }
+ 
+diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
+index 0a9b4be..eb8af7b 100644
+--- a/src/usr.sbin/ntpd/ntp.c
++++ b/src/usr.sbin/ntpd/ntp.c
+@@ -112,10 +112,12 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
+ 
+ 	tls_init();
+ 
++#ifdef HAVE_LIBTLS
+ 	/* Verification will be turned off if CA is not found */
+ 	if ((conf->ca = tls_load_file(CONSTRAINT_CA,
+ 	    &conf->ca_len, NULL)) == NULL)
+ 		log_warnx("constraint certificate verification turned off");
++#endif
+ 
+ 	/* in this case the parent didn't init logging and didn't daemonize */
+ 	if (nconf->settime && !nconf->debug) {
+diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
+index 25efcae..2dee297 100644
+--- a/src/usr.sbin/ntpd/ntpd.conf.5
++++ b/src/usr.sbin/ntpd/ntpd.conf.5
+@@ -191,8 +191,11 @@ authenticated constraint,
+ thereby reducing the impact of unauthenticated NTP
+ man-in-the-middle attacks.
+ Received NTP packets with time information falling outside of a range
+-near the constraint will be discarded and such NTP servers
+-will be marked as invalid.
++near the constraint will be discarded and such NTP servers will be marked as
++invalid. Contraints are only available if
++.Xr ntpd 8
++has been compiled with libtls support. Configuring a constraint without libtls
++support will result in a fatal error.
+ .Bl -tag -width Ds
+ .It Ic constraint from Ar url
+ Specify the URL, IP address or the hostname of an HTTPS server to
+-- 
+1.9.1
+

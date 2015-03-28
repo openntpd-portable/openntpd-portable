@@ -1,7 +1,7 @@
-From d5d1799dba61af8a263507839a9a2f92293093ae Mon Sep 17 00:00:00 2001
+From 63674f2828a535709805738711503c08efb0e7d4 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 05/10] check if rdomain support is available.
+Subject: [PATCH 05/11] check if rdomain support is available.
 
 Handle FreeBSD's calling rdomain 'FIB'.
  - from naddy@openbsd.org
@@ -13,7 +13,7 @@ Handle FreeBSD's calling rdomain 'FIB'.
  4 files changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
-index 18aa81d..d47869b 100644
+index e717d69..2be1f93 100644
 --- a/src/usr.sbin/ntpd/client.c
 +++ b/src/usr.sbin/ntpd/client.c
 @@ -149,10 +149,12 @@ client_query(struct ntp_peer *p)

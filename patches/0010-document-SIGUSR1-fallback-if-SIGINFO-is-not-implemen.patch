@@ -1,7 +1,7 @@
-From f529c668149aea4c10d3192e9f17631c268ab547 Mon Sep 17 00:00:00 2001
+From e659eb618e6f0563c7db796a0ba71569a1c4da27 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 21:17:35 -0600
-Subject: [PATCH 10/10] document SIGUSR1 fallback if SIGINFO is not
+Subject: [PATCH 10/11] document SIGUSR1 fallback if SIGINFO is not
  implemented.
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 10/10] document SIGUSR1 fallback if SIGINFO is not
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.8 b/src/usr.sbin/ntpd/ntpd.8
-index 9eb1fee..b15912f 100644
+index b11b5ca..24f08e0 100644
 --- a/src/usr.sbin/ntpd/ntpd.8
 +++ b/src/usr.sbin/ntpd/ntpd.8
-@@ -126,7 +126,11 @@ When
+@@ -129,7 +129,11 @@ When
  .Pq engine
  receives a
  .Dv SIGINFO
