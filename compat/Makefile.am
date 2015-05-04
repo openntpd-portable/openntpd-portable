@@ -48,6 +48,10 @@ libcompat_la_SOURCES += adjfreq_solaris.c
 endif
 endif
 
+if HOST_OPENBSD
+libcompat_la_SOURCES += adjfreq_openbsd.c
+endif
+
 if !HAVE_ASPRINTF
 libcompat_la_SOURCES += bsd-asprintf.c
 endif

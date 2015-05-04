@@ -17,3 +17,8 @@ adjfreq(const int64_t *freq, int64_t *oldfreq)
 	errno = ENOSYS;
 	return -1;
 }
+
+void
+update_time_sync_status(int synced)
+{
+}
