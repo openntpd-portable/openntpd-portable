@@ -34,23 +34,10 @@ Makefile.in
 openntpd*.tar.gz
 
 compat/arc4random.c
-compat/arc4random_freebsd.h
-compat/arc4random_hpux.h
-compat/arc4random_linux.h
-compat/arc4random_netbsd.h
-compat/arc4random_osx.h
-compat/arc4random_solaris.h
-compat/arc4random_uniform.c
-compat/arc4random_win.h
+compat/arc4random_*
 compat/chacha_private.h
 compat/explicit_bzero.c
-compat/getentropy_freebsd.c
-compat/getentropy_hpux.c
-compat/getentropy_linux.c
-compat/getentropy_netbsd.c
-compat/getentropy_osx.c
-compat/getentropy_solaris.c
-compat/getentropy_win.c
+compat/getentropy_*
 compat/imsg-buffer.c
 compat/imsg.c
 compat/md5.c

@@ -1,7 +1,7 @@
-From caac2ba644741d6e09e80671612ae34f5f7dbf24 Mon Sep 17 00:00:00 2001
+From 95ef91133c920f51d96a3878096cccc9f604671e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
-Subject: [PATCH 09/11] initialize setproctitle where needed
+Subject: [PATCH 09/12] initialize setproctitle where needed
 
 We need to save a copy of argv and __progname to avoid setproctitle
 clobbering them.
@@ -48,5 +48,5 @@ index c7935bf..44caa80 100644
  		switch (ch) {
  		case 'd':
 -- 
-1.9.1
+2.4.3.573.g4eafbef
 
