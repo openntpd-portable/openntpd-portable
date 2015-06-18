@@ -20,7 +20,7 @@
 AC_INIT([OpenNTPD], m4_esyscmd([tr -d '\n' < VERSION]))
 
 AC_CANONICAL_HOST
-AM_INIT_AUTOMAKE([subdir-objects])
+AM_INIT_AUTOMAKE([subdir-objects foreign])
 AC_CONFIG_MACRO_DIR([m4])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
