@@ -25,8 +25,11 @@ AC_CONFIG_MACRO_DIR([m4])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
-AC_SUBST([USER_CFLAGS], "$CFLAGS")
-CFLAGS="-O2 -Wall -std=gnu99 -g"
+AC_PROG_CC
+AC_PROG_CC_STDC
+AM_PROG_CC_C_O
+AC_PROG_LIBTOOL
+AC_PROG_YACC
 
 case $host_os in
 	*darwin*)
@@ -71,12 +74,6 @@ AM_CONDITIONAL([HOST_SOLARIS], [test x$HOST_OS = xsolaris])
 
 AC_CHECK_FUNC([dl_iterate_phdr],,
 	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
-
-AC_PROG_CC
-AC_PROG_CC_STDC
-AM_PROG_CC_C_O
-AC_PROG_LIBTOOL
-AC_PROG_YACC
 
 save_cflags="$CFLAGS"
 CFLAGS=-Wno-pointer-sign

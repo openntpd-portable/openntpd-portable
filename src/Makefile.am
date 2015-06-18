@@ -23,7 +23,7 @@ CLEANFILES = parse.c
 sbin_PROGRAMS = ntpd
 dist_man_MANS = ntpctl.8 ntpd.8 ntpd.conf.5
 
-ntpd_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
+ntpd_CFLAGS = $(CFLAGS)
 ntpd_CFLAGS += -DSYSCONFDIR=\"$(sysconfdir)\"
 ntpd_CFLAGS += -DLOCALSTATEDIR=\"$(localstatedir)\"
 

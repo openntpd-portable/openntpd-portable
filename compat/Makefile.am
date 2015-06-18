@@ -26,7 +26,6 @@ libcompatnoopt_la_SOURCES += explicit_bzero.c
 endif
 
 # other compatibility functions
-libcompat_la_CFLAGS = $(CFLAGS) $(USER_CFLAGS)
 libcompat_la_SOURCES =
 libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
