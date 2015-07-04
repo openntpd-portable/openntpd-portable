@@ -12,6 +12,7 @@ noinst_HEADERS += md5.h
 noinst_HEADERS += sha2.h
 noinst_HEADERS += stdlib.h
 noinst_HEADERS += Makefile.in
+noinst_HEADERS += paths.h
 noinst_HEADERS += poll.h
 noinst_HEADERS += time.h
 noinst_HEADERS += tls.h
