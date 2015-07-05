@@ -52,3 +52,8 @@ constraint_check(double val)
 {
 	return (-1);
 }
+
+void
+constraint_add(struct constraint *cstr)
+{
+}
