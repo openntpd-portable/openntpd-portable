@@ -130,6 +130,7 @@ AM_CONDITIONAL([HAVE_CLOCK_GETRES], [test "x$ac_cv_func_clock_getres" = xyes])
 AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "x$ac_cv_func_clock_gettime" = xyes])
 AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
 AM_CONDITIONAL([HAVE_GETENTROPY], [test "x$ac_cv_func_getentropy" = xyes])
+AM_CONDITIONAL([HAVE_IFADDRS_H], [test "x$ac_cv_header_ifaddrs_h" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
 AM_CONDITIONAL([HAVE_POLL], [test "x$ac_cv_func_poll" = xyes])
@@ -195,7 +196,7 @@ if test "x$ac_cv_have___va_copy" = "xyes" ; then
 	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
 fi
 
-AC_CHECK_HEADERS([sys/sysctl.h err.h md5.h paths.h sha2.h])
+AC_CHECK_HEADERS([sys/sysctl.h err.h ifaddrs.h md5.h paths.h sha2.h])
 AC_CHECK_HEADERS([sys/sensors.h],
 	AM_CONDITIONAL(HAVE_SENSORS, true),
 	AM_CONDITIONAL(HAVE_SENSORS, false)
