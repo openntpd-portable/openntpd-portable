@@ -145,6 +145,12 @@ libcompat_la_SOURCES += getifaddrs_solaris.c
 endif
 endif
 
+if !HAVE_DAEMON
+if HOST_SOLARIS
+libcompat_la_SOURCES += daemon_solaris.c
+endif
+endif
+
 if !HAVE_ARC4RANDOM_UNIFORM
 libcompat_la_SOURCES += arc4random_uniform.c
 endif
