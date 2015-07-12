@@ -1,4 +1,4 @@
-From 95ef91133c920f51d96a3878096cccc9f604671e Mon Sep 17 00:00:00 2001
+From 8609f82a2c1fe5a32df189480060cf40921c8ff9 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 09/12] initialize setproctitle where needed
@@ -48,5 +48,39 @@ index c7935bf..44caa80 100644
  		switch (ch) {
  		case 'd':
 -- 
-2.4.3.573.g4eafbef
+2.0.4
+
+From 8b01bffe9f2def35b180118f9f41e47c4fc0a9cc Mon Sep 17 00:00:00 2001
+From: "Paul B. Henson" <henson@acm.org>
+Date: Sun, 5 Jul 2015 14:06:36 -0700
+Subject: [PATCH 09/12 part 2] Move __progname initialization to before first use.
+
+---
+ src/usr.sbin/ntpd/ntpd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index 44caa80..310e808 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -131,6 +131,8 @@ main(int argc, char *argv[])
+ 	struct passwd		*pw;
+ 	extern char		*__progname;
+ 
++	__progname = get_progname(argv[0]);
++
+ 	if (strcmp(__progname, "ntpctl") == 0) {
+ 		ctl_main(argc, argv);
+ 		/* NOTREACHED */
+@@ -142,8 +144,6 @@ main(int argc, char *argv[])
+ 
+ 	log_init(1);		/* log to stderr until daemonized */
+ 
+-	__progname = get_progname(argv[0]);
+-
+ #ifndef HAVE_SETPROCTITLE
+ 	int i;
+ 	/* Prepare for later setproctitle emulation */
+-- 
+2.0.4
 

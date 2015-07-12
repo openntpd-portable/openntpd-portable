@@ -101,7 +101,7 @@ LDFLAGS="$LDFLAGS $CLANG_FLAGS"
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([adjfreq ntp_adjtime adjtimex])
 AC_CHECK_FUNCS([arc4random arc4random_uniform asprintf explicit_bzero])
-AC_CHECK_FUNCS([closefrom getentropy memmem poll reallocarray])
+AC_CHECK_FUNCS([closefrom daemon getentropy memmem poll reallocarray])
 AC_CHECK_FUNCS([setproctitle setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
 AC_CHECK_FUNCS([strlcat strlcpy strtonum sysconf])
@@ -130,8 +130,10 @@ AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
 AM_CONDITIONAL([HAVE_CLOSEFROM], [test "x$ac_cv_func_closefrom" = xyes])
 AM_CONDITIONAL([HAVE_CLOCK_GETRES], [test "x$ac_cv_func_clock_getres" = xyes])
 AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "x$ac_cv_func_clock_gettime" = xyes])
+AM_CONDITIONAL([HAVE_DAEMON], [test "x$ac_cv_func_daemon" = xyes])
 AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
 AM_CONDITIONAL([HAVE_GETENTROPY], [test "x$ac_cv_func_getentropy" = xyes])
+AM_CONDITIONAL([HAVE_IFADDRS_H], [test "x$ac_cv_header_ifaddrs_h" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 AM_CONDITIONAL([HAVE_MD5], [test "x$ac_cv_func_MD5Init" = xyes])
 AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
@@ -199,7 +201,7 @@ if test "x$ac_cv_have___va_copy" = "xyes" ; then
 	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
 fi
 
-AC_CHECK_HEADERS([sys/sysctl.h err.h md5.h sha2.h])
+AC_CHECK_HEADERS([sys/sysctl.h err.h ifaddrs.h md5.h paths.h sha2.h])
 AC_CHECK_HEADERS([sys/sensors.h],
 	AM_CONDITIONAL(HAVE_SENSORS, true),
 	AM_CONDITIONAL(HAVE_SENSORS, false)
