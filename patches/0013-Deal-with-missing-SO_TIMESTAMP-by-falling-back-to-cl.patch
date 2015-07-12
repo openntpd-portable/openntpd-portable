@@ -1,0 +1,67 @@
+From f8b926e15aa22ed9b2e82258819d9e3e130ef4b4 Mon Sep 17 00:00:00 2001
+From: "Paul B. Henson" <henson@acm.org>
+Date: Sat, 11 Jul 2015 21:48:53 -0700
+Subject: [PATCH] Deal with missing SO_TIMESTAMP by falling back to
+ client.c,v1.84 behavior.
+
+---
+ src/usr.sbin/ntpd/client.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
+index 2be1f93..e2076f8 100644
+--- a/src/usr.sbin/ntpd/client.c
++++ b/src/usr.sbin/ntpd/client.c
+@@ -169,10 +169,12 @@ client_query(struct ntp_peer *p)
+ 		if (p->addr->ss.ss_family == AF_INET && setsockopt(p->query->fd,
+ 		    IPPROTO_IP, IP_TOS, &val, sizeof(val)) == -1)
+ 			log_warn("setsockopt IPTOS_LOWDELAY");
++#ifdef SO_TIMESTAMP
+ 		val = 1;
+ 		if (setsockopt(p->query->fd, SOL_SOCKET, SO_TIMESTAMP,
+ 		    &val, sizeof(val)) == -1)
+ 			fatal("setsockopt SO_TIMESTAMP");
++#endif
+ 	}
+ 
+ 	/*
+@@ -219,7 +221,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime)
+ 		struct cmsghdr	hdr;
+ 		char		buf[CMSG_SPACE(sizeof(tv))];
+ 	} cmsgbuf;
++#ifdef SO_TIMESTAMP
+ 	struct cmsghdr		*cmsg;
++#endif
+ 	ssize_t			 size;
+ 	double			 T1, T2, T3, T4;
+ 	time_t			 interval;
+@@ -232,7 +236,6 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime)
+ 	somsg.msg_control = cmsgbuf.buf;
+ 	somsg.msg_controllen = sizeof(cmsgbuf.buf);
+ 
+-	T4 = getoffset();
+ 	if ((size = recvmsg(p->query->fd, &somsg, 0)) == -1) {
+ 		if (errno == EHOSTUNREACH || errno == EHOSTDOWN ||
+ 		    errno == ENETUNREACH || errno == ENETDOWN ||
+@@ -264,6 +267,8 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime)
+ 		fatal("client_dispatch setsockopt SO_RTABLE");
+ #endif
+ 
++#ifdef SO_TIMESTAMP
++	T4 = getoffset();
+ 	for (cmsg = CMSG_FIRSTHDR(&somsg); cmsg != NULL;
+ 	    cmsg = CMSG_NXTHDR(&somsg, cmsg)) {
+ 		if (cmsg->cmsg_level == SOL_SOCKET &&
+@@ -273,6 +278,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime)
+ 			break;
+ 		}
+ 	}
++#else
++	T4 = gettime_corrected();
++#endif
+ 
+ 	if (T4 < JAN_1970) {
+ 		client_log_error(p, "recvmsg control format", EBADF);
+-- 
+2.0.4
+
