@@ -36,6 +36,11 @@ constraint_check_child(void)
 {
 }
 
+void
+constraint_add(struct constraint *cstr)
+{
+}
+
 int
 constraint_dispatch_msg(struct pollfd *pfd)
 {
