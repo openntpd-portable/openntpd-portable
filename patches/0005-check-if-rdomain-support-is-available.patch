@@ -50,7 +50,7 @@ index de4cd84..1402d74 100644
  #define DRIFTFILE	"/var/db/ntpd.drift"
  #define	CTLSOCKET	"/var/run/ntpd.sock"
  
-+#if defined(SO_SETFIB)
++#if defined(SO_SETFIB) && defined(FREEBSD_SO_RTABLE_ENABLED)
 +#define	SO_RTABLE	SO_SETFIB
 +#define	SIOCGIFRDOMAIN	SIOCGIFFIB
 +#define	ifr_rdomainid	ifr_fib
