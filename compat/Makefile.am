@@ -74,9 +74,7 @@ libcompat_la_SOURCES += imsg.c
 libcompat_la_SOURCES += imsg-buffer.c
 endif
 
-if !HAVE_MD5
 libcompat_la_SOURCES += md5.c
-endif
 
 libcompat_la_SOURCES += progname.c
 
@@ -117,24 +115,18 @@ libcompat_la_SOURCES += getentropy_freebsd.c
 endif
 if HOST_LINUX
 libcompat_la_SOURCES += getentropy_linux.c
-if !HAVE_SHA512
 libcompat_la_SOURCES += sha2.c
-endif
 endif
 if HOST_NETBSD
 libcompat_la_SOURCES += getentropy_netbsd.c
 endif
 if HOST_DARWIN
 libcompat_la_SOURCES += getentropy_osx.c
-if !HAVE_SHA512
 libcompat_la_SOURCES += sha2.c
-endif
 endif
 if HOST_SOLARIS
 libcompat_la_SOURCES += getentropy_solaris.c
-if !HAVE_SHA512
 libcompat_la_SOURCES += sha2.c
-endif
 endif
 endif
 endif
