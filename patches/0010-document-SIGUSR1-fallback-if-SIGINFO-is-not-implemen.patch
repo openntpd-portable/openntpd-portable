@@ -1,4 +1,4 @@
-From 72e069c446e2924fbcdaa3ef60655e84fceaaf10 Mon Sep 17 00:00:00 2001
+From f706e8544dd183e8d32979f0029e408bc6b64468 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 21:17:35 -0600
 Subject: [PATCH 10/12] document SIGUSR1 fallback if SIGINFO is not
@@ -26,5 +26,5 @@ index b11b5ca..24f08e0 100644
  .Sh FILES
  .Bl -tag -width "/var/db/ntpd.driftXXX" -compact
 -- 
-2.4.3.573.g4eafbef
+2.4.5
 

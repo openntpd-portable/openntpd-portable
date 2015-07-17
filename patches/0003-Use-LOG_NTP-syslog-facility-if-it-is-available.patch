@@ -1,4 +1,4 @@
-From aa3a56f2688a9dc12a97eaed4fe45acbafe780d8 Mon Sep 17 00:00:00 2001
+From 34d5195a0a360967ebf3694467512ada27f81650 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 21:16:54 -0600
 Subject: [PATCH 03/12] Use LOG_NTP syslog facility if it is available
@@ -51,5 +51,5 @@ index 1d8304b..5d34709 100644
  	tzset();
  }
 -- 
-2.4.3.573.g4eafbef
+2.4.5
 
