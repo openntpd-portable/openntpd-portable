@@ -1,9 +1,12 @@
-From f8b926e15aa22ed9b2e82258819d9e3e130ef4b4 Mon Sep 17 00:00:00 2001
-From: "Paul B. Henson" <henson@acm.org>
-Date: Sat, 11 Jul 2015 21:48:53 -0700
-Subject: [PATCH] Deal with missing SO_TIMESTAMP by falling back to
- client.c,v1.84 behavior.
+From 90c47e06db660d4de455769fc291b1580a9f9414 Mon Sep 17 00:00:00 2001
+From: Brent Cook <bcook@openbsd.org>
+Date: Sat, 18 Jul 2015 01:14:55 -0500
+Subject: [PATCH 13/13] Deal with missing SO_TIMESTAMP
 
+from Paul B. Henson" <henson@acm.org>
+
+Fall back to the previous client.c implementation when it is not found.
+SO_TIMESTAMP was added in CVS rev 1.85 by henning@.
 ---
  src/usr.sbin/ntpd/client.c | 10 +++++++++-
  1 file changed, 9 insertions(+), 1 deletion(-)
@@ -63,5 +66,5 @@ index 2be1f93..e2076f8 100644
  	if (T4 < JAN_1970) {
  		client_log_error(p, "recvmsg control format", EBADF);
 -- 
-2.0.4
+2.4.5
 

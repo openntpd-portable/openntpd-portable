@@ -1,7 +1,7 @@
 From 8f37bf27e304caa46054962b6c285ad0ce0e050c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
-Subject: [PATCH 07/12] allow overriding default user and file locations
+Subject: [PATCH 07/13] allow overriding default user and file locations
 
 Allow the build process to override the default ntpd file paths and
 default user.
