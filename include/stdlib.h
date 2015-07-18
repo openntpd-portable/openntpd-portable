@@ -20,6 +20,10 @@ uint32_t arc4random(void);
 uint32_t arc4random_uniform(uint32_t);
 #endif
 
+#ifndef HAVE_DAEMON
+int daemon(int nochdir, int noclose);
+#endif
+
 #ifndef HAVE_REALLOCARRAY
 void *reallocarray(void *, size_t, size_t);
 #endif
