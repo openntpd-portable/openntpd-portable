@@ -31,6 +31,8 @@ AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 AC_PROG_YACC
 
+CFLAGS="$CFLAGS -Wall -std=gnu99 -fno-strict-aliasing"
+
 case $host_os in
 	*darwin*)
 		HOST_OS=darwin
