@@ -54,7 +54,7 @@ config.c
 constraint.c
 control.c
 include/imsg.h
-include/md5_openbsd.h
+include/md5.h
 include/sha2_openbsd.h
 log.c
 log.h

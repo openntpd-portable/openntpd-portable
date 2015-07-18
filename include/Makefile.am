@@ -12,7 +12,6 @@ noinst_HEADERS += ifaddrs.h
 noinst_HEADERS += imsg.h
 noinst_HEADERS += string.h
 noinst_HEADERS += md5.h
-noinst_HEADERS += md5_openbsd.h
 noinst_HEADERS += sha2.h
 noinst_HEADERS += sha2_openbsd.h
 noinst_HEADERS += stdlib.h
