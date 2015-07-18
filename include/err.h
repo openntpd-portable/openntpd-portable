@@ -19,10 +19,10 @@
 
 extern char *__progname;
 
-static inline _warn(int err, const char *format, ...)
+static inline void _warn(int err, const char *format, ...)
 	__attribute__ ((__format__ (__printf__, 2, 3)));
 
-static inline _warn(int err, const char *format, ...)
+static inline void _warn(int err, const char *format, ...)
 {
 	va_list args;
 	va_start(args, format);
