@@ -1,4 +1,4 @@
-From 4a432aeecaeab8e3504cfad7c9cbab65cfbb07c5 Mon Sep 17 00:00:00 2001
+From fd8a742d7e3f2ff92e812cdccfb3477b948340fc Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 09/12] initialize setproctitle where needed
@@ -10,7 +10,7 @@ clobbering them.
  1 file changed, 20 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index c7935bf..44caa80 100644
+index c7935bf..310e808 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -112,6 +112,13 @@ usage(void)
@@ -27,12 +27,19 @@ index c7935bf..44caa80 100644
  int
  main(int argc, char *argv[])
  {
-@@ -135,6 +142,19 @@ main(int argc, char *argv[])
- 
- 	log_init(1);		/* log to stderr until daemonized */
+@@ -124,6 +131,8 @@ main(int argc, char *argv[])
+ 	struct passwd		*pw;
+ 	extern char		*__progname;
  
 +	__progname = get_progname(argv[0]);
 +
+ 	if (strcmp(__progname, "ntpctl") == 0) {
+ 		ctl_main(argc, argv);
+ 		/* NOTREACHED */
+@@ -135,6 +144,17 @@ main(int argc, char *argv[])
+ 
+ 	log_init(1);		/* log to stderr until daemonized */
+ 
 +#ifndef HAVE_SETPROCTITLE
 +	int i;
 +	/* Prepare for later setproctitle emulation */
