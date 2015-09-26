@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+openbsd_branch=`cat OPENBSD_BRANCH`
 openntpd_version=`cat VERSION`
 
 # pull in latest upstream code
@@ -13,7 +14,7 @@ if [ ! -d openbsd ]; then
 	fi
 fi
 (cd openbsd
- git checkout master
+ git checkout $openbsd_branch
  git pull --rebase)
 
 # setup source paths
