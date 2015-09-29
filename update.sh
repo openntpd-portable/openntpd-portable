@@ -26,6 +26,10 @@ libcrypto_src=$dir/openbsd/src/lib/libcrypto
 libutil_src=$dir/openbsd/src/lib/libutil
 ntpd_src=$dir/openbsd/src/usr.sbin/ntpd
 
+do_cp_libc() {
+	sed "/DEF_WEAK/d" < "$1" > "$2"/`basename "$1"`
+}
+CP_LIBC='do_cp_libc'
 CP='cp -p'
 PATCH='patch -p0 -s'
 
@@ -37,15 +41,15 @@ cp $libutil_src/imsg-buffer.c compat/
 (cd compat; $PATCH < $patches/patch-imsg.c)
 
 for i in explicit_bzero.c strlcpy.c strlcat.c; do
-	$CP $libc_src/string/$i compat
+	$CP_LIBC $libc_src/string/$i compat
 done
-$CP $libc_src/stdlib/reallocarray.c compat
-$CP $libc_src/stdlib/strtonum.c compat
+$CP_LIBC $libc_src/stdlib/reallocarray.c compat
+$CP_LIBC $libc_src/stdlib/strtonum.c compat
 $CP $libc_src/crypt/arc4random.c compat
-$CP $libc_src/crypt/arc4random_uniform.c compat
-$CP $libc_src/crypt/chacha_private.h compat
-$CP $libc_src/hash/md5.c compat
-$CP $libc_src/hash/sha2.c compat
+$CP_LIBC $libc_src/crypt/arc4random_uniform.c compat
+$CP_LIBC $libc_src/crypt/chacha_private.h compat
+$CP_LIBC $libc_src/hash/md5.c compat
+$CP_LIBC $libc_src/hash/sha2.c compat
 for i in $libcrypto_src/crypto/getentropy_*.c; do
 	sed -e 's/openssl\/sha.h/sha2.h/' < $i > compat/`basename $i`
 done
