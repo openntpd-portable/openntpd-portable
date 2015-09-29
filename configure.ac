@@ -122,6 +122,23 @@ AC_SEARCH_LIBS([tls_config_set_ca_mem],[tls],
 	       [LIBS="$LIBS -ltls -lssl -lcrypto"],,[-lssl -lcrypto])
 AC_CHECK_FUNCS([tls_config_set_ca_mem])
 
+# check if libtls uses 3-argument tls_write
+AC_CACHE_CHECK([if tls_write takes 3 arguments], ac_cv_have_tls_write_3_arg, [
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+#include <tls.h>
+size_t outlen;
+		]], [[ tls_write(NULL, NULL, 0); ]])],
+	[ ac_cv_have_tls_write_3_arg="yes" ],
+	[ ac_cv_have_tls_write_3_arg="no"
+	])
+])
+
+AM_CONDITIONAL([HAVE_LIBTLS], [test "x$ac_cv_func_tls_config_set_ca_mem" = xyes \
+		-a "x$ac_cv_have_tls_write_3_arg" = xyes])
+if test "x$ac_cv_func_tls_config_set_ca_mem" = xyes -a "x$ac_cv_have_tls_write_3_arg" = xyes; then
+        AC_DEFINE([HAVE_LIBTLS], [1])
+fi
+
 # Share test results with automake
 AM_CONDITIONAL([HAVE_ADJFREQ], [test "x$ac_cv_func_adjfreq" = xyes])
 AM_CONDITIONAL([HAVE_ARC4RANDOM], [test "x$ac_cv_func_arc4random" = xyes])
@@ -146,10 +163,6 @@ AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_SYSCONF], [test "x$ac_cv_func_sysconf" = xyes])
-AM_CONDITIONAL([HAVE_LIBTLS], [test "x$ac_cv_func_tls_config_set_ca_mem" = xyes])
-if test "x$ac_cv_func_tls_config_set_ca_mem" = "xyes" ; then
-        AC_DEFINE([HAVE_LIBTLS], [1])
-fi
 
 # overrides for arc4random implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM],
