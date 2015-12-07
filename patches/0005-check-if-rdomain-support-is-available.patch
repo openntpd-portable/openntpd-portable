@@ -1,56 +1,25 @@
-From 2e02b774dc28b1db74bd9c1837fd056c57234080 Mon Sep 17 00:00:00 2001
+From 9dcb2008acca9650e4cf05f10a051c1a94bde77e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 05/13] check if rdomain support is available.
+Subject: [PATCH 05/12] check if rdomain support is available.
 
 Handle FreeBSD's calling rdomain 'FIB'.
  - from naddy@openbsd.org
 ---
- src/usr.sbin/ntpd/client.c |  4 ++++
  src/usr.sbin/ntpd/ntpd.h   |  6 ++++++
  src/usr.sbin/ntpd/parse.y  |  2 ++
  src/usr.sbin/ntpd/server.c | 15 ++++++++++++++-
- 4 files changed, 26 insertions(+), 1 deletion(-)
+ 3 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
-index e717d69..2be1f93 100644
---- a/src/usr.sbin/ntpd/client.c
-+++ b/src/usr.sbin/ntpd/client.c
-@@ -149,10 +149,12 @@ client_query(struct ntp_peer *p)
- 				fatal("client_query socket");
- 		}
- 
-+#ifdef SO_RTABLE
- 		if (p->rtable != -1 &&
- 		    setsockopt(p->query->fd, SOL_SOCKET, SO_RTABLE,
- 		    &p->rtable, sizeof(p->rtable)) == -1)
- 			fatal("client_query setsockopt SO_RTABLE");
-+#endif
- 		if (connect(p->query->fd, sa, SA_LEN(sa)) == -1) {
- 			if (errno == ECONNREFUSED || errno == ENETUNREACH ||
- 			    errno == EHOSTUNREACH || errno == EADDRNOTAVAIL) {
-@@ -255,10 +257,12 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime)
- 		return (0);
- 	}
- 
-+#ifdef SO_RTABLE
- 	if (p->rtable != -1 &&
- 	    setsockopt(p->query->fd, SOL_SOCKET, SO_RTABLE, &p->rtable,
- 	    sizeof(p->rtable)) == -1)
- 		fatal("client_dispatch setsockopt SO_RTABLE");
-+#endif
- 
- 	for (cmsg = CMSG_FIRSTHDR(&somsg); cmsg != NULL;
- 	    cmsg = CMSG_NXTHDR(&somsg, cmsg)) {
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index de4cd84..5bdd7a7 100644
+index f6507f2..fa2eb7a 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -41,6 +41,12 @@
  #define DRIFTFILE	"/var/db/ntpd.drift"
  #define	CTLSOCKET	"/var/run/ntpd.sock"
  
-+#if defined(SO_SETFIB) && defined(FREEBSD_SO_RTABLE_ENABLED)
++#if defined(SO_SETFIB)
 +#define	SO_RTABLE	SO_SETFIB
 +#define	SIOCGIFRDOMAIN	SIOCGIFFIB
 +#define	ifr_rdomainid	ifr_fib
@@ -60,10 +29,10 @@ index de4cd84..5bdd7a7 100644
  #define	INTERVAL_QUERY_PATHETIC		60
  #define	INTERVAL_QUERY_AGGRESSIVE	5
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index 4b9ef49..375f609 100644
+index 6d50795..33fe13d 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
-@@ -412,11 +412,13 @@ weight		: WEIGHT NUMBER	{
+@@ -404,11 +404,13 @@ weight		: WEIGHT NUMBER	{
  			opts.weight = $2;
  		}
  rtable		: RTABLE NUMBER {
@@ -78,7 +47,7 @@ index 4b9ef49..375f609 100644
  		}
  		;
 diff --git a/src/usr.sbin/ntpd/server.c b/src/usr.sbin/ntpd/server.c
-index ef448d3..618cd8f 100644
+index fb297d7..2e28b9b 100644
 --- a/src/usr.sbin/ntpd/server.c
 +++ b/src/usr.sbin/ntpd/server.c
 @@ -35,11 +35,16 @@ setup_listeners(struct servent *se, struct ntpd_conf *lconf, u_int *cnt)
@@ -143,5 +112,5 @@ index ef448d3..618cd8f 100644
  		if (bind(la->fd, (struct sockaddr *)&la->sa,
  		    SA_LEN((struct sockaddr *)&la->sa)) == -1) {
 -- 
-2.4.5
+2.6.3
 

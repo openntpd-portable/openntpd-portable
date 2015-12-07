@@ -1,24 +1,24 @@
-From 12e4fcd674dd852fe8838c60fee6168344df8b5f Mon Sep 17 00:00:00 2001
+From bdbcdad24473d94d2871650e65adba694e078a7b Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
-Subject: [PATCH 11/13] Notify the user when constraint support is disabled.
+Subject: [PATCH 10/12] Notify the user when constraint support is disabled.
 
 Update the manpage and make a constraint line a fatal error if it is
 configured but ntpd is built without libtls present.
 From Paul B. Henson.
 ---
- src/usr.sbin/ntpd/config.c    | 3 +++
- src/usr.sbin/ntpd/ntp.c       | 2 ++
- src/usr.sbin/ntpd/ntpd.conf.5 | 7 +++++--
+ src/usr.sbin/ntpd/config.c     | 3 +++
+ src/usr.sbin/ntpd/constraint.c | 2 ++
+ src/usr.sbin/ntpd/ntpd.conf.5  | 7 +++++--
  3 files changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index 2e39604..779aed6 100644
+index 87de17a..5a75030 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
-@@ -218,6 +218,9 @@ new_constraint(void)
- 		fatal("new_constraint calloc");
+@@ -219,6 +219,9 @@ new_constraint(void)
  	p->id = ++constraint_maxid;
+ 	p->fd = -1;
  
 +#ifndef HAVE_LIBTLS
 +	fatal("constraint configured without libtls support");
@@ -26,30 +26,30 @@ index 2e39604..779aed6 100644
  	return (p);
  }
  
-diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index 50fc468..566fd74 100644
---- a/src/usr.sbin/ntpd/ntp.c
-+++ b/src/usr.sbin/ntpd/ntp.c
-@@ -109,12 +109,14 @@ ntp_main(int pipe_prnt[2], int fd_ctl, struct ntpd_conf *nconf,
- 		return (pid);
- 	}
+diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
+index 3fc837f..72b3980 100644
+--- a/src/usr.sbin/ntpd/constraint.c
++++ b/src/usr.sbin/ntpd/constraint.c
+@@ -288,12 +288,14 @@ priv_constraint_child(struct constraint *cstr, struct ntp_addr_msg *am,
+ 	if (setpriority(PRIO_PROCESS, 0, 0) == -1)
+ 		log_warn("could not set priority");
  
 +#ifdef HAVE_LIBTLS
- 	tls_init();
- 
- 	/* Verification will be turned off if CA is not found */
+ 	/* Init TLS and load cert before chroot() */
+ 	if (tls_init() == -1)
+ 		fatalx("tls_init");
  	if ((conf->ca = tls_load_file(CONSTRAINT_CA,
  	    &conf->ca_len, NULL)) == NULL)
  		log_warnx("constraint certificate verification turned off");
 +#endif
  
- 	/* in this case the parent didn't init logging and didn't daemonize */
- 	if (nconf->settime && !nconf->debug) {
+ 	if (chroot(pw_dir) == -1)
+ 		fatal("chroot");
 diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
-index 5dd584d..7b09932 100644
+index 87f94e8..7f729d2 100644
 --- a/src/usr.sbin/ntpd/ntpd.conf.5
 +++ b/src/usr.sbin/ntpd/ntpd.conf.5
-@@ -191,8 +191,11 @@ authenticated constraint,
+@@ -185,8 +185,11 @@ authenticated constraint,
  thereby reducing the impact of unauthenticated NTP
  man-in-the-middle attacks.
  Received NTP packets with time information falling outside of a range
@@ -64,5 +64,5 @@ index 5dd584d..7b09932 100644
  .It Ic constraint from Ar url
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.4.5
+2.6.3
 

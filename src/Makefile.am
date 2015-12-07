@@ -28,7 +28,7 @@ ntpd_CFLAGS = $(CFLAGS)
 ntpd_CFLAGS += -DSYSCONFDIR=\"$(sysconfdir)\"
 ntpd_CFLAGS += -DLOCALSTATEDIR=\"$(localstatedir)\"
 
-ntpd_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD)
+ntpd_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD) -lm
 ntpd_LDADD += $(top_builddir)/compat/libcompat.la
 ntpd_LDADD += $(top_builddir)/compat/libcompatnoopt.la
 

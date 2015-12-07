@@ -1,7 +1,7 @@
-From 8f37bf27e304caa46054962b6c285ad0ce0e050c Mon Sep 17 00:00:00 2001
+From eb72af64c3304396f355b54cba266b4ed300b8c9 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
-Subject: [PATCH 07/13] allow overriding default user and file locations
+Subject: [PATCH 07/12] allow overriding default user and file locations
 
 Allow the build process to override the default ntpd file paths and
 default user.
@@ -10,7 +10,7 @@ default user.
  1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 5bdd7a7..5172c45 100644
+index fa2eb7a..1383056 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -36,10 +36,20 @@
@@ -35,9 +35,9 @@ index 5bdd7a7..5172c45 100644
 +#define	DRIFTFILE	LOCALSTATEDIR "/db/ntpd.drift"
 +#define	CTLSOCKET	LOCALSTATEDIR "/run/ntpd.sock"
  
- #if defined(SO_SETFIB) && defined(FREEBSD_SO_RTABLE_ENABLED)
+ #if defined(SO_SETFIB)
  #define	SO_RTABLE	SO_SETFIB
-@@ -88,7 +98,9 @@
+@@ -87,7 +97,9 @@
  #define CONSTRAINT_PORT			"443"	/* HTTPS port */
  #define	CONSTRAINT_MAXHEADERLENGTH	8192
  #define CONSTRAINT_PASSFD		(STDERR_FILENO + 1)
@@ -48,5 +48,5 @@ index 5bdd7a7..5172c45 100644
  enum client_state {
  	STATE_NONE,
 -- 
-2.4.5
+2.6.3
 
