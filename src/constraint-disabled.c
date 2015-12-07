@@ -18,12 +18,13 @@
 
 #include "ntpd.h"
 
+u_int constraint_cnt = 0;
+
 int
 constraint_init(struct constraint *cstr)
 {
 	return (0);
 }
-
 
 int
 constraint_query(struct constraint *cstr)
@@ -32,7 +33,18 @@ constraint_query(struct constraint *cstr)
 }
 
 void
-constraint_check_child(void)
+priv_constraint_check_child(pid_t pid, int status)
+{
+}
+
+void
+priv_constraint_msg(u_int32_t id, u_int8_t *data, size_t len,
+    const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
+{
+}
+
+void
+constraint_purge(void)
 {
 }
 
@@ -41,15 +53,25 @@ constraint_add(struct constraint *cstr)
 {
 }
 
-int
-constraint_dispatch_msg(struct pollfd *pfd)
+void
+constraint_msg_dns(u_int32_t id, u_int8_t *data, size_t len)
 {
-	return (0);
 }
 
 void
-constraint_dns(u_int32_t id, u_int8_t *data, size_t len)
+constraint_msg_result(u_int32_t id, u_int8_t *data, size_t len)
 {
+}
+
+void
+constraint_msg_close(u_int32_t id, u_int8_t *data, size_t len)
+{
+}
+
+int
+priv_constraint_dispatch(struct pollfd *pfd)
+{
+	return (0);
 }
 
 int
