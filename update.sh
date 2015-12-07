@@ -45,7 +45,7 @@ for i in explicit_bzero.c strlcpy.c strlcat.c; do
 done
 $CP_LIBC $libc_src/stdlib/reallocarray.c compat
 $CP_LIBC $libc_src/stdlib/strtonum.c compat
-$CP $libc_src/crypt/arc4random.c compat
+$CP_LIBC $libc_src/crypt/arc4random.c compat
 $CP_LIBC $libc_src/crypt/arc4random_uniform.c compat
 $CP_LIBC $libc_src/crypt/chacha_private.h compat
 $CP_LIBC $libc_src/hash/md5.c compat

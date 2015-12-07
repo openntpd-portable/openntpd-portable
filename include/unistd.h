@@ -8,6 +8,8 @@
 #ifndef LIBCOMPAT_UNISTD_H
 #define LIBCOMPAT_UNISTD_H
 
+#define pledge(request, paths) 0
+
 #ifndef HAVE_GETENTROPY
 int getentropy(void *buf, size_t buflen);
 #endif

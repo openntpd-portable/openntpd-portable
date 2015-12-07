@@ -1,4 +1,4 @@
-From 3f56ed57c9f7dcf2c77d29fadb307d10664c5075 Mon Sep 17 00:00:00 2001
+From 0c286469c195738efc45001b1fcd4f8b4044a141 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 09/12] initialize setproctitle where needed
@@ -6,11 +6,11 @@ Subject: [PATCH 09/12] initialize setproctitle where needed
 We need to save a copy of argv and __progname to avoid setproctitle
 clobbering them.
 ---
- src/usr.sbin/ntpd/ntpd.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ src/usr.sbin/ntpd/ntpd.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 40570ee..b86d6ed 100644
+index 40570ee..3d0ceb2 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -116,6 +116,13 @@ usage(void)
@@ -27,14 +27,13 @@ index 40570ee..b86d6ed 100644
  int
  main(int argc, char *argv[])
  {
-@@ -145,6 +152,19 @@ main(int argc, char *argv[])
+@@ -145,6 +152,18 @@ main(int argc, char *argv[])
  
  	log_init(1);		/* log to stderr until daemonized */
  
 +	__progname = get_progname(argv[0]);
 +
 +#ifndef HAVE_SETPROCTITLE
-+	int i;
 +	/* Prepare for later setproctitle emulation */
 +	saved_argv = calloc(argc + 1, sizeof(*saved_argv));
 +	for (i = 0; i < argc; i++)
@@ -47,6 +46,15 @@ index 40570ee..b86d6ed 100644
  	while ((ch = getopt(argc, argv, "df:np:sSv")) != -1) {
  		switch (ch) {
  		case 'd':
+@@ -549,7 +568,7 @@ readfreq(void)
+ 		freqfp = fopen(DRIFTFILE, "w");
+ 		return;
+ 	}
+-	
++
+ 	freqfp = fdopen(fd, "r+");
+ 
+ 	/* if we're adjusting frequency already, don't override */
 -- 
 2.6.3
 
