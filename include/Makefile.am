@@ -7,6 +7,7 @@ noinst_HEADERS += sys/socket.h
 noinst_HEADERS += sys/types.h
 noinst_HEADERS += sys/time.h
 noinst_HEADERS += sys/mman.h
+noinst_HEADERS += sys/wait.h
 noinst_HEADERS += err.h
 noinst_HEADERS += ifaddrs.h
 noinst_HEADERS += imsg.h
