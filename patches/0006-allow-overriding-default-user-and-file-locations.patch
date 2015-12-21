@@ -1,0 +1,52 @@
+From fdb958c8a66e32287aa5292200d0777f9f96784a Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Thu, 1 Jan 2015 07:18:11 -0600
+Subject: [PATCH 06/11] allow overriding default user and file locations
+
+Allow the build process to override the default ntpd file paths and
+default user.
+---
+ src/usr.sbin/ntpd/ntpd.h | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
+index b007da3..7e739c4 100644
+--- a/src/usr.sbin/ntpd/ntpd.h
++++ b/src/usr.sbin/ntpd/ntpd.h
+@@ -35,10 +35,20 @@
+ 
+ #define MAXIMUM(a, b)	((a) > (b) ? (a) : (b))
+ 
++#ifndef NTPD_USER
+ #define	NTPD_USER	"_ntp"
+-#define	CONFFILE	"/etc/ntpd.conf"
+-#define DRIFTFILE	"/var/db/ntpd.drift"
+-#define	CTLSOCKET	"/var/run/ntpd.sock"
++#endif
++
++#ifndef	SYSCONFDIR
++#define	SYSCONFDIR	"/etc"
++#endif
++#define	CONFFILE	SYSCONFDIR "/ntpd.conf"
++
++#ifndef	LOCALSTATEDIR
++#define	LOCALSTATEDIR	"/var"
++#endif
++#define	DRIFTFILE	LOCALSTATEDIR "/db/ntpd.drift"
++#define	CTLSOCKET	LOCALSTATEDIR "/run/ntpd.sock"
+ 
+ #if defined(SO_SETFIB)
+ #define	SO_RTABLE	SO_SETFIB
+@@ -86,7 +96,9 @@
+ #define CONSTRAINT_PORT			"443"	/* HTTPS port */
+ #define	CONSTRAINT_MAXHEADERLENGTH	8192
+ #define CONSTRAINT_PASSFD		(STDERR_FILENO + 1)
++#ifndef CONSTRAINT_CA
+ #define CONSTRAINT_CA			"/etc/ssl/cert.pem"
++#endif
+ 
+ enum client_state {
+ 	STATE_NONE,
+-- 
+2.6.4
+

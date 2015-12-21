@@ -1,0 +1,53 @@
+From f1e8552352638f4214768df629e9020507e4af05 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Tue, 30 Dec 2014 09:20:03 -0600
+Subject: [PATCH 05/11] update ntpd.conf to indicate OS-dependent options
+
+Also, clarify listening behavior based on a patch from
+Dererk <dererk@debian.org>
+Debian bug ID: 575705
+---
+ src/usr.sbin/ntpd/ntpd.conf.5 | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
+index af11a7e..87f94e8 100644
+--- a/src/usr.sbin/ntpd/ntpd.conf.5
++++ b/src/usr.sbin/ntpd/ntpd.conf.5
+@@ -38,9 +38,14 @@ The basic configuration options are as follows:
+ .It Xo Ic listen on Ar address
+ .Op Ic rtable Ar table-id
+ .Xc
++.Xr ntpd 8
++has the ability to sync the local clock to remote NTP servers and, if
++this directive is specified, can act as NTP server itself, redistributing the
++local clock.
++.Pp
+ Specify a local IP address or a hostname the
+ .Xr ntpd 8
+-daemon should listen on.
++daemon should listen on to enable remote clients synchronization.
+ If it appears multiple times,
+ .Xr ntpd 8
+ will listen on each given address.
+@@ -53,7 +58,7 @@ will listen on all local addresses using the specified routing table.
+ does not listen on any address by default.
+ The optional
+ .Ic rtable
+-keyword will specify which routing table to listen on.
++keyword will specify which routing table to listen on, if the operating system supports rdomains.
+ By default
+ .Xr ntpd 8
+ will listen using the current routing table.
+@@ -76,7 +81,7 @@ listen on 127.0.0.1 rtable 4
+ .Xc
+ Specify a timedelta sensor device
+ .Xr ntpd 8
+-should use.
++should use, if the operating system supports sensors.
+ The sensor can be specified multiple times:
+ .Xr ntpd 8
+ will use each given sensor that actually exists.
+-- 
+2.6.4
+

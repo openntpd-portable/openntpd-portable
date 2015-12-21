@@ -1,0 +1,58 @@
+From f86daab4bb1d41bcdcbdaeb6370c500962a09675 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Mon, 12 Jan 2015 06:18:31 -0600
+Subject: [PATCH 08/11] initialize setproctitle where needed
+
+We need to save a copy of argv and __progname to avoid setproctitle
+clobbering them.
+---
+ src/usr.sbin/ntpd/ntpd.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index e31db98..19720b3 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -117,6 +117,13 @@ usage(void)
+ #define PFD_PIPE		0
+ #define PFD_MAX			1
+ 
++/* Saves a copy of argv for setproctitle emulation */
++#ifndef HAVE_SETPROCTITLE
++static char **saved_argv;
++#endif
++
++char *get_progname(char *argv0);
++
+ int
+ main(int argc, char *argv[])
+ {
+@@ -135,6 +142,8 @@ main(int argc, char *argv[])
+ 	gid_t			pw_gid;
+ 	void			*newp;
+ 
++	__progname = get_progname(argv[0]);
++
+ 	if (strcmp(__progname, "ntpctl") == 0) {
+ 		ctl_main(argc, argv);
+ 		/* NOTREACHED */
+@@ -146,6 +155,16 @@ main(int argc, char *argv[])
+ 
+ 	log_init(1, LOG_DAEMON);	/* log to stderr until daemonized */
+ 
++#ifndef HAVE_SETPROCTITLE
++	/* Prepare for later setproctitle emulation */
++	saved_argv = calloc(argc + 1, sizeof(*saved_argv));
++	for (i = 0; i < argc; i++)
++		saved_argv[i] = strdup(argv[i]);
++	saved_argv[i] = NULL;
++	compat_init_setproctitle(argc, argv);
++	argv = saved_argv;
++#endif
++
+ 	while ((ch = getopt(argc, argv, "df:np:sSv")) != -1) {
+ 		switch (ch) {
+ 		case 'd':
+-- 
+2.6.4
+
