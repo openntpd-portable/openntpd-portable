@@ -1,0 +1,37 @@
+From 4715ab95e394b979df49a30cf50db306f50f30e6 Mon Sep 17 00:00:00 2001
+From: Brent Cook <bcook@openbsd.org>
+Date: Mon, 21 Dec 2015 05:53:20 -0600
+Subject: [PATCH 12/12] check result of ftello/ftruncate
+
+---
+ src/usr.sbin/ntpd/ntpd.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index d7281c1..7df6326 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -592,6 +592,7 @@ writefreq(double d)
+ {
+ 	int r;
+ 	static int warnonce = 1;
++        int off;
+ 
+ 	if (freqfp == NULL)
+ 		return 0;
+@@ -605,8 +606,10 @@ writefreq(double d)
+ 		}
+ 		return 0;
+ 	}
+-	ftruncate(fileno(freqfp), ftello(freqfp));
+-	fsync(fileno(freqfp));
++        off = ftello(freqfp);
++        if (off == -1 || ftruncate(fileno(freqfp), off) == -1)
++                log_warnx("can't truncate %s", DRIFTFILE);
++        fsync(fileno(freqfp));
+ 	return 1;
+ }
+ 
+-- 
+2.6.4
+
