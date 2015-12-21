@@ -1,7 +1,7 @@
-From 8fee6e437f4adf331a76c704c8c5cba4df255f19 Mon Sep 17 00:00:00 2001
+From 9ecbfcea549e7bcd36b380892240fcd2f671edb7 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:04:08 -0600
-Subject: [PATCH 02/12] EAI_NODATA does not exist everywhere
+Subject: [PATCH 02/11] EAI_NODATA does not exist everywhere
 
 FreeBSD says it is deprecated #ifdef's it out.
 
@@ -36,5 +36,5 @@ index b2f688e..c0a99b1 100644
  		log_warnx("could not parse \"%s\": %s", s,
  		    gai_strerror(error));
 -- 
-2.6.3
+2.6.4
 
