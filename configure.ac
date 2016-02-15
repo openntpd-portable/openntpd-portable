@@ -133,10 +133,19 @@ size_t outlen;
 	])
 ])
 
-AM_CONDITIONAL([HAVE_LIBTLS], [test "x$ac_cv_func_tls_config_set_ca_mem" = xyes \
-		-a "x$ac_cv_have_tls_write_3_arg" = xyes])
-if test "x$ac_cv_func_tls_config_set_ca_mem" = xyes -a "x$ac_cv_have_tls_write_3_arg" = xyes; then
-        AC_DEFINE([HAVE_LIBTLS], [1])
+AC_ARG_ENABLE([https-constraint],
+	AS_HELP_STRING([--disable-https-constraint],
+		[Disable HTTPS Constraint Functionality]))
+
+AM_CONDITIONAL([HAVE_LIBTLS],
+	[test "x$ac_cv_func_tls_config_set_ca_mem" = xyes \
+	  -a "x$ac_cv_have_tls_write_3_arg" = xyes \
+	  -a "x$enable_https_constraint" != xno])
+
+if test "x$ac_cv_func_tls_config_set_ca_mem" = xyes \
+	-a "x$ac_cv_have_tls_write_3_arg" = xyes \
+	-a "x$enable_https_constraint" != xno; then
+        AC_DEFINE([HAVE_LIBTLS], [yes])
 fi
 
 # Share test results with automake
