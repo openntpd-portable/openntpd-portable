@@ -34,12 +34,6 @@ AC_PROG_YACC
 
 CHECK_OS_OPTIONS
 
-AC_CHECK_FUNC([dl_iterate_phdr],,
-	[AC_SEARCH_LIBS([dl_iterate_phdr],[dl])])
-
-CFLAGS="$CFLAGS $CLANG_CFLAGS"
-LDFLAGS="$LDFLAGS $CLANG_FLAGS"
-
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([adjfreq ntp_adjtime adjtimex])
 AC_CHECK_FUNCS([arc4random arc4random_uniform asprintf explicit_bzero])
@@ -53,6 +47,7 @@ AC_SEARCH_LIBS([arc4random], [crypto])
 AC_SEARCH_LIBS([clock_getres],[rt posix4])
 AC_SEARCH_LIBS([clock_gettime],[rt posix4])
 AC_SEARCH_LIBS([ibuf_open], [util])
+AC_SEARCH_LIBS([dl_iterate_phdr],[dl])
 
 AC_CHECK_FUNCS([arc4random ibuf_open])
 AC_CHECK_FUNCS([clock_gettime clock_getres])
