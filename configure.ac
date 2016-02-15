@@ -34,23 +34,28 @@ AC_PROG_YACC
 
 CHECK_OS_OPTIONS
 
+CHECK_CRYPTO_COMPAT
+
 # check functions that are expected to be in libc
-AC_CHECK_FUNCS([adjfreq ntp_adjtime adjtimex])
-AC_CHECK_FUNCS([arc4random arc4random_uniform asprintf explicit_bzero])
-AC_CHECK_FUNCS([closefrom daemon getentropy memmem poll reallocarray])
+AC_CHECK_FUNCS([asprintf closefrom daemon memmem poll reallocarray])
 AC_CHECK_FUNCS([setproctitle setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
 AC_CHECK_FUNCS([strlcat strlcpy strtonum sysconf])
 
 # check auxiliary libraries that might contain other functions
 AC_SEARCH_LIBS([arc4random], [crypto])
+AC_SEARCH_LIBS([ibuf_open], [util])
+
+AC_CHECK_FUNCS([ibuf_open])
+
+# time-specific system functions
+AC_CHECK_FUNCS([adjfreq ntp_adjtime adjtimex])
+AC_CHECK_FUNCS([clock_gettime clock_getres])
 AC_SEARCH_LIBS([clock_getres],[rt posix4])
 AC_SEARCH_LIBS([clock_gettime],[rt posix4])
-AC_SEARCH_LIBS([ibuf_open], [util])
-AC_SEARCH_LIBS([dl_iterate_phdr],[dl])
-
-AC_CHECK_FUNCS([arc4random ibuf_open])
-AC_CHECK_FUNCS([clock_gettime clock_getres])
+AM_CONDITIONAL([HAVE_ADJFREQ], [test "x$ac_cv_func_adjfreq" = xyes])
+AM_CONDITIONAL([HAVE_CLOCK_GETRES], [test "x$ac_cv_func_clock_getres" = xyes])
+AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "x$ac_cv_func_clock_gettime" = xyes])
 
 # check for libtls
 AC_SEARCH_LIBS([tls_config_set_ca_mem],[tls],
@@ -84,16 +89,10 @@ if test "x$ac_cv_func_tls_config_set_ca_mem" = xyes \
 fi
 
 # Share test results with automake
-AM_CONDITIONAL([HAVE_ADJFREQ], [test "x$ac_cv_func_adjfreq" = xyes])
-AM_CONDITIONAL([HAVE_ARC4RANDOM], [test "x$ac_cv_func_arc4random" = xyes])
-AM_CONDITIONAL([HAVE_ARC4RANDOM_UNIFORM], [test "x$ac_cv_func_arc4random_uniform" = xyes])
 AM_CONDITIONAL([HAVE_ASPRINTF], [test "x$ac_cv_func_asprintf" = xyes])
 AM_CONDITIONAL([HAVE_CLOSEFROM], [test "x$ac_cv_func_closefrom" = xyes])
-AM_CONDITIONAL([HAVE_CLOCK_GETRES], [test "x$ac_cv_func_clock_getres" = xyes])
-AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "x$ac_cv_func_clock_gettime" = xyes])
 AM_CONDITIONAL([HAVE_DAEMON], [test "x$ac_cv_func_daemon" = xyes])
 AM_CONDITIONAL([HAVE_EXPLICIT_BZERO], [test "x$ac_cv_func_explicit_bzero" = xyes])
-AM_CONDITIONAL([HAVE_GETENTROPY], [test "x$ac_cv_func_getentropy" = xyes])
 AM_CONDITIONAL([HAVE_IFADDRS_H], [test "x$ac_cv_header_ifaddrs_h" = xyes])
 AM_CONDITIONAL([HAVE_IMSG], [test "x$ac_cv_func_ibuf_open" = xyes])
 AM_CONDITIONAL([HAVE_MEMMEM], [test "x$ac_cv_func_memmem" = xyes])
@@ -108,55 +107,11 @@ AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
 AM_CONDITIONAL([HAVE_STRTONUM], [test "x$ac_cv_func_strtonum" = xyes])
 AM_CONDITIONAL([HAVE_SYSCONF], [test "x$ac_cv_func_sysconf" = xyes])
 
-# overrides for arc4random implementations with known issues
-AM_CONDITIONAL([HAVE_ARC4RANDOM],
-	[test "x$HOST_OS" != xdarwin \
-	   -a "x$HOST_OS" != xfreebsd \
-	   -a "x$HOST_OS" != xnetbsd \
-	   -a "x$ac_cv_func_arc4random" = xyes])
-AM_CONDITIONAL([HAVE_ARC4RANDOM_UNIFORM],
-	[test "x$HOST_OS" != xdarwin \
-	   -a "x$HOST_OS" != xfreebsd \
-	   -a "x$HOST_OS" != xnetbsd \
-	   -a "x$ac_cv_func_arc4random_uniform" = xyes])
-
-AC_CACHE_CHECK([if libc defines __progname], ac_cv_libc_defines___progname, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
-                [[ extern char *__progname; printf("%s", __progname); ]])],
-        [ ac_cv_libc_defines___progname="yes" ],
-        [ ac_cv_libc_defines___progname="no"
-        ])
-])
-if test "x$ac_cv_libc_defines___progname" = "xyes" ; then
-        AC_DEFINE([HAVE___PROGNAME], [1], [Define if libc defines __progname])
-fi
-
-AC_CACHE_CHECK([whether va_copy exists], ac_cv_have_va_copy, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-#include <stdarg.h>
-va_list x,y;
-		]], [[ va_copy(x,y); ]])],
-	[ ac_cv_have_va_copy="yes" ],
-	[ ac_cv_have_va_copy="no"
-	])
-])
-if test "x$ac_cv_have_va_copy" = "xyes" ; then
-	AC_DEFINE([HAVE_VA_COPY], [1], [Define if va_copy exists])
-fi
-
-AC_CACHE_CHECK([whether __va_copy exists], ac_cv_have___va_copy, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-#include <stdarg.h>
-va_list x,y;
-		]], [[ __va_copy(x,y); ]])],
-	[ ac_cv_have___va_copy="yes" ], [ ac_cv_have___va_copy="no"
-	])
-])
-if test "x$ac_cv_have___va_copy" = "xyes" ; then
-	AC_DEFINE([HAVE___VA_COPY], [1], [Define if __va_copy exists])
-fi
+CHECK_PROGNAME
+CHECK_VA_COPY
 
 AC_CHECK_HEADERS([sys/sysctl.h err.h ifaddrs.h paths.h])
+
 AC_CHECK_HEADERS([sys/sensors.h],
 	AM_CONDITIONAL(HAVE_SENSORS, true),
 	AM_CONDITIONAL(HAVE_SENSORS, false)
