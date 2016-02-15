@@ -38,6 +38,11 @@ priv_constraint_check_child(pid_t pid, int status)
 }
 
 void
+priv_constraint_kill(u_int32_t id)
+{
+}
+
+void
 priv_constraint_msg(u_int32_t id, u_int8_t *data, size_t len,
     const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
 {
