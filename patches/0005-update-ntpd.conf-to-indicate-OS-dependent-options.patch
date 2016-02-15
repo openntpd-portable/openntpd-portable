@@ -1,4 +1,4 @@
-From f1e8552352638f4214768df629e9020507e4af05 Mon Sep 17 00:00:00 2001
+From 3ef21da5125f32ceb3d1c176028406511f360558 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:20:03 -0600
 Subject: [PATCH 05/12] update ntpd.conf to indicate OS-dependent options
@@ -49,5 +49,5 @@ index af11a7e..87f94e8 100644
  .Xr ntpd 8
  will use each given sensor that actually exists.
 -- 
-2.6.4
+2.7.0
 

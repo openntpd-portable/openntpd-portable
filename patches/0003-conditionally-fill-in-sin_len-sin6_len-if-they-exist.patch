@@ -1,4 +1,4 @@
-From d75fce3c40a9e24d8af8a568581e1882d21eb520 Mon Sep 17 00:00:00 2001
+From 4d7e866c45b3dedfc1853fc295dfd937bd20e9b6 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
 Subject: [PATCH 03/12] conditionally fill in sin_len/sin6_len if they exist
@@ -49,5 +49,5 @@ index c0a99b1..87de17a 100644
  			    res->ai_addr)->sin6_addr, sizeof(struct in6_addr));
  		}
 -- 
-2.6.4
+2.7.0
 

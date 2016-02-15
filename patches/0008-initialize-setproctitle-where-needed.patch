@@ -1,4 +1,4 @@
-From f86daab4bb1d41bcdcbdaeb6370c500962a09675 Mon Sep 17 00:00:00 2001
+From b3c820711065f53390aa0a82236102deb15442fe Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 08/12] initialize setproctitle where needed
@@ -10,7 +10,7 @@ clobbering them.
  1 file changed, 19 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index e31db98..19720b3 100644
+index 608e6fd..c416c04 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -117,6 +117,13 @@ usage(void)
@@ -36,9 +36,9 @@ index e31db98..19720b3 100644
  	if (strcmp(__progname, "ntpctl") == 0) {
  		ctl_main(argc, argv);
  		/* NOTREACHED */
-@@ -146,6 +155,16 @@ main(int argc, char *argv[])
+@@ -144,6 +153,16 @@ main(int argc, char *argv[])
  
- 	log_init(1, LOG_DAEMON);	/* log to stderr until daemonized */
+ 	memset(&lconf, 0, sizeof(lconf));
  
 +#ifndef HAVE_SETPROCTITLE
 +	/* Prepare for later setproctitle emulation */
@@ -54,5 +54,5 @@ index e31db98..19720b3 100644
  		switch (ch) {
  		case 'd':
 -- 
-2.6.4
+2.7.0
 

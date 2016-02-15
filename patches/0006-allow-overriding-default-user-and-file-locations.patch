@@ -1,4 +1,4 @@
-From fdb958c8a66e32287aa5292200d0777f9f96784a Mon Sep 17 00:00:00 2001
+From 00fff5a8c36c3b3574abf8bd4bb1a558d1f8232d Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 06/12] allow overriding default user and file locations
@@ -10,7 +10,7 @@ default user.
  1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index b007da3..7e739c4 100644
+index 1d46c6c..dfcaf33 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -35,10 +35,20 @@
@@ -48,5 +48,5 @@ index b007da3..7e739c4 100644
  enum client_state {
  	STATE_NONE,
 -- 
-2.6.4
+2.7.0
 
