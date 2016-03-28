@@ -14,6 +14,7 @@ if [ ! -d openbsd ]; then
 	fi
 fi
 (cd openbsd
+ git fetch
  git checkout $openbsd_branch
  git pull --rebase)
 
