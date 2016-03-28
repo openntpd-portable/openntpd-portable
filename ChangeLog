@@ -2,6 +2,7 @@ For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
 2016-03-28  OpenNTPD 5.9p1
+
 	* When a single "constraint" is specified, try all returned addresses
 	  until one succeeds, rather than the first returned address.
 	* Relaxed the constraint error margin to be proportional to the number
@@ -19,7 +20,25 @@ the GitHub mirror.
 	* Switched to RMS for jitter calculations.
 	* Unified logging functions with other OpenBSD base programs.
 
+	OpenNTPD Portable-specific changes
+	* Added support for syncing time with the Realtime Clock (RTC) on OSes
+	  that require it.
+	* CFLAGS is no longer overridden by the build system.
+	* FreeBSD RTABLE support is disabled
+	* FreeBSD is no longer linked with -lmd to avoid hash function
+	  collisions, causing failures in constraint certificate loading.
+	* Fixed crashes due to __progname being used before initialized.
+	* Added Solaris 10 compatibility.
+	* Added --disable-https-constraint build option for explicitly
+	  disabling constraint support.
+	* Synced build system files with LibreSSL
+
+	The libtls library, as shipped with LibreSSL 2.3.2 or later, is
+	required to use the HTTPS constraint feature, though it is not
+	required to use OpenNTPD.
+
 2015-03-24  OpenNTPD 5.7p4
+
 	* Added support for HTTPS constraints to validate NTP responses.
 	  See the man page and example config file for how to configure it.
 	  The initial announcement:
