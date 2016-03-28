@@ -1,6 +1,24 @@
 For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
+2016-03-28  OpenNTPD 5.9p1
+	* When a single "constraint" is specified, try all returned addresses
+	  until one succeeds, rather than the first returned address.
+	* Relaxed the constraint error margin to be proportional to the number
+	  of NTP peers, avoid constant reconnections when there is a bad NTP
+	  peer.
+	* Removed disabled hotplug sensor support.
+	* Added support for detecting crashes in constraint subprocesses.
+	* Moved the execution of constraints from the ntp proces to the parent
+	  process, allowing for better privilege separation since the ntp
+	  process can be further restricted.
+	* Added pledge(2) support.
+	* Updated to LibreSSL 2.3.x libtls API changes.
+	* Fixed CPU spinning when the network is down.
+	* Fixed various memory leaks.
+	* Switched to RMS for jitter calculations.
+	* Unified logging functions with other OpenBSD base programs.
+
 2015-03-24  OpenNTPD 5.7p4
 	* Added support for HTTPS constraints to validate NTP responses.
 	  See the man page and example config file for how to configure it.
