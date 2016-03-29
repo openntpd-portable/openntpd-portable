@@ -1,7 +1,7 @@
 For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
-2016-03-28  OpenNTPD 5.9p1
+2016-03-29  OpenNTPD 5.9p1
 
 	* When a single "constraint" is specified, try all returned addresses
 	  until one succeeds, rather than the first returned address.
@@ -10,17 +10,18 @@ the GitHub mirror.
 	  peer.
 	* Removed disabled hotplug sensor support.
 	* Added support for detecting crashes in constraint subprocesses.
-	* Moved the execution of constraints from the ntp proces to the parent
-	  process, allowing for better privilege separation since the ntp
-	  process can be further restricted.
+	* Moved the execution of constraints from the ntp process to the
+	  parent process, allowing for better privilege separation since the
+	  ntp process can be further restricted.
 	* Added pledge(2) support.
-	* Updated to LibreSSL 2.3.x libtls API changes.
-	* Fixed CPU spinning when the network is down.
+	* Updated to require LibreSSL 2.3.2 or greater.
+	* Fixed high CPU usage when the network is down.
 	* Fixed various memory leaks.
 	* Switched to RMS for jitter calculations.
 	* Unified logging functions with other OpenBSD base programs.
 
-	OpenNTPD Portable-specific changes
+	OpenNTPD portable-specific changes:
+
 	* Added support for syncing time with the Realtime Clock (RTC) on OSes
 	  that require it.
 	* CFLAGS is no longer overridden by the build system.
