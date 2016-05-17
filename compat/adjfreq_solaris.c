@@ -68,8 +68,16 @@ update_time_sync_status(int synced)
 	struct timex txc = { 0 };
 
 	txc.modes = MOD_STATUS;
-	if (!synced)
+	if (synced) {
+		txc.modes |= MOD_MAXERROR;
+		txc.maxerror = 0;
+	} else
 		txc.status = STA_UNSYNC;
+	/*
+	 * Cargo-cult MOD_TIMECONST value from chrony for a Solaris kernel
+	 * quirk. The kernel possibly always checks this constant.
+	 */
+	txc.constant = 10;
 	if (ntp_adjtime(&txc) == -1)
 		log_warn("ntp_adjtime (3) failed");
 	return;
