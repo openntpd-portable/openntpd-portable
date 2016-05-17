@@ -1,0 +1,39 @@
+From f6e5d599abe2b7456b3804443eee716160f18d14 Mon Sep 17 00:00:00 2001
+From: Brent Cook <bcook@openbsd.org>
+Date: Tue, 17 May 2016 08:31:24 -0500
+Subject: [PATCH 13/13] set IPV6_V6ONLY if we are binding to an IPv6 address
+
+---
+ src/usr.sbin/ntpd/server.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/src/usr.sbin/ntpd/server.c b/src/usr.sbin/ntpd/server.c
+index 2e28b9b..1f3a074 100644
+--- a/src/usr.sbin/ntpd/server.c
++++ b/src/usr.sbin/ntpd/server.c
+@@ -42,6 +42,9 @@ setup_listeners(struct servent *se, struct ntpd_conf *lconf, u_int *cnt)
+ 	size_t			 sa6len = sizeof(struct in6_addr);
+ 	u_int			 new_cnt = 0;
+ 	int			 tos = IPTOS_LOWDELAY;
++#ifdef IPV6_V6ONLY
++	int			 on = 1;
++#endif
+ #ifdef SO_RTABLE
+ 	int			 rdomain = 0;
+ #endif
+@@ -134,6 +137,12 @@ setup_listeners(struct servent *se, struct ntpd_conf *lconf, u_int *cnt)
+ 		    IPPROTO_IP, IP_TOS, &tos, sizeof(tos)) == -1)
+ 			log_warn("setsockopt IPTOS_LOWDELAY");
+ 
++#ifdef IPV6_V6ONLY
++		if (la->sa.ss_family == AF_INET6 && setsockopt(la->fd,
++		    IPPROTO_IPV6, IPV6_V6ONLY, &on, sizeof(on)) == -1)
++			log_warn("setsockopt IPV6_V6ONLY");
++#endif
++
+ #ifdef SO_RTABLE
+ 		if (la->rtable != -1 &&
+ 		    setsockopt(la->fd, SOL_SOCKET, SO_RTABLE, &la->rtable,
+-- 
+2.8.1
+
