@@ -1,4 +1,4 @@
-From dfc8622622b49b4ed919bf07120ad78a6cc62c26 Mon Sep 17 00:00:00 2001
+From 9b1a06a5c90941b622f97ecebf41fb14adeabef5 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
 Subject: [PATCH 09/12] Notify the user when constraint support is disabled.
@@ -27,7 +27,7 @@ index 87de17a..5a75030 100644
  }
  
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 0beecd4..b683cc5 100644
+index 18fc3ef..3889085 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
 @@ -292,12 +292,14 @@ priv_constraint_child(struct constraint *cstr, struct ntp_addr_msg *am,
@@ -64,5 +64,5 @@ index 87f94e8..7f729d2 100644
  .It Ic constraint from Ar url
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.7.0
+2.8.1
 

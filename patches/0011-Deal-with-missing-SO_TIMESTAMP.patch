@@ -1,4 +1,4 @@
-From 2c75747b9d10183dbec1d680abbfa6f780c738bb Mon Sep 17 00:00:00 2001
+From 1ee4fc6bb354675f9e70df4a4b3c8dea0bf0f87a Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sun, 6 Dec 2015 22:35:38 -0600
 Subject: [PATCH 11/12] Deal with missing SO_TIMESTAMP
@@ -65,5 +65,5 @@ index 7ce3b38..edca87c 100644
  	if (T4 < JAN_1970) {
  		client_log_error(p, "recvmsg control format", EBADF);
 -- 
-2.7.0
+2.8.1
 

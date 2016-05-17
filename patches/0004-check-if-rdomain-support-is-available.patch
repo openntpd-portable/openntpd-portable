@@ -1,33 +1,13 @@
-From cc20e4c83593f1fc5f6616b944a30a51afe94730 Mon Sep 17 00:00:00 2001
+From c123b58020c62535178051e11fd1867d4bb83459 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
 Subject: [PATCH 04/12] check if rdomain support is available.
 
-Handle FreeBSD's calling rdomain 'FIB'.
- - from naddy@openbsd.org
 ---
- src/usr.sbin/ntpd/ntpd.h   |  6 ++++++
  src/usr.sbin/ntpd/parse.y  |  2 ++
  src/usr.sbin/ntpd/server.c | 15 ++++++++++++++-
- 3 files changed, 22 insertions(+), 1 deletion(-)
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 3089c14..1d46c6c 100644
---- a/src/usr.sbin/ntpd/ntpd.h
-+++ b/src/usr.sbin/ntpd/ntpd.h
-@@ -40,6 +40,12 @@
- #define DRIFTFILE	"/var/db/ntpd.drift"
- #define	CTLSOCKET	"/var/run/ntpd.sock"
- 
-+#if defined(SO_SETFIB)
-+#define	SO_RTABLE	SO_SETFIB
-+#define	SIOCGIFRDOMAIN	SIOCGIFFIB
-+#define	ifr_rdomainid	ifr_fib
-+#endif
-+
- #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
- #define	INTERVAL_QUERY_PATHETIC		60
- #define	INTERVAL_QUERY_AGGRESSIVE	5
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
 index 6d50795..33fe13d 100644
 --- a/src/usr.sbin/ntpd/parse.y
@@ -112,5 +92,5 @@ index fb297d7..2e28b9b 100644
  		if (bind(la->fd, (struct sockaddr *)&la->sa,
  		    SA_LEN((struct sockaddr *)&la->sa)) == -1) {
 -- 
-2.7.0
+2.8.1
 

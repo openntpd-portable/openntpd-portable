@@ -1,4 +1,4 @@
-From 00fff5a8c36c3b3574abf8bd4bb1a558d1f8232d Mon Sep 17 00:00:00 2001
+From 4bffc797018df06078af909df2ea8af89eaa3a82 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 06/12] allow overriding default user and file locations
@@ -10,7 +10,7 @@ default user.
  1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 1d46c6c..dfcaf33 100644
+index 3fddba8..9ee2e42 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -35,10 +35,20 @@
@@ -35,9 +35,9 @@ index 1d46c6c..dfcaf33 100644
 +#define	DRIFTFILE	LOCALSTATEDIR "/db/ntpd.drift"
 +#define	CTLSOCKET	LOCALSTATEDIR "/run/ntpd.sock"
  
- #if defined(SO_SETFIB)
- #define	SO_RTABLE	SO_SETFIB
-@@ -86,7 +96,9 @@
+ #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
+ #define	INTERVAL_QUERY_PATHETIC		60
+@@ -80,7 +90,9 @@
  #define CONSTRAINT_PORT			"443"	/* HTTPS port */
  #define	CONSTRAINT_MAXHEADERLENGTH	8192
  #define CONSTRAINT_PASSFD		(STDERR_FILENO + 1)
@@ -48,5 +48,5 @@ index 1d46c6c..dfcaf33 100644
  enum client_state {
  	STATE_NONE,
 -- 
-2.7.0
+2.8.1
 

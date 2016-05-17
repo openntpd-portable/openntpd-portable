@@ -1,4 +1,4 @@
-From 0efb3313d88327d01c158c9d4f842888f4710b8e Mon Sep 17 00:00:00 2001
+From 9a99fbbdf9e1df934f7d6d0b81e3069ca855d9c5 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 08/12] initialize setproctitle where needed
@@ -10,7 +10,7 @@ clobbering them.
  1 file changed, 19 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 8dbd51e..c90c52f 100644
+index f8727f6..cf3b4d9 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -117,6 +117,13 @@ usage(void)
@@ -54,5 +54,5 @@ index 8dbd51e..c90c52f 100644
  		switch (ch) {
  		case 'd':
 -- 
-2.7.0
+2.8.1
 

@@ -1,4 +1,4 @@
-From 4756a632e1a4094f74285c3c1138c88b7f26a338 Mon Sep 17 00:00:00 2001
+From 849ba5c1634d7644fe43f3959b9642a0932c60cc Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:10:22 -0600
 Subject: [PATCH 01/12] Handle IPv6 DNS records on IPv4 networks more liberally
@@ -37,5 +37,5 @@ index a92382b..7ce3b38 100644
  		if (connect(p->query->fd, sa, SA_LEN(sa)) == -1) {
  			if (errno == ECONNREFUSED || errno == ENETUNREACH ||
 -- 
-2.7.0
+2.8.1
 
