@@ -1,7 +1,7 @@
-From c123b58020c62535178051e11fd1867d4bb83459 Mon Sep 17 00:00:00 2001
+From a59051f8fefda18ed49fb9d12022c6f799fb60c9 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 04/12] check if rdomain support is available.
+Subject: [PATCH 04/13] check if rdomain support is available.
 
 ---
  src/usr.sbin/ntpd/parse.y  |  2 ++

@@ -1,7 +1,7 @@
-From de7ff570ba05b30305aa8574634fe71942ba56eb Mon Sep 17 00:00:00 2001
+From 56cce5db3e98b241cbd0b6fb589a0ee0472fb1d5 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
-Subject: [PATCH 03/12] conditionally fill in sin_len/sin6_len if they exist
+Subject: [PATCH 03/13] conditionally fill in sin_len/sin6_len if they exist
 
 ---
  src/usr.sbin/ntpd/config.c | 8 ++++++++

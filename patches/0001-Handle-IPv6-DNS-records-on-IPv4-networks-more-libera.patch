@@ -1,7 +1,7 @@
-From 849ba5c1634d7644fe43f3959b9642a0932c60cc Mon Sep 17 00:00:00 2001
+From ca2ca2f4b7f46c366fde7c4f1b7fc4522d49e142 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:10:22 -0600
-Subject: [PATCH 01/12] Handle IPv6 DNS records on IPv4 networks more liberally
+Subject: [PATCH 01/13] Handle IPv6 DNS records on IPv4 networks more liberally
 
 Rather than fail on IPv4 only networks when seeing an IPv6 DNS record,
 just give a warning.

@@ -1,7 +1,7 @@
-From 9b1a06a5c90941b622f97ecebf41fb14adeabef5 Mon Sep 17 00:00:00 2001
+From 58940edb034bf022031732e76d0481f737614eaf Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
-Subject: [PATCH 09/12] Notify the user when constraint support is disabled.
+Subject: [PATCH 09/13] Notify the user when constraint support is disabled.
 
 Update the manpage and make a constraint line a fatal error if it is
 configured but ntpd is built without libtls present.
@@ -27,7 +27,7 @@ index 87de17a..5a75030 100644
  }
  
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 18fc3ef..3889085 100644
+index f259b08..46b96ee 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
 @@ -292,12 +292,14 @@ priv_constraint_child(struct constraint *cstr, struct ntp_addr_msg *am,
@@ -35,12 +35,12 @@ index 18fc3ef..3889085 100644
  		log_warn("could not set priority");
  
 +#ifdef HAVE_LIBTLS
- 	/* Init TLS and load cert before chroot() */
+ 	/* Init TLS and load CA certs before chroot() */
  	if (tls_init() == -1)
  		fatalx("tls_init");
  	if ((conf->ca = tls_load_file(CONSTRAINT_CA,
  	    &conf->ca_len, NULL)) == NULL)
- 		log_warnx("constraint certificate verification turned off");
+ 		fatalx("failed to load constraint ca");
 +#endif
  
  	if (chroot(pw_dir) == -1)
