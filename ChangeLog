@@ -1,6 +1,17 @@
 For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
+2016-05-30  OpenNTPD 6.0p1
+
+	* Fixed a link failure on older Linux distributions and a build
+	  failure on FreeBSD.
+	* Set MOD_MAXERROR to avoid unsynced time status when using
+	  ntp_adjtime.
+	* Fixed HTTP Timestamp header parsing to use strptime in a more
+	  portable fashion.
+	* Hardened TLS for ntpd constraints, enabling server name
+	  verification. Thanks to Luis M. Merino.
+
 2016-03-29  OpenNTPD 5.9p1
 
 	* When a single "constraint" is specified, try all returned addresses
