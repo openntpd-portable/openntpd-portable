@@ -1,7 +1,7 @@
-From ca2ca2f4b7f46c366fde7c4f1b7fc4522d49e142 Mon Sep 17 00:00:00 2001
+From edf77031dabb3d96d8f093d6ea9f46d74b44f5d9 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:10:22 -0600
-Subject: [PATCH 01/13] Handle IPv6 DNS records on IPv4 networks more liberally
+Subject: [PATCH 01/12] Handle IPv6 DNS records on IPv4 networks more liberally
 
 Rather than fail on IPv4 only networks when seeing an IPv6 DNS record,
 just give a warning.
@@ -37,5 +37,5 @@ index a92382b..7ce3b38 100644
  		if (connect(p->query->fd, sa, SA_LEN(sa)) == -1) {
  			if (errno == ECONNREFUSED || errno == ENETUNREACH ||
 -- 
-2.8.1
+2.9.2
 
