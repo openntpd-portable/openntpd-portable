@@ -23,7 +23,7 @@ dir=`pwd`
 patches=$dir/patches
 libc_inc=$dir/openbsd/src/include
 libc_src=$dir/openbsd/src/lib/libc
-libcrypto_src=$dir/openbsd/src/lib/libcrypto
+arc4random_src=$dir/openbsd/src/lib/libcrypto/arc4random
 libutil_src=$dir/openbsd/src/lib/libutil
 ntpd_src=$dir/openbsd/src/usr.sbin/ntpd
 
@@ -51,10 +51,10 @@ $CP_LIBC $libc_src/crypt/arc4random_uniform.c compat
 $CP_LIBC $libc_src/crypt/chacha_private.h compat
 $CP_LIBC $libc_src/hash/md5.c compat
 $CP_LIBC $libc_src/hash/sha2.c compat
-for i in $libcrypto_src/crypto/getentropy_*.c; do
+for i in $arc4random_src/getentropy_*.c; do
 	sed -e 's/openssl\/sha.h/sha2.h/' < $i > compat/`basename $i`
 done
-$CP $libcrypto_src/crypto/arc4random_*.h compat
+$CP $arc4random_src/arc4random_*.h compat
 
 for i in client.c config.c constraint.c control.c log.c ntp.c ntp.h \
 	ntp_dns.c ntp_msg.c ntpd.c ntpd.h parse.y sensors.c server.c util.c \
