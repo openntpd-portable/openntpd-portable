@@ -1,7 +1,7 @@
-From 5a08f6539f3885f15f4245d04ba28a475937b4d7 Mon Sep 17 00:00:00 2001
+From e87fd0e43800dbf3fd9781fb4c7bbc2fe7b1d2a4 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
-Subject: [PATCH 09/12] Notify the user when constraint support is disabled.
+Subject: [PATCH 09/13] Notify the user when constraint support is disabled.
 
 Update the manpage and make a constraint line a fatal error if it is
 configured but ntpd is built without libtls present.
@@ -27,12 +27,12 @@ index 87de17a..5a75030 100644
  }
  
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 093f29a..008ab4d 100644
+index e19d68e..791a74c 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
-@@ -292,12 +292,14 @@ priv_constraint_child(struct constraint *cstr, struct ntp_addr_msg *am,
- 	if (setpriority(PRIO_PROCESS, 0, 0) == -1)
- 		log_warn("could not set priority");
+@@ -340,12 +340,14 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
+ 	    (am = calloc(1, sizeof(*am))) == NULL)
+ 		fatal("%s: calloc", __func__);
  
 +#ifdef HAVE_LIBTLS
  	/* Init TLS and load CA certs before chroot() */
@@ -64,5 +64,5 @@ index 87f94e8..7f729d2 100644
  .It Ic constraint from Ar url
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.9.2
+2.10.1
 

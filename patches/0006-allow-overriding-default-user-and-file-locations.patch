@@ -1,7 +1,7 @@
-From 7025f8e6993e9a491143fd3538d29bab170c2589 Mon Sep 17 00:00:00 2001
+From 7fa2b6297c72062585ed515a5aa16c4451b7c873 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
-Subject: [PATCH 06/12] allow overriding default user and file locations
+Subject: [PATCH 06/13] allow overriding default user and file locations
 
 Allow the build process to override the default ntpd file paths and
 default user.
@@ -10,7 +10,7 @@ default user.
  1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 94cc654..375edc1 100644
+index b2a5cd9..f80e23c 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -35,10 +35,20 @@
@@ -45,8 +45,8 @@ index 94cc654..375edc1 100644
  #define CONSTRAINT_CA			"/etc/ssl/cert.pem"
 +#endif
  
- enum client_state {
- 	STATE_NONE,
+ #define PARENT_SOCK_FILENO		CONSTRAINT_PASSFD
+ 
 -- 
-2.9.2
+2.10.1
 

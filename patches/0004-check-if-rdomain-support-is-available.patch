@@ -1,7 +1,7 @@
-From d6bf1b5546df84737fb53939d82bd42d52aa749c Mon Sep 17 00:00:00 2001
+From 64086a3dabe677a925ad414ff4a67e86c7fbb48e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 04/12] check if rdomain support is available.
+Subject: [PATCH 04/13] check if rdomain support is available.
 
 Handle FreeBSD's calling rdomain 'FIB'.
  - from naddy@openbsd.org
@@ -12,7 +12,7 @@ Handle FreeBSD's calling rdomain 'FIB'.
  3 files changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 3fddba8..94cc654 100644
+index be13fde..b2a5cd9 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -40,6 +40,12 @@
@@ -47,7 +47,7 @@ index 6d50795..33fe13d 100644
  		}
  		;
 diff --git a/src/usr.sbin/ntpd/server.c b/src/usr.sbin/ntpd/server.c
-index fb297d7..2e28b9b 100644
+index b67d274..cbaa115 100644
 --- a/src/usr.sbin/ntpd/server.c
 +++ b/src/usr.sbin/ntpd/server.c
 @@ -35,11 +35,16 @@ setup_listeners(struct servent *se, struct ntpd_conf *lconf, u_int *cnt)
@@ -112,5 +112,5 @@ index fb297d7..2e28b9b 100644
  		if (bind(la->fd, (struct sockaddr *)&la->sa,
  		    SA_LEN((struct sockaddr *)&la->sa)) == -1) {
 -- 
-2.9.2
+2.10.1
 

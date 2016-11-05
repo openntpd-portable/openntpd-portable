@@ -1,7 +1,7 @@
-From 5a77ca4ff85fcc7d0c1bb4efd2b979192a857f68 Mon Sep 17 00:00:00 2001
+From 235bc89116fdbbf177017c802a6042a82a0fb6bd Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
-Subject: [PATCH 08/12] initialize setproctitle where needed
+Subject: [PATCH 08/13] initialize setproctitle where needed
 
 We need to save a copy of argv and __progname to avoid setproctitle
 clobbering them.
@@ -10,7 +10,7 @@ clobbering them.
  1 file changed, 19 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 2377d89..ccd3a4d 100644
+index d1599e2..9dac894 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -117,6 +117,13 @@ usage(void)
@@ -27,16 +27,16 @@ index 2377d89..ccd3a4d 100644
  int
  main(int argc, char *argv[])
  {
-@@ -135,6 +142,8 @@ main(int argc, char *argv[])
- 	gid_t			pw_gid;
- 	void			*newp;
+@@ -138,6 +145,8 @@ main(int argc, char *argv[])
+ 	char			**argv0 = argv;
+ 	char			*pname = NULL;
  
 +	__progname = get_progname(argv[0]);
 +
  	if (strcmp(__progname, "ntpctl") == 0) {
  		ctl_main(argc, argv);
  		/* NOTREACHED */
-@@ -144,6 +153,16 @@ main(int argc, char *argv[])
+@@ -147,6 +156,16 @@ main(int argc, char *argv[])
  
  	memset(&lconf, 0, sizeof(lconf));
  
@@ -50,9 +50,9 @@ index 2377d89..ccd3a4d 100644
 +	argv = saved_argv;
 +#endif
 +
- 	while ((ch = getopt(argc, argv, "df:np:sSv")) != -1) {
+ 	while ((ch = getopt(argc, argv, "df:nPp:sSv")) != -1) {
  		switch (ch) {
  		case 'd':
 -- 
-2.9.2
+2.10.1
 
