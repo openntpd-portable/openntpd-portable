@@ -1,4 +1,4 @@
-From 409921b7cbfab4690911dae29c75a4120d0deab2 Mon Sep 17 00:00:00 2001
+From 3abcf742a75a14d89f7cbea12acb4300f16c51fb Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
 Subject: [PATCH 07/13] add -p option to create a pid file
@@ -35,7 +35,7 @@ index dcfb6d2..1b885a1 100644
  Do not set the time immediately at startup.
  This is the default.
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index aac5e23..d1599e2 100644
+index aac5e23..463600a 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -87,6 +87,18 @@ sighdlr(int sig)
@@ -71,7 +71,7 @@ index aac5e23..d1599e2 100644
  	memset(&lconf, 0, sizeof(lconf));
  
 -	while ((ch = getopt(argc, argv, "df:nP:sSv")) != -1) {
-+	while ((ch = getopt(argc, argv, "df:nPp:sSv")) != -1) {
++	while ((ch = getopt(argc, argv, "df:nP:p:sSv")) != -1) {
  		switch (ch) {
  		case 'd':
  			lconf.debug = 2;

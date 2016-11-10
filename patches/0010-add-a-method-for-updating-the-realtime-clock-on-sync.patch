@@ -1,4 +1,4 @@
-From 23a7c3493c77605a2c00009ce6874a95e4d8ab41 Mon Sep 17 00:00:00 2001
+From e0adef935d739f79f2bf25ed314096ac0d7dfeb7 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 4 May 2015 04:27:29 -0500
 Subject: [PATCH 10/13] add a method for updating the realtime clock on sync
@@ -9,7 +9,7 @@ from Christian Weisgerber
  1 file changed, 2 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 9dac894..99bdecf 100644
+index 70e5ae7..1cc7bc1 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -55,6 +55,7 @@ const char     *ctl_lookup_option(char *, const char **);

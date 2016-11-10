@@ -1,4 +1,4 @@
-From 235bc89116fdbbf177017c802a6042a82a0fb6bd Mon Sep 17 00:00:00 2001
+From c3e7a0b0601b35facd51003441603e0a93cda429 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 08/13] initialize setproctitle where needed
@@ -10,7 +10,7 @@ clobbering them.
  1 file changed, 19 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index d1599e2..9dac894 100644
+index 463600a..70e5ae7 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -117,6 +117,13 @@ usage(void)
@@ -50,7 +50,7 @@ index d1599e2..9dac894 100644
 +	argv = saved_argv;
 +#endif
 +
- 	while ((ch = getopt(argc, argv, "df:nPp:sSv")) != -1) {
+ 	while ((ch = getopt(argc, argv, "df:nP:p:sSv")) != -1) {
  		switch (ch) {
  		case 'd':
 -- 
