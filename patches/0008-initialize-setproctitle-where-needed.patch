@@ -36,7 +36,7 @@ index 463600a..70e5ae7 100644
  	if (strcmp(__progname, "ntpctl") == 0) {
  		ctl_main(argc, argv);
  		/* NOTREACHED */
-@@ -147,6 +156,16 @@ main(int argc, char *argv[])
+@@ -147,6 +156,17 @@ main(int argc, char *argv[])
  
  	memset(&lconf, 0, sizeof(lconf));
  
@@ -48,6 +48,7 @@ index 463600a..70e5ae7 100644
 +	saved_argv[i] = NULL;
 +	compat_init_setproctitle(argc, argv);
 +	argv = saved_argv;
++	argv0 = argv;
 +#endif
 +
  	while ((ch = getopt(argc, argv, "df:nP:p:sSv")) != -1) {
