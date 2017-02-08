@@ -1,4 +1,4 @@
-From cdd9f88306fd4b7bcf613ec909a0dfa2947f216b Mon Sep 17 00:00:00 2001
+From 080b932380fed45a3da722ba9abee904513f7ea4 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
 Subject: [PATCH 03/13] conditionally fill in sin_len/sin6_len if they exist
@@ -8,7 +8,7 @@ Subject: [PATCH 03/13] conditionally fill in sin_len/sin6_len if they exist
  1 file changed, 8 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index c0a99b1..87de17a 100644
+index c0a99b167..87de17ae0 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
 @@ -72,7 +72,9 @@ host_v4(const char *s)
@@ -49,5 +49,5 @@ index c0a99b1..87de17a 100644
  			    res->ai_addr)->sin6_addr, sizeof(struct in6_addr));
  		}
 -- 
-2.10.1
+2.11.0
 

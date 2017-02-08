@@ -1,4 +1,4 @@
-From c3e7a0b0601b35facd51003441603e0a93cda429 Mon Sep 17 00:00:00 2001
+From fdee13a0fe8525bd6d3d84082e26ff7f3a2cf70f Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 08/13] initialize setproctitle where needed
@@ -6,11 +6,11 @@ Subject: [PATCH 08/13] initialize setproctitle where needed
 We need to save a copy of argv and __progname to avoid setproctitle
 clobbering them.
 ---
- src/usr.sbin/ntpd/ntpd.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ src/usr.sbin/ntpd/ntpd.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 463600a..70e5ae7 100644
+index 8e47e2403..400528493 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -117,6 +117,13 @@ usage(void)
@@ -27,7 +27,7 @@ index 463600a..70e5ae7 100644
  int
  main(int argc, char *argv[])
  {
-@@ -138,6 +145,8 @@ main(int argc, char *argv[])
+@@ -135,6 +142,8 @@ main(int argc, char *argv[])
  	char			**argv0 = argv;
  	char			*pname = NULL;
  
@@ -36,7 +36,7 @@ index 463600a..70e5ae7 100644
  	if (strcmp(__progname, "ntpctl") == 0) {
  		ctl_main(argc, argv);
  		/* NOTREACHED */
-@@ -147,6 +156,17 @@ main(int argc, char *argv[])
+@@ -144,6 +153,17 @@ main(int argc, char *argv[])
  
  	memset(&lconf, 0, sizeof(lconf));
  
@@ -51,9 +51,9 @@ index 463600a..70e5ae7 100644
 +	argv0 = argv;
 +#endif
 +
- 	while ((ch = getopt(argc, argv, "df:nP:p:sSv")) != -1) {
+ 	while ((ch = getopt(argc, argv, "df:np:P:sSv")) != -1) {
  		switch (ch) {
  		case 'd':
 -- 
-2.10.1
+2.11.0
 
