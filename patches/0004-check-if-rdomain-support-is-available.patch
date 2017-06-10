@@ -1,4 +1,4 @@
-From f11cb03a572a50f0fe5a44463f7f3f4d23f4110a Mon Sep 17 00:00:00 2001
+From db8b0669905e63b8708181b400b887f8d19a6ce1 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
 Subject: [PATCH 04/13] check if rdomain support is available.
@@ -29,10 +29,10 @@ index 30ef206b4..30f0304dc 100644
  #define	INTERVAL_QUERY_PATHETIC		60
  #define	INTERVAL_QUERY_AGGRESSIVE	5
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index af4ad1731..73b221ba6 100644
+index 8197fe953..b6ef08097 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
-@@ -432,11 +432,13 @@ weight		: WEIGHT NUMBER	{
+@@ -434,11 +434,13 @@ weight		: WEIGHT NUMBER	{
  			opts.weight = $2;
  		}
  rtable		: RTABLE NUMBER {

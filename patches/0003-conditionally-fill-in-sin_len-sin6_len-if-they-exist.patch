@@ -1,11 +1,12 @@
-From a645994d1cac3d1df922f43256b084617c406e23 Mon Sep 17 00:00:00 2001
+From 66c1f59300b4841caebd5e8cebd38dfe73dc197e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
 Subject: [PATCH 03/13] conditionally fill in sin_len/sin6_len if they exist
 
 ---
  src/usr.sbin/ntpd/config.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ src/usr.sbin/ntpd/parse.y  | 8 +++++---
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
 index e3eeed3d6..a84635ab7 100644
@@ -48,6 +49,30 @@ index e3eeed3d6..a84635ab7 100644
  			memcpy(&sa_in6->sin6_addr, &((struct sockaddr_in6 *)
  			    res->ai_addr)->sin6_addr, sizeof(struct in6_addr));
  		}
+diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
+index af4ad1731..8197fe953 100644
+--- a/src/usr.sbin/ntpd/parse.y
++++ b/src/usr.sbin/ntpd/parse.y
+@@ -137,14 +137,16 @@ main		: LISTEN ON address listen_opts	{
+ 			struct sockaddr_in6 sin6;
+ 
+ 			sin4.sin_family = AF_INET;
+-			sin4.sin_len = sizeof(struct sockaddr_in);
+ 			sin6.sin6_family = AF_INET6;
++#ifdef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
++			sin4.sin_len = sizeof(struct sockaddr_in);
+ 			sin6.sin6_len = sizeof(struct sockaddr_in6);
++#endif
+ 
+ 			if (inet_pton(AF_INET, $3, &sin4.sin_addr) == 1)
+-				memcpy(&query_addr4, &sin4, sin4.sin_len);
++				memcpy(&query_addr4, &sin4, sizeof(struct in_addr));
+ 			else if (inet_pton(AF_INET6, $3, &sin6.sin6_addr) == 1)
+-				memcpy(&query_addr6, &sin6, sin6.sin6_len);
++				memcpy(&query_addr6, &sin6, sizeof(struct in6_addr));
+ 			else {
+ 				yyerror("invalid IPv4 or IPv6 address: %s\n",
+ 				    $3);
 -- 
 2.13.0
 

@@ -1,4 +1,4 @@
-From b677780a12f57f2d1221e6df0f46e2600630b440 Mon Sep 17 00:00:00 2001
+From 881d29d2e864c858458e87706751c35fe231519e Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sun, 6 Dec 2015 22:35:38 -0600
 Subject: [PATCH 11/13] Deal with missing SO_TIMESTAMP
