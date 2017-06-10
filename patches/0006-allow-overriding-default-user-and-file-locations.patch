@@ -1,4 +1,4 @@
-From daff3f5f9458f613f8e62b4808f7c3276b1d45ed Mon Sep 17 00:00:00 2001
+From d22481a297572f5b30aa5f45477ca46c3b0e1a36 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 06/13] allow overriding default user and file locations
@@ -10,7 +10,7 @@ default user.
  1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 51b77b377..a123d1bfc 100644
+index 30f0304dc..b7ddfee0a 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -35,10 +35,20 @@
@@ -48,5 +48,5 @@ index 51b77b377..a123d1bfc 100644
  #define PARENT_SOCK_FILENO		CONSTRAINT_PASSFD
  
 -- 
-2.11.0
+2.13.0
 

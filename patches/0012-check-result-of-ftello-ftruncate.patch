@@ -1,4 +1,4 @@
-From 0b24427a97098670db562cf59cfea2c64e2239f1 Mon Sep 17 00:00:00 2001
+From 590d40ef978409010cc1063cf97952158657e82b Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Mon, 21 Dec 2015 05:53:20 -0600
 Subject: [PATCH 12/13] check result of ftello/ftruncate
@@ -8,7 +8,7 @@ Subject: [PATCH 12/13] check result of ftello/ftruncate
  1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 287f9d549..fae82ef16 100644
+index 0eb7f573c..de0d750c5 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -586,6 +586,7 @@ writefreq(double d)
@@ -33,5 +33,5 @@ index 287f9d549..fae82ef16 100644
  }
  
 -- 
-2.11.0
+2.13.0
 

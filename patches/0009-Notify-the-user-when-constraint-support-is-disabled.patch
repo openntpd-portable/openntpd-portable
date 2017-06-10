@@ -1,4 +1,4 @@
-From 0143ceba7461d06f9258ad96dfd8a972c19cbe3a Mon Sep 17 00:00:00 2001
+From 0c3ffe9434a567d243b016c39fff49306f45b181 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
 Subject: [PATCH 09/13] Notify the user when constraint support is disabled.
@@ -13,7 +13,7 @@ From Paul B. Henson.
  3 files changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index 87de17ae0..5a750309c 100644
+index a84635ab7..d46fca62f 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
 @@ -219,6 +219,9 @@ new_constraint(void)
@@ -27,7 +27,7 @@ index 87de17ae0..5a750309c 100644
  }
  
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 892bfe89e..a488eab34 100644
+index 7e259af2d..8a3ddacc1 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
 @@ -336,12 +336,14 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
@@ -46,10 +46,10 @@ index 892bfe89e..a488eab34 100644
  	if (chroot(pw_dir) == -1)
  		fatal("chroot");
 diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
-index 5f437a15c..2691f517c 100644
+index e3c0ddd78..804ebaa12 100644
 --- a/src/usr.sbin/ntpd/ntpd.conf.5
 +++ b/src/usr.sbin/ntpd/ntpd.conf.5
-@@ -186,8 +186,11 @@ authenticated constraint,
+@@ -195,8 +195,11 @@ authenticated constraint,
  thereby reducing the impact of unauthenticated NTP
  man-in-the-middle attacks.
  Received NTP packets with time information falling outside of a range
@@ -64,5 +64,5 @@ index 5f437a15c..2691f517c 100644
  .It Ic constraint from Ar url
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.11.0
+2.13.0
 

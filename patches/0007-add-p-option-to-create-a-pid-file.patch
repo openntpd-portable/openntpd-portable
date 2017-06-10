@@ -1,4 +1,4 @@
-From 4ee694f478d89cf572546f761c9ef454ec10402a Mon Sep 17 00:00:00 2001
+From 01dedce2f8b27d4c6c832e735f7b21ea4eeb280b Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
 Subject: [PATCH 07/13] add -p option to create a pid file
@@ -13,7 +13,7 @@ Origin: https://bugs.gentoo.org/show_bug.cgi?id=493082
  3 files changed, 33 insertions(+), 5 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.8 b/src/usr.sbin/ntpd/ntpd.8
-index dcfb6d243..1b885a13d 100644
+index 689d269c6..fbcfa85b3 100644
 --- a/src/usr.sbin/ntpd/ntpd.8
 +++ b/src/usr.sbin/ntpd/ntpd.8
 @@ -25,6 +25,7 @@
@@ -35,7 +35,7 @@ index dcfb6d243..1b885a13d 100644
  Do not set the time immediately at startup.
  This is the default.
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 1750b8cf5..8e47e2403 100644
+index 0ec3ede03..3d9e089b3 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -87,6 +87,18 @@ sighdlr(int sig)
@@ -134,10 +134,10 @@ index 1750b8cf5..8e47e2403 100644
  			timeout = INFTIM;
  			break;
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index a123d1bfc..6e693661c 100644
+index b7ddfee0a..39b8e7bf4 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
-@@ -249,6 +249,7 @@ struct ntpd_conf {
+@@ -253,6 +253,7 @@ struct ntpd_conf {
  	u_int						constraint_errors;
  	u_int8_t					*ca;
  	size_t						ca_len;
@@ -146,5 +146,5 @@ index a123d1bfc..6e693661c 100644
  
  struct ctl_show_status {
 -- 
-2.11.0
+2.13.0
 

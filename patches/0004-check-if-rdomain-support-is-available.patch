@@ -1,4 +1,4 @@
-From 15cefa4812cb63b887d43ff69262a93b8e2aeb72 Mon Sep 17 00:00:00 2001
+From f11cb03a572a50f0fe5a44463f7f3f4d23f4110a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
 Subject: [PATCH 04/13] check if rdomain support is available.
@@ -12,7 +12,7 @@ Handle FreeBSD's calling rdomain 'FIB'.
  3 files changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 613b29b25..51b77b377 100644
+index 30ef206b4..30f0304dc 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -40,6 +40,12 @@
@@ -29,10 +29,10 @@ index 613b29b25..51b77b377 100644
  #define	INTERVAL_QUERY_PATHETIC		60
  #define	INTERVAL_QUERY_AGGRESSIVE	5
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index 6d507957c..33fe13d6a 100644
+index af4ad1731..73b221ba6 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
-@@ -404,11 +404,13 @@ weight		: WEIGHT NUMBER	{
+@@ -432,11 +432,13 @@ weight		: WEIGHT NUMBER	{
  			opts.weight = $2;
  		}
  rtable		: RTABLE NUMBER {
@@ -47,7 +47,7 @@ index 6d507957c..33fe13d6a 100644
  		}
  		;
 diff --git a/src/usr.sbin/ntpd/server.c b/src/usr.sbin/ntpd/server.c
-index b67d2745d..cbaa1158e 100644
+index 123b6939a..8c18eb761 100644
 --- a/src/usr.sbin/ntpd/server.c
 +++ b/src/usr.sbin/ntpd/server.c
 @@ -35,11 +35,16 @@ setup_listeners(struct servent *se, struct ntpd_conf *lconf, u_int *cnt)
@@ -112,5 +112,5 @@ index b67d2745d..cbaa1158e 100644
  		if (bind(la->fd, (struct sockaddr *)&la->sa,
  		    SA_LEN((struct sockaddr *)&la->sa)) == -1) {
 -- 
-2.11.0
+2.13.0
 
