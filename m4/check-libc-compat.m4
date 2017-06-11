@@ -1,6 +1,6 @@
 AC_DEFUN([CHECK_PROGNAME], [
 AC_CACHE_CHECK([if libc defines __progname], ac_cv_libc_defines___progname, [
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
+       AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
                 [[ extern char *__progname; printf("%s", __progname); ]])],
         [ ac_cv_libc_defines___progname="yes" ],
         [ ac_cv_libc_defines___progname="no"
@@ -12,10 +12,12 @@ fi
 ])
 
 AC_DEFUN([CHECK_SYSCALL_COMPAT], [
-AC_CHECK_FUNCS([accept4 pledge poll])
+AC_CHECK_FUNCS([accept4 pipe2 pledge poll socketpair])
 AM_CONDITIONAL([HAVE_ACCEPT4], [test "x$ac_cv_func_accept4" = xyes])
+AM_CONDITIONAL([HAVE_PIPE2], [test "x$ac_cv_func_pipe2" = xyes])
 AM_CONDITIONAL([HAVE_PLEDGE], [test "x$ac_cv_func_pledge" = xyes])
 AM_CONDITIONAL([HAVE_POLL], [test "x$ac_cv_func_poll" = xyes])
+AM_CONDITIONAL([HAVE_SOCKETPAIR], [test "x$ac_cv_func_socketpair" = xyes])
 ])
 
 AC_DEFUN([CHECK_B64_NTOP], [
@@ -96,7 +98,7 @@ AM_CONDITIONAL([HAVE_TIMINGSAFE_MEMCMP], [test "x$ac_cv_func_timingsafe_memcmp" 
 
 # Override arc4random_buf implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],
-	[test "x$USE_BUILTIN_ARC4RANDOM" != yes \
+	[test "x$USE_BUILTIN_ARC4RANDOM" != xyes \
 	   -a "x$ac_cv_func_arc4random_buf" = xyes])
 
 # Check for getentropy fallback dependencies
