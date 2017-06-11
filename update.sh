@@ -45,6 +45,7 @@ for i in explicit_bzero.c strlcpy.c strlcat.c; do
 	$CP_LIBC $libc_src/string/$i compat
 done
 $CP_LIBC $libc_src/stdlib/reallocarray.c compat
+$CP_LIBC $libc_src/stdlib/recallocarray.c compat
 $CP_LIBC $libc_src/stdlib/strtonum.c compat
 $CP_LIBC $libc_src/crypt/arc4random.c compat
 $CP_LIBC $libc_src/crypt/arc4random_uniform.c compat

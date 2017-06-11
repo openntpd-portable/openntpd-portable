@@ -69,6 +69,10 @@ if !HAVE_CLOSEFROM
 libcompat_la_SOURCES += closefrom.c
 endif
 
+if !HAVE_FREEZERO
+libcompat_la_SOURCES += freezero.c
+endif
+
 if !HAVE_IMSG
 libcompat_la_SOURCES += imsg.c
 libcompat_la_SOURCES += imsg-buffer.c
@@ -80,6 +84,10 @@ libcompat_la_SOURCES += progname.c
 
 if !HAVE_REALLOCARRAY
 libcompat_la_SOURCES += reallocarray.c
+endif
+
+if !HAVE_RECALLOCARRAY
+libcompat_la_SOURCES += recallocarray.c
 endif
 
 if !HAVE_SETPROCTITLE
