@@ -1,4 +1,4 @@
-From 7a3b9e1c6e340a8cfcb29cbac1ad4739a43e4929 Mon Sep 17 00:00:00 2001
+From 3932b6e3f8a6053d9ce2054c1d4f056d557fc0ef Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:10:22 -0600
 Subject: [PATCH 01/13] Handle IPv6 DNS records on IPv4 networks more liberally

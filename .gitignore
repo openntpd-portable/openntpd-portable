@@ -33,6 +33,7 @@ Makefile
 Makefile.in
 openntpd*.tar.gz
 
+ntpd.conf
 compat/arc4random.c
 compat/arc4random_*
 compat/chacha_private.h

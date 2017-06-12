@@ -1,4 +1,4 @@
-From 3d967b9daff41f325171bef987218f6bd39a2703 Mon Sep 17 00:00:00 2001
+From 1ba669c02b5e81551dfa3f1ce07fdfb7a00fd3c1 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 06/13] allow overriding default user and file locations

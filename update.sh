@@ -21,6 +21,7 @@ fi
 # setup source paths
 dir=`pwd`
 patches=$dir/patches
+etc_src=$dir/openbsd/src/etc
 libc_inc=$dir/openbsd/src/include
 libc_src=$dir/openbsd/src/lib/libc
 arc4random_src=$dir/openbsd/src/lib/libcrypto/arc4random
@@ -34,11 +35,12 @@ CP_LIBC='do_cp_libc'
 CP='cp -p'
 PATCH='patch -p0 -s'
 
+$CP $etc_src/ntpd.conf ./
 sed '/DECLS/d' $libc_inc/md5.h > include/md5.h
 sed '/DECLS/d' $libc_inc/sha2.h > include/sha2_openbsd.h
-cp $libutil_src/imsg.h include/
-cp $libutil_src/imsg.c compat/
-cp $libutil_src/imsg-buffer.c compat/
+$CP $libutil_src/imsg.h include/
+$CP $libutil_src/imsg.c compat/
+$CP $libutil_src/imsg-buffer.c compat/
 (cd compat; $PATCH < $patches/patch-imsg.c)
 
 for i in explicit_bzero.c strlcpy.c strlcat.c; do
