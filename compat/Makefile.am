@@ -29,6 +29,8 @@ endif
 libcompat_la_SOURCES =
 libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
+libcompat_la_SOURCES += socket.c
+
 if !HAVE_ADJFREQ
 if HOST_FREEBSD
 libcompat_la_SOURCES += adjfreq_freebsd.c
