@@ -16,6 +16,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include <stdlib.h>
+
 #include "ntpd.h"
 
 u_int constraint_cnt = 0;
@@ -61,6 +63,7 @@ constraint_purge(void)
 void
 constraint_add(struct constraint *cstr)
 {
+	free(cstr);
 }
 
 void
