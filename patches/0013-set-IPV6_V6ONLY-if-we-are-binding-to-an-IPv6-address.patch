@@ -1,4 +1,4 @@
-From b00291c2d9c8ecd1b17cb7d33a2e24819e550d26 Mon Sep 17 00:00:00 2001
+From f16fddf3d74779243b0f44072da9fa13d74b7c17 Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sat, 13 Aug 2016 14:22:02 -0500
 Subject: [PATCH 13/13] set IPV6_V6ONLY if we are binding to an IPv6 address
@@ -8,7 +8,7 @@ Subject: [PATCH 13/13] set IPV6_V6ONLY if we are binding to an IPv6 address
  1 file changed, 9 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/server.c b/src/usr.sbin/ntpd/server.c
-index 8c18eb761..9eab1a74b 100644
+index 8c18eb7610..9eab1a74bf 100644
 --- a/src/usr.sbin/ntpd/server.c
 +++ b/src/usr.sbin/ntpd/server.c
 @@ -42,6 +42,9 @@ setup_listeners(struct servent *se, struct ntpd_conf *lconf, u_int *cnt)
@@ -35,5 +35,5 @@ index 8c18eb761..9eab1a74b 100644
  		if (la->rtable != -1 &&
  		    setsockopt(la->fd, SOL_SOCKET, SO_RTABLE, &la->rtable,
 -- 
-2.13.0
+2.14.0
 

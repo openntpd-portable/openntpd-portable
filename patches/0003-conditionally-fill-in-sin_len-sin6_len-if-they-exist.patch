@@ -1,4 +1,4 @@
-From 36eb7d2a2843515b465e36a79b869dc2dd43439f Mon Sep 17 00:00:00 2001
+From 6843d3c05dedd4609b3ad43eb17983b68a85e710 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
 Subject: [PATCH 03/13] conditionally fill in sin_len/sin6_len if they exist
@@ -9,7 +9,7 @@ Subject: [PATCH 03/13] conditionally fill in sin_len/sin6_len if they exist
  2 files changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index e3eeed3d6..a84635ab7 100644
+index e3eeed3d67..a84635ab77 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
 @@ -72,7 +72,9 @@ host_v4(const char *s)
@@ -50,14 +50,15 @@ index e3eeed3d6..a84635ab7 100644
  			    res->ai_addr)->sin6_addr, sizeof(struct in6_addr));
  		}
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index af4ad1731..8197fe953 100644
+index 41fa9ba1fc..3dbd0b0c8e 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
-@@ -137,14 +137,16 @@ main		: LISTEN ON address listen_opts	{
- 			struct sockaddr_in6 sin6;
+@@ -138,15 +138,17 @@ main		: LISTEN ON address listen_opts	{
  
+ 			memset(&sin4, 0, sizeof(sin4));
  			sin4.sin_family = AF_INET;
 -			sin4.sin_len = sizeof(struct sockaddr_in);
+ 			memset(&sin6, 0, sizeof(sin6));
  			sin6.sin6_family = AF_INET6;
 +#ifdef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
 +			sin4.sin_len = sizeof(struct sockaddr_in);
@@ -66,13 +67,13 @@ index af4ad1731..8197fe953 100644
  
  			if (inet_pton(AF_INET, $3, &sin4.sin_addr) == 1)
 -				memcpy(&query_addr4, &sin4, sin4.sin_len);
-+				memcpy(&query_addr4, &sin4, sizeof(struct in_addr));
++				memcpy(&query_addr4, &sin4, sizeof(struct sockaddr_in));
  			else if (inet_pton(AF_INET6, $3, &sin6.sin6_addr) == 1)
 -				memcpy(&query_addr6, &sin6, sin6.sin6_len);
-+				memcpy(&query_addr6, &sin6, sizeof(struct in6_addr));
++				memcpy(&query_addr6, &sin6, sizeof(struct sockaddr_in6));
  			else {
  				yyerror("invalid IPv4 or IPv6 address: %s\n",
  				    $3);
 -- 
-2.13.0
+2.14.0
 

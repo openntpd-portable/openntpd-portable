@@ -1,6 +1,10 @@
 For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
+2017-xx-xx  OpenNTPD 6.2p2
+
+	* Fixed support for 'query from' and clarified usage.
+
 2017-07-13  OpenNTPD 6.2p1
 
 	* Added option "query from <ip>" to ntpd.conf, to specify a local IP
