@@ -16,8 +16,10 @@
 #if !defined(SOCK_NONBLOCK) || !defined(SOCK_CLOEXEC)
 #define NEED_SOCKET_FLAGS
 int _socket(int domain, int type, int protocol);
+int _socketpair(int domain, int type, int protocol, int socket_vector[2]);
 #ifndef SOCKET_FLAGS_PRIV
 #define socket(d, t, p) _socket(d, t, p)
+#define socketpair(d, t, p, s) _socketpair(d, t, p, s)
 #endif
 #endif
 
