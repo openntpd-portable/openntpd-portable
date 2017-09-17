@@ -26,4 +26,26 @@ _socket(int domain, int type, int protocol)
 	return s;
 }
 
+int
+_socketpair(int domain, int type, int protocol, int socket_vector[2])
+{
+	int rc = socketpair(domain, type & ~(SOCK_CLOEXEC | SOCK_NONBLOCK), protocol, socket_vector);
+	int flags, i;
+	if (rc == -1)
+		return rc;
+
+	for (i = 0; i < 2; i++) {
+		if (type & SOCK_CLOEXEC) {
+			flags = fcntl(socket_vector[i], F_GETFD);
+			fcntl(socket_vector[i], F_SETFD, flags | FD_CLOEXEC);
+		}
+
+		if (type & SOCK_NONBLOCK) {
+			flags = fcntl(socket_vector[i], F_GETFL);
+			fcntl(socket_vector[i], F_SETFL, flags | O_NONBLOCK);
+		}
+	}
+	return rc;
+}
+
 #endif
