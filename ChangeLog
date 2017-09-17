@@ -1,6 +1,10 @@
 For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
+2017-09-17  OpenNTPD 6.2p3
+
+	* Fixed build on OS X
+
 2017-09-07  OpenNTPD 6.2p2
 
 	* Fixed support for 'query from' and clarified usage.
