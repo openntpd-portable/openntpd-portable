@@ -1,6 +1,5 @@
 noinst_HEADERS =
 noinst_HEADERS += machine/endian.h
-noinst_HEADERS += sys/cdefs.h
 noinst_HEADERS += sys/queue.h
 noinst_HEADERS += sys/socket.h
 noinst_HEADERS += sys/types.h
