@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-openbsd_branch=$(cat OPENBSD_BRANCH)
-openntpd_version=$(cat VERSION)
+openbsd_branch=`cat OPENBSD_BRANCH`
+openntpd_version=`cat VERSION`
 
 # pull in latest upstream code
 echo "pulling upstream openbsd source"
@@ -19,7 +19,7 @@ fi
  git pull --rebase)
 
 # setup source paths
-dir=$(pwd)
+dir=`pwd`
 patches="${dir}/patches"
 etc_src="${dir}/openbsd/src/etc"
 libc_inc="${dir}/openbsd/src/include"
@@ -29,7 +29,7 @@ libutil_src="${dir}/openbsd/src/lib/libutil"
 ntpd_src="${dir}/openbsd/src/usr.sbin/ntpd"
 
 do_cp_libc() {
-	sed "/DEF_WEAK/d" < "${1}" > "${2}"/$(basename "${1}")
+	sed "/DEF_WEAK/d" < "${1}" > "${2}"/`basename "${1}"`
 }
 CP_LIBC='do_cp_libc'
 CP='cp -p'
@@ -55,14 +55,14 @@ ${CP_LIBC} "${libc_src}/crypt/chacha_private.h" compat
 ${CP_LIBC} "${libc_src}/hash/md5.c" compat
 ${CP_LIBC} "${libc_src}/hash/sha2.c" compat
 for i in "${arc4random_src}"/getentropy_*.c; do
-	sed -e 's/openssl\/sha.h/sha2.h/' < "${i}" > compat/$(basename "${i}")
+	sed -e 's/openssl\/sha.h/sha2.h/' < "${i}" > compat/`basename "${i}"`
 done
 ${CP} "${arc4random_src}"/arc4random_*.h compat
 
 for i in client.c config.c constraint.c control.c log.c ntp.c ntp.h \
 	ntp_dns.c ntp_msg.c ntpd.c ntpd.h parse.y sensors.c server.c util.c \
 	ntpctl.8 ntpd.8 ntpd.conf.5 ; do
-	file=$(basename ${i})
+	file=`basename ${i}`
 	echo Copying ${file}
 	${CP} "${ntpd_src}/${i}" src
 done
