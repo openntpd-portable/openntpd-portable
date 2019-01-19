@@ -1,56 +1,14 @@
-From 6843d3c05dedd4609b3ad43eb17983b68a85e710 Mon Sep 17 00:00:00 2001
+From 5d2c25bfd0ff11d74ac912313d405247cbaf5ee2 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
 Subject: [PATCH 03/13] conditionally fill in sin_len/sin6_len if they exist
 
 ---
- src/usr.sbin/ntpd/config.c | 8 ++++++++
- src/usr.sbin/ntpd/parse.y  | 8 +++++---
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ src/usr.sbin/ntpd/parse.y | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index e3eeed3d67..a84635ab77 100644
---- a/src/usr.sbin/ntpd/config.c
-+++ b/src/usr.sbin/ntpd/config.c
-@@ -72,7 +72,9 @@ host_v4(const char *s)
- 	if ((h = calloc(1, sizeof(struct ntp_addr))) == NULL)
- 		fatal(NULL);
- 	sa_in = (struct sockaddr_in *)&h->ss;
-+#ifdef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
- 	sa_in->sin_len = sizeof(struct sockaddr_in);
-+#endif
- 	sa_in->sin_family = AF_INET;
- 	sa_in->sin_addr.s_addr = ina.s_addr;
- 
-@@ -94,7 +96,9 @@ host_v6(const char *s)
- 		if ((h = calloc(1, sizeof(struct ntp_addr))) == NULL)
- 			fatal(NULL);
- 		sa_in6 = (struct sockaddr_in6 *)&h->ss;
-+#ifdef SIN6_LEN
- 		sa_in6->sin6_len = sizeof(struct sockaddr_in6);
-+#endif
- 		sa_in6->sin6_family = AF_INET6;
- 		memcpy(&sa_in6->sin6_addr,
- 		    &((struct sockaddr_in6 *)res->ai_addr)->sin6_addr,
-@@ -156,12 +160,16 @@ host_dns(const char *s, struct ntp_addr **hn)
- 		h->ss.ss_family = res->ai_family;
- 		if (res->ai_family == AF_INET) {
- 			sa_in = (struct sockaddr_in *)&h->ss;
-+#ifdef HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
- 			sa_in->sin_len = sizeof(struct sockaddr_in);
-+#endif
- 			sa_in->sin_addr.s_addr = ((struct sockaddr_in *)
- 			    res->ai_addr)->sin_addr.s_addr;
- 		} else {
- 			sa_in6 = (struct sockaddr_in6 *)&h->ss;
-+#ifdef SIN6_LEN
- 			sa_in6->sin6_len = sizeof(struct sockaddr_in6);
-+#endif
- 			memcpy(&sa_in6->sin6_addr, &((struct sockaddr_in6 *)
- 			    res->ai_addr)->sin6_addr, sizeof(struct in6_addr));
- 		}
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index 41fa9ba1fc..3dbd0b0c8e 100644
+index be1a7b5369..dd9d75cda7 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
 @@ -138,15 +138,17 @@ main		: LISTEN ON address listen_opts	{
@@ -75,5 +33,5 @@ index 41fa9ba1fc..3dbd0b0c8e 100644
  				yyerror("invalid IPv4 or IPv6 address: %s\n",
  				    $3);
 -- 
-2.14.0
+2.20.1
 

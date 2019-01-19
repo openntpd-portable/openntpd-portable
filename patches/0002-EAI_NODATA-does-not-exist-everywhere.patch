@@ -1,4 +1,4 @@
-From 827a29308ca7b2ce893a0dc5d6717a500ea9e52d Mon Sep 17 00:00:00 2001
+From 683cb25dcb78b92c29c5148becece3cf4f0c6a28 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:04:08 -0600
 Subject: [PATCH 02/13] EAI_NODATA does not exist everywhere
@@ -15,10 +15,10 @@ portable software now has to have a special check instead.
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index fcf89ddfcc..e3eeed3d67 100644
+index 25a92cf8ae..0208b8dfb4 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
-@@ -133,8 +133,14 @@ host_dns(const char *s, struct ntp_addr **hn)
+@@ -96,8 +96,14 @@ host_dns(const char *s, struct ntp_addr **hn)
  	hints.ai_socktype = SOCK_DGRAM; /* DUMMY */
  	/* ntpd MUST NOT use AI_ADDRCONFIG here */
  	error = getaddrinfo(s, NULL, &hints, &res0);
@@ -36,5 +36,5 @@ index fcf89ddfcc..e3eeed3d67 100644
  		log_warnx("could not parse \"%s\": %s", s,
  		    gai_strerror(error));
 -- 
-2.14.0
+2.20.1
 

@@ -1,4 +1,4 @@
-From 547ae2d0dfc8ded1c85af2a8b550c0e769138aa8 Mon Sep 17 00:00:00 2001
+From 546b4b7926dc14f0ea6a60182af23b865e0d18ad Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
 Subject: [PATCH 04/13] check if rdomain support is available.
@@ -12,7 +12,7 @@ Handle FreeBSD's calling rdomain 'FIB'.
  3 files changed, 22 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 30ef206b47..30f0304dcb 100644
+index 91d1e0fb9b..d438a6576d 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -40,6 +40,12 @@
@@ -29,7 +29,7 @@ index 30ef206b47..30f0304dcb 100644
  #define	INTERVAL_QUERY_PATHETIC		60
  #define	INTERVAL_QUERY_AGGRESSIVE	5
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index 3dbd0b0c8e..eb7e9b9e53 100644
+index dd9d75cda7..984beec7a5 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
 @@ -436,11 +436,13 @@ weight		: WEIGHT NUMBER	{
@@ -112,5 +112,5 @@ index 123b6939a2..8c18eb7610 100644
  		if (bind(la->fd, (struct sockaddr *)&la->sa,
  		    SA_LEN((struct sockaddr *)&la->sa)) == -1) {
 -- 
-2.14.0
+2.20.1
 

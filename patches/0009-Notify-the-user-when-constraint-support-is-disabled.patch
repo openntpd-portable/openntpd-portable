@@ -1,4 +1,4 @@
-From 071d21a66c0814efcecdba702a11d886fc1b444e Mon Sep 17 00:00:00 2001
+From 1c8dc7b9bda86123ccc6744142a80520b75e0b9e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
 Subject: [PATCH 09/13] Notify the user when constraint support is disabled.
@@ -13,10 +13,10 @@ From Paul B. Henson.
  3 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index a84635ab77..430992137a 100644
+index 0208b8dfb4..c2f9422f38 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
-@@ -219,6 +219,9 @@ new_constraint(void)
+@@ -163,6 +163,9 @@ new_constraint(void)
  	p->id = ++constraint_maxid;
  	p->fd = -1;
  
@@ -27,7 +27,7 @@ index a84635ab77..430992137a 100644
  }
  
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 7e259af2d8..8a3ddacc10 100644
+index 76dc4f7bdf..ec7c38df68 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
 @@ -336,12 +336,14 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
@@ -38,7 +38,7 @@ index 7e259af2d8..8a3ddacc10 100644
  	/* Init TLS and load CA certs before chroot() */
  	if (tls_init() == -1)
  		fatalx("tls_init");
- 	if ((conf->ca = tls_load_file(CONSTRAINT_CA,
+ 	if ((conf->ca = tls_load_file(tls_default_ca_cert_file(),
  	    &conf->ca_len, NULL)) == NULL)
  		fatalx("failed to load constraint ca");
 +#endif
@@ -68,5 +68,5 @@ index eee239bf52..5181a9c504 100644
  .It Ic constraint from Ar url
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.14.0
+2.20.1
 

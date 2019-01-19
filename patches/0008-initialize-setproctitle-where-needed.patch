@@ -1,4 +1,4 @@
-From 03a66edf986ac0801dcf40eeab147ca54c3afcb9 Mon Sep 17 00:00:00 2001
+From fb2c22a2d06541415f153e195ce577e475cdf26a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 08/13] initialize setproctitle where needed
@@ -10,10 +10,10 @@ clobbering them.
  1 file changed, 20 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 3d9e089b3e..57f1f4ff3b 100644
+index 7c8eda5a1d..4e4efa45c8 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -117,6 +117,13 @@ usage(void)
+@@ -118,6 +118,13 @@ usage(void)
  #define PFD_PIPE		0
  #define PFD_MAX			1
  
@@ -27,7 +27,7 @@ index 3d9e089b3e..57f1f4ff3b 100644
  int
  main(int argc, char *argv[])
  {
-@@ -135,6 +142,8 @@ main(int argc, char *argv[])
+@@ -136,6 +143,8 @@ main(int argc, char *argv[])
  	char			**argv0 = argv;
  	char			*pname = NULL;
  
@@ -36,7 +36,7 @@ index 3d9e089b3e..57f1f4ff3b 100644
  	if (strcmp(__progname, "ntpctl") == 0) {
  		ctl_main(argc, argv);
  		/* NOTREACHED */
-@@ -144,6 +153,17 @@ main(int argc, char *argv[])
+@@ -145,6 +154,17 @@ main(int argc, char *argv[])
  
  	memset(&lconf, 0, sizeof(lconf));
  
@@ -55,5 +55,5 @@ index 3d9e089b3e..57f1f4ff3b 100644
  		switch (ch) {
  		case 'd':
 -- 
-2.14.0
+2.20.1
 

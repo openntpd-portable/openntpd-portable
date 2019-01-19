@@ -1,4 +1,4 @@
-From e325d0325dc8959374eca27a9dc420b94cf0bafc Mon Sep 17 00:00:00 2001
+From 00ee3b5aea27bc10b3ad6b732dd582b65c74c795 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 06/13] allow overriding default user and file locations
@@ -6,11 +6,11 @@ Subject: [PATCH 06/13] allow overriding default user and file locations
 Allow the build process to override the default ntpd file paths and
 default user.
 ---
- src/usr.sbin/ntpd/ntpd.h | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ src/usr.sbin/ntpd/ntpd.h | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 30f0304dcb..b7ddfee0ae 100644
+index d438a6576d..0f7313c78e 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -35,10 +35,20 @@
@@ -37,16 +37,6 @@ index 30f0304dcb..b7ddfee0ae 100644
  
  #if defined(SO_SETFIB)
  #define	SO_RTABLE	SO_SETFIB
-@@ -86,7 +96,9 @@
- #define CONSTRAINT_PORT			"443"	/* HTTPS port */
- #define	CONSTRAINT_MAXHEADERLENGTH	8192
- #define CONSTRAINT_PASSFD		(STDERR_FILENO + 1)
-+#ifndef CONSTRAINT_CA
- #define CONSTRAINT_CA			"/etc/ssl/cert.pem"
-+#endif
- 
- #define PARENT_SOCK_FILENO		CONSTRAINT_PASSFD
- 
 -- 
-2.14.0
+2.20.1
 
