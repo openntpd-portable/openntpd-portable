@@ -1,7 +1,7 @@
 From 4f01d08765ee2d031e703e3201a07793247fa323 Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sat, 13 Aug 2016 14:22:02 -0500
-Subject: [PATCH 13/13] set IPV6_V6ONLY if we are binding to an IPv6 address
+Subject: [PATCH 13/14] set IPV6_V6ONLY if we are binding to an IPv6 address
 
 ---
  src/usr.sbin/ntpd/server.c | 9 +++++++++

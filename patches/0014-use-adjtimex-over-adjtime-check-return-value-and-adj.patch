@@ -1,0 +1,74 @@
+From 98f4a4523f158129a49b16a4e0ccc4bb50a62a31 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Sat, 19 Jan 2019 04:25:44 -0600
+Subject: [PATCH 14/14] use adjtimex over adjtime, check return value and
+ adjust offset as needed
+
+---
+ src/usr.sbin/ntpd/ntpd.c | 31 ++++++++++++++++++++++++++++---
+ 1 file changed, 28 insertions(+), 3 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index c3b7ab07e1..4d840767b0 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -17,6 +17,9 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#ifdef HAVE_ADJTIMEX
++#include <sys/timex.h>
++#endif
+ #include <sys/types.h>
+ #include <sys/resource.h>
+ #include <sys/socket.h>
+@@ -478,21 +481,43 @@ reset_adjtime(void)
+ int
+ ntpd_adjtime(double d)
+ {
+-	struct timeval	tv, olddelta;
+ 	int		synced = 0;
+ 	static int	firstadj = 1;
++	double threshold = (double)LOG_NEGLIGIBLE_ADJTIME / 1000;
+ 
+ 	d += getoffset();
+-	if (d >= (double)LOG_NEGLIGIBLE_ADJTIME / 1000 ||
+-	    d <= -1 * (double)LOG_NEGLIGIBLE_ADJTIME / 1000)
++	if (d >= threshold || d <= -1 * threshold)
+ 		log_info("adjusting local clock by %fs", d);
+ 	else
+ 		log_debug("adjusting local clock by %fs", d);
++
++#ifdef HAVE_ADJTIMEX
++	int rc;
++
++	long offset = d * 1000000;
++	struct timex tx = { 0 };
++	tx.offset = offset;
++	tx.modes = ADJ_OFFSET_SINGLESHOT;
++
++	do {
++		rc = adjtimex(&tx);
++	} while (rc == TIME_ERROR && (tx.offset /= 2) > threshold);
++
++	if (rc == TIME_ERROR) {
++		log_warn("adjtimex returned TIME_ERROR");
++	} else if (rc < 0) {
++		log_warn("adjtimex failed");
++	} else if (tx.offset == offset) {
++		synced = 1;
++	}
++#else
++	struct timeval	tv, olddelta;
+ 	d_to_tv(d, &tv);
+ 	if (adjtime(&tv, &olddelta) == -1)
+ 		log_warn("adjtime failed");
+ 	else if (!firstadj && olddelta.tv_sec == 0 && olddelta.tv_usec == 0)
+ 		synced = 1;
++#endif
+ 	firstadj = 0;
+ 	update_time_sync_status(synced);
+ 	return (synced);
+-- 
+2.20.1
+
