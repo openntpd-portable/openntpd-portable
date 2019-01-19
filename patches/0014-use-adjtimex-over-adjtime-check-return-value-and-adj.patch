@@ -1,4 +1,4 @@
-From 98f4a4523f158129a49b16a4e0ccc4bb50a62a31 Mon Sep 17 00:00:00 2001
+From 55c7e66449bed7f4eaa6cdc2f9a1c8f8ed95ec58 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 19 Jan 2019 04:25:44 -0600
 Subject: [PATCH 14/14] use adjtimex over adjtime, check return value and
@@ -9,7 +9,7 @@ Subject: [PATCH 14/14] use adjtimex over adjtime, check return value and
  1 file changed, 28 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index c3b7ab07e1..4d840767b0 100644
+index c3b7ab07e1..ddb2ee87d6 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -17,6 +17,9 @@
@@ -55,7 +55,7 @@ index c3b7ab07e1..4d840767b0 100644
 +		log_warn("adjtimex returned TIME_ERROR");
 +	} else if (rc < 0) {
 +		log_warn("adjtimex failed");
-+	} else if (tx.offset == offset) {
++	} else if (!firstadj && tx.offset == offset) {
 +		synced = 1;
 +	}
 +#else
