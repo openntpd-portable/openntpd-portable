@@ -1,0 +1,39 @@
+From 48ef737a92b3f427d76b9e5c7803f72012c583ee Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Sat, 13 Apr 2019 04:45:22 -0500
+Subject: [PATCH 15/15] increase buffer sizes potential truncation
+
+---
+ src/usr.sbin/ntpd/ntpd.c | 2 +-
+ src/usr.sbin/ntpd/util.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index ddb2ee87d6..e98f322086 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -872,7 +872,7 @@ show_peer_msg(struct imsg *imsg, int calledfromshowall)
+ {
+ 	struct ctl_show_peer	*cpeer;
+ 	int			 cnt;
+-	char			 stratum[3];
++	char			 stratum[4];
+ 	static int		 firsttime = 1;
+ 
+ 	if (imsg->hdr.type == IMSG_CTL_SHOW_PEERS_END) {
+diff --git a/src/usr.sbin/ntpd/util.c b/src/usr.sbin/ntpd/util.c
+index c7fd0e3324..a3abc53425 100644
+--- a/src/usr.sbin/ntpd/util.c
++++ b/src/usr.sbin/ntpd/util.c
+@@ -134,7 +134,7 @@ d_to_sfp(double d)
+ char *
+ print_rtable(int r)
+ {
+-	static char b[11];
++	static char b[18];
+ 
+ 	b[0] = 0;
+ 	if (r > 0)
+-- 
+2.21.0
+

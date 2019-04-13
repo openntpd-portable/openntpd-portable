@@ -1,7 +1,7 @@
-From 1c8dc7b9bda86123ccc6744142a80520b75e0b9e Mon Sep 17 00:00:00 2001
+From 521fd6f63f1b75b9a921d60f7dbb96da253418fd Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
-Subject: [PATCH 09/14] Notify the user when constraint support is disabled.
+Subject: [PATCH 09/15] Notify the user when constraint support is disabled.
 
 Update the manpage and warn if constraints are
 configured but ntpd is built without libtls present.
@@ -27,10 +27,10 @@ index 0208b8dfb4..c2f9422f38 100644
  }
  
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 76dc4f7bdf..ec7c38df68 100644
+index 841a28829d..b537a42e57 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
-@@ -336,12 +336,14 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
+@@ -339,12 +339,14 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
  	if (setpriority(PRIO_PROCESS, 0, 0) == -1)
  		log_warn("could not set priority");
  
@@ -68,5 +68,5 @@ index eee239bf52..5181a9c504 100644
  .It Ic constraint from Ar url
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.20.1
+2.21.0
 

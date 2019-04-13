@@ -1,7 +1,7 @@
-From a9008bf22c4f706cf2a4ce12dac9eb282f295933 Mon Sep 17 00:00:00 2001
+From e8dd7c12e49eabc469e48dde3da59ce743318d92 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
-Subject: [PATCH 07/14] add -p option to create a pid file
+Subject: [PATCH 07/15] add -p option to create a pid file
 
 This is used in both the Gentoo and Debian ports.
 
@@ -146,5 +146,5 @@ index 0f7313c78e..7ee919dd09 100644
  
  struct ctl_show_status {
 -- 
-2.20.1
+2.21.0
 
