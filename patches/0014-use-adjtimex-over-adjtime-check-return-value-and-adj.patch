@@ -1,15 +1,15 @@
-From fcf1d2a424913003fd28db171925858e043162aa Mon Sep 17 00:00:00 2001
+From 26d528a642433031e14580cad0db841b6f60897d Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 19 Jan 2019 04:25:44 -0600
 Subject: [PATCH 14/15] use adjtimex over adjtime, check return value and
  adjust offset as needed
 
 ---
- src/usr.sbin/ntpd/ntpd.c | 31 ++++++++++++++++++++++++++++---
- 1 file changed, 28 insertions(+), 3 deletions(-)
+ src/usr.sbin/ntpd/ntpd.c | 32 +++++++++++++++++++++++++++++---
+ 1 file changed, 29 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index c3b7ab07e1..ddb2ee87d6 100644
+index c3b7ab07e1..8d4bffa3e3 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -17,6 +17,9 @@
@@ -22,7 +22,7 @@ index c3b7ab07e1..ddb2ee87d6 100644
  #include <sys/types.h>
  #include <sys/resource.h>
  #include <sys/socket.h>
-@@ -478,21 +481,43 @@ reset_adjtime(void)
+@@ -478,21 +481,44 @@ reset_adjtime(void)
  int
  ntpd_adjtime(double d)
  {
@@ -45,14 +45,15 @@ index c3b7ab07e1..ddb2ee87d6 100644
 +	long offset = d * 1000000;
 +	struct timex tx = { 0 };
 +	tx.offset = offset;
-+	tx.modes = ADJ_OFFSET_SINGLESHOT;
++	tx.modes = ADJ_OFFSET_SINGLESHOT | ADJ_STATUS;
 +
 +	do {
 +		rc = adjtimex(&tx);
 +	} while (rc == TIME_ERROR && (tx.offset /= 2) > threshold);
 +
 +	if (rc == TIME_ERROR) {
-+		log_warn("adjtimex returned TIME_ERROR");
++		if ((tx.status & ~STA_UNSYNC))
++			log_warn("adjtimex returned TIME_ERROR");
 +	} else if (rc < 0) {
 +		log_warn("adjtimex failed");
 +	} else if (!firstadj && tx.offset == offset) {
