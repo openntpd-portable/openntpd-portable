@@ -1,6 +1,17 @@
 For detailed changes, see the changes either in the OpenBSD CVS repository or
 the GitHub mirror.
 
+2019-XX-XX  OpenNTPD 6.5p0
+
+	* Improved reliability and security of TLS constraint checking.
+
+	* Improved logging of failure cases.
+
+	* Prevent the case of multiple ntpds running at once by checking presence
+	  of the local control socket.
+
+	* TLS certificates are now searched in TLS_CA_CERT_FILE.
+
 2017-09-17  OpenNTPD 6.2p3
 
 	* Fixed build on OS X
