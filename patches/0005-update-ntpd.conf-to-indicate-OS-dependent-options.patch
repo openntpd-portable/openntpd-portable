@@ -1,4 +1,4 @@
-From d6ae8d21a3131655dc8bb36cebf6433b4f17242d Mon Sep 17 00:00:00 2001
+From 4b701bccb4a9e1e8b87a7846f54a4eef06eedae5 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:20:03 -0600
 Subject: [PATCH 05/15] update ntpd.conf to indicate OS-dependent options
@@ -11,7 +11,7 @@ Debian bug ID: 575705
  1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
-index 08062bcf28..eee239bf52 100644
+index 2a92c3ba10..775343f400 100644
 --- a/src/usr.sbin/ntpd/ntpd.conf.5
 +++ b/src/usr.sbin/ntpd/ntpd.conf.5
 @@ -38,9 +38,14 @@ The basic configuration options are as follows:
@@ -39,7 +39,7 @@ index 08062bcf28..eee239bf52 100644
  By default
  .Xr ntpd 8
  will listen using the current routing table.
-@@ -85,7 +90,7 @@ query from 2001:db8::1
+@@ -87,7 +92,7 @@ query from 2001:db8::1
  .Xc
  Specify a timedelta sensor device
  .Xr ntpd 8
@@ -49,5 +49,5 @@ index 08062bcf28..eee239bf52 100644
  .Xr ntpd 8
  will use each given sensor that actually exists.
 -- 
-2.21.0
+2.26.0
 

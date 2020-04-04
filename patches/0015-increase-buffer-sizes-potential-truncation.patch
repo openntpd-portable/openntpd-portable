@@ -1,4 +1,4 @@
-From 2c93917c251e941b7caa2e874051634f8da00814 Mon Sep 17 00:00:00 2001
+From 8701c68a6fb913bd5f7d003943cb0fde616a52ee Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 13 Apr 2019 04:45:22 -0500
 Subject: [PATCH 15/15] increase buffer sizes potential truncation
@@ -9,10 +9,10 @@ Subject: [PATCH 15/15] increase buffer sizes potential truncation
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 8d4bffa3e3..ded54fa65e 100644
+index 5817fff78a..bae6abd00f 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -873,7 +873,7 @@ show_peer_msg(struct imsg *imsg, int calledfromshowall)
+@@ -909,7 +909,7 @@ show_peer_msg(struct imsg *imsg, int calledfromshowall)
  {
  	struct ctl_show_peer	*cpeer;
  	int			 cnt;
@@ -22,10 +22,10 @@ index 8d4bffa3e3..ded54fa65e 100644
  
  	if (imsg->hdr.type == IMSG_CTL_SHOW_PEERS_END) {
 diff --git a/src/usr.sbin/ntpd/util.c b/src/usr.sbin/ntpd/util.c
-index c7fd0e3324..a3abc53425 100644
+index be113ba856..65eb9018bb 100644
 --- a/src/usr.sbin/ntpd/util.c
 +++ b/src/usr.sbin/ntpd/util.c
-@@ -134,7 +134,7 @@ d_to_sfp(double d)
+@@ -141,7 +141,7 @@ d_to_sfp(double d)
  char *
  print_rtable(int r)
  {
@@ -35,5 +35,5 @@ index c7fd0e3324..a3abc53425 100644
  	b[0] = 0;
  	if (r > 0)
 -- 
-2.21.0
+2.26.0
 

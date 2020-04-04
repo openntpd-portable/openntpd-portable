@@ -1,4 +1,4 @@
-From 521fd6f63f1b75b9a921d60f7dbb96da253418fd Mon Sep 17 00:00:00 2001
+From 6f149a27d07f574cf47a79b30f4f977e21477b1e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
 Subject: [PATCH 09/15] Notify the user when constraint support is disabled.
@@ -13,10 +13,10 @@ From Paul B. Henson.
  3 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index 0208b8dfb4..c2f9422f38 100644
+index 224c913383..8f913d8b1e 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
-@@ -163,6 +163,9 @@ new_constraint(void)
+@@ -184,6 +184,9 @@ new_constraint(void)
  	p->id = ++constraint_maxid;
  	p->fd = -1;
  
@@ -27,10 +27,10 @@ index 0208b8dfb4..c2f9422f38 100644
  }
  
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 841a28829d..b537a42e57 100644
+index 6529070d14..f23d363889 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
-@@ -339,12 +339,14 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
+@@ -354,12 +354,14 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
  	if (setpriority(PRIO_PROCESS, 0, 0) == -1)
  		log_warn("could not set priority");
  
@@ -46,10 +46,10 @@ index 841a28829d..b537a42e57 100644
  	if (chroot(pw_dir) == -1)
  		fatal("chroot");
 diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
-index eee239bf52..5181a9c504 100644
+index 775343f400..dadf3dea6d 100644
 --- a/src/usr.sbin/ntpd/ntpd.conf.5
 +++ b/src/usr.sbin/ntpd/ntpd.conf.5
-@@ -195,8 +195,15 @@ authenticated constraint,
+@@ -216,8 +216,15 @@ authenticated constraint,
  thereby reducing the impact of unauthenticated NTP
  man-in-the-middle attacks.
  Received NTP packets with time information falling outside of a range
@@ -65,8 +65,8 @@ index eee239bf52..5181a9c504 100644
 +.Xr ntpd 8
 +to log a warning message on startup.
  .Bl -tag -width Ds
- .It Ic constraint from Ar url
+ .It Ic constraint from Ar url [ip...]
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.21.0
+2.26.0
 

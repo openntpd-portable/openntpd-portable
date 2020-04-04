@@ -1,4 +1,4 @@
-From 9825a144612213491b7a4c6063407e0c08183384 Mon Sep 17 00:00:00 2001
+From 6c82208423d5a2c452f558eff28b841614dd4c60 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 08/15] initialize setproctitle where needed
@@ -10,10 +10,10 @@ clobbering them.
  1 file changed, 20 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 7c8eda5a1d..4e4efa45c8 100644
+index a0da39adf7..7259bb6236 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -118,6 +118,13 @@ usage(void)
+@@ -134,6 +134,13 @@ auto_preconditions(const struct ntpd_conf *cnf)
  #define PFD_PIPE		0
  #define PFD_MAX			1
  
@@ -27,16 +27,16 @@ index 7c8eda5a1d..4e4efa45c8 100644
  int
  main(int argc, char *argv[])
  {
-@@ -136,6 +143,8 @@ main(int argc, char *argv[])
- 	char			**argv0 = argv;
- 	char			*pname = NULL;
+@@ -154,6 +161,8 @@ main(int argc, char *argv[])
+ 	time_t			 settime_deadline;
+ 	int			 sopt = 0;
  
 +	__progname = get_progname(argv[0]);
 +
  	if (strcmp(__progname, "ntpctl") == 0) {
  		ctl_main(argc, argv);
  		/* NOTREACHED */
-@@ -145,6 +154,17 @@ main(int argc, char *argv[])
+@@ -163,6 +172,17 @@ main(int argc, char *argv[])
  
  	memset(&lconf, 0, sizeof(lconf));
  
@@ -55,5 +55,5 @@ index 7c8eda5a1d..4e4efa45c8 100644
  		switch (ch) {
  		case 'd':
 -- 
-2.21.0
+2.26.0
 

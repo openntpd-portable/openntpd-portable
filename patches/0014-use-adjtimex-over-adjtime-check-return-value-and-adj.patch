@@ -1,4 +1,4 @@
-From 26d528a642433031e14580cad0db841b6f60897d Mon Sep 17 00:00:00 2001
+From b0f5ec0bb3f01ae852c3eb2e8e8c1947d2b5235a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 19 Jan 2019 04:25:44 -0600
 Subject: [PATCH 14/15] use adjtimex over adjtime, check return value and
@@ -9,7 +9,7 @@ Subject: [PATCH 14/15] use adjtimex over adjtime, check return value and
  1 file changed, 29 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index c3b7ab07e1..8d4bffa3e3 100644
+index daa077dcda..5817fff78a 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -17,6 +17,9 @@
@@ -22,7 +22,7 @@ index c3b7ab07e1..8d4bffa3e3 100644
  #include <sys/types.h>
  #include <sys/resource.h>
  #include <sys/socket.h>
-@@ -478,21 +481,44 @@ reset_adjtime(void)
+@@ -510,21 +513,44 @@ reset_adjtime(void)
  int
  ntpd_adjtime(double d)
  {
@@ -71,5 +71,5 @@ index c3b7ab07e1..8d4bffa3e3 100644
  	update_time_sync_status(synced);
  	return (synced);
 -- 
-2.21.0
+2.26.0
 

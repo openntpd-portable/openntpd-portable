@@ -1,4 +1,4 @@
-From 3bce366dca75d5dbb6f5f3c9feba638b45c28a02 Mon Sep 17 00:00:00 2001
+From 3998296544302fe6b35080b26786e8cc5d5f2b1f Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 06/15] allow overriding default user and file locations
@@ -10,10 +10,10 @@ default user.
  1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index d438a6576d..0f7313c78e 100644
+index 05493ad1b2..98f235be94 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
-@@ -35,10 +35,20 @@
+@@ -36,10 +36,20 @@
  
  #define MAXIMUM(a, b)	((a) > (b) ? (a) : (b))
  
@@ -38,5 +38,5 @@ index d438a6576d..0f7313c78e 100644
  #if defined(SO_SETFIB)
  #define	SO_RTABLE	SO_SETFIB
 -- 
-2.21.0
+2.26.0
 

@@ -1,4 +1,4 @@
-From b750ccf4848683b40f8477cee584d80f5aaf94f7 Mon Sep 17 00:00:00 2001
+From 2dcfd7a12341ae71837622ccc1433dedadbd256d Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 4 May 2015 04:27:29 -0500
 Subject: [PATCH 10/15] add a method for updating the realtime clock on sync
@@ -9,10 +9,10 @@ from Christian Weisgerber
  1 file changed, 2 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 4e4efa45c8..a0b2ab339e 100644
+index 7259bb6236..322b337a68 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -56,6 +56,7 @@ const char     *ctl_lookup_option(char *, const char **);
+@@ -58,6 +58,7 @@ const char     *ctl_lookup_option(char *, const char **);
  void		show_status_msg(struct imsg *);
  void		show_peer_msg(struct imsg *, int);
  void		show_sensor_msg(struct imsg *, int);
@@ -20,7 +20,7 @@ index 4e4efa45c8..a0b2ab339e 100644
  
  volatile sig_atomic_t	 quit = 0;
  volatile sig_atomic_t	 reconfig = 0;
-@@ -493,6 +494,7 @@ ntpd_adjtime(double d)
+@@ -525,6 +526,7 @@ ntpd_adjtime(double d)
  	else if (!firstadj && olddelta.tv_sec == 0 && olddelta.tv_usec == 0)
  		synced = 1;
  	firstadj = 0;
@@ -29,5 +29,5 @@ index 4e4efa45c8..a0b2ab339e 100644
  }
  
 -- 
-2.21.0
+2.26.0
 
