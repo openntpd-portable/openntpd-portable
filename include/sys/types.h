@@ -22,6 +22,10 @@
 # define __bounded__(x, y, z)
 #endif
 
+#if !defined(HAVE_ATTRIBUTE__PACKED) && !defined(__packed)
+# define __packed	__attribute__((__packed__))
+#endif
+
 /*
  * Define BSD-style unsigned bits types for systems that do not have them.
  */
