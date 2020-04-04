@@ -67,6 +67,11 @@ constraint_add(struct constraint *cstr)
 }
 
 void
+constraint_reset(void)
+{
+}
+
+void
 constraint_msg_dns(u_int32_t id, u_int8_t *data, size_t len)
 {
 }
