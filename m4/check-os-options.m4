@@ -49,6 +49,7 @@ case $host_os in
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_SOURCE -D_GNU_SOURCE"
 		AC_DEFINE([SPT_TYPE], [SPT_REUSEARGV])
+		AC_SUBST([PROG_LDADD], ['-lresolv'])
 		;;
 	*netbsd*)
 		HOST_OS=netbsd
