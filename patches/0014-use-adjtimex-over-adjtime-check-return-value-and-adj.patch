@@ -1,4 +1,4 @@
-From b0f5ec0bb3f01ae852c3eb2e8e8c1947d2b5235a Mon Sep 17 00:00:00 2001
+From 9c40c5ecbbc4682a5f931a0723754a8340160860 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 19 Jan 2019 04:25:44 -0600
 Subject: [PATCH 14/15] use adjtimex over adjtime, check return value and
@@ -71,5 +71,5 @@ index daa077dcda..5817fff78a 100644
  	update_time_sync_status(synced);
  	return (synced);
 -- 
-2.26.0
+2.27.0
 

@@ -1,4 +1,4 @@
-From 6f149a27d07f574cf47a79b30f4f977e21477b1e Mon Sep 17 00:00:00 2001
+From 8e59facf2906e02c93eb63c69342b622836ea384 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
 Subject: [PATCH 09/15] Notify the user when constraint support is disabled.
@@ -13,10 +13,10 @@ From Paul B. Henson.
  3 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index 224c913383..8f913d8b1e 100644
+index e243818c25..856c3147cc 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
-@@ -184,6 +184,9 @@ new_constraint(void)
+@@ -187,6 +187,9 @@ new_constraint(void)
  	p->id = ++constraint_maxid;
  	p->fd = -1;
  
@@ -46,7 +46,7 @@ index 6529070d14..f23d363889 100644
  	if (chroot(pw_dir) == -1)
  		fatal("chroot");
 diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
-index 775343f400..dadf3dea6d 100644
+index 98368d914b..bd7314c63b 100644
 --- a/src/usr.sbin/ntpd/ntpd.conf.5
 +++ b/src/usr.sbin/ntpd/ntpd.conf.5
 @@ -216,8 +216,15 @@ authenticated constraint,
@@ -68,5 +68,5 @@ index 775343f400..dadf3dea6d 100644
  .It Ic constraint from Ar url [ip...]
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.26.0
+2.27.0
 

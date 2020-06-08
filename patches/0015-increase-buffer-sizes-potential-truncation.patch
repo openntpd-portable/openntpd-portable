@@ -1,4 +1,4 @@
-From 8701c68a6fb913bd5f7d003943cb0fde616a52ee Mon Sep 17 00:00:00 2001
+From 2b3abb5914e6ee355a7eb42e99acbbecf50ed252 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 13 Apr 2019 04:45:22 -0500
 Subject: [PATCH 15/15] increase buffer sizes potential truncation
@@ -35,5 +35,5 @@ index be113ba856..65eb9018bb 100644
  	b[0] = 0;
  	if (r > 0)
 -- 
-2.26.0
+2.27.0
 

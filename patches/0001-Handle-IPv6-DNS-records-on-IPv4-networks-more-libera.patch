@@ -1,4 +1,4 @@
-From 1bed0811fcc1b7ed35153ea78876d40a7f0ced0d Mon Sep 17 00:00:00 2001
+From d6a269d214fbb8de854f8b5e7292d5c1fad5f424 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:10:22 -0600
 Subject: [PATCH 01/15] Handle IPv6 DNS records on IPv4 networks more liberally
@@ -37,5 +37,5 @@ index d2e6119e23..98a1eb5825 100644
  		if (p->addr->ss.ss_family == qa4->sa_family) {
  			if (bind(p->query->fd, qa4, SA_LEN(qa4)) == -1)
 -- 
-2.26.0
+2.27.0
 

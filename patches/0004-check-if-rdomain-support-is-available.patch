@@ -1,4 +1,4 @@
-From 5fc49b081e877911de47a621cfd7ee536f08c613 Mon Sep 17 00:00:00 2001
+From b83879413dbdc63ed6745f722ca59cf5942a149f Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
 Subject: [PATCH 04/15] check if rdomain support is available.
@@ -29,10 +29,10 @@ index 208d19ccdf..05493ad1b2 100644
  #define	INTERVAL_QUERY_PATHETIC		60
  #define	INTERVAL_QUERY_AGGRESSIVE	5
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index fa84123903..610bd34731 100644
+index ab87872cfe..4a101bcd6d 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
-@@ -480,11 +480,13 @@ weight		: WEIGHT NUMBER	{
+@@ -479,11 +479,13 @@ weight		: WEIGHT NUMBER	{
  			opts.weight = $2;
  		}
  rtable		: RTABLE NUMBER {
@@ -112,5 +112,5 @@ index 123b6939a2..8c18eb7610 100644
  		if (bind(la->fd, (struct sockaddr *)&la->sa,
  		    SA_LEN((struct sockaddr *)&la->sa)) == -1) {
 -- 
-2.26.0
+2.27.0
 

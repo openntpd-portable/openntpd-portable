@@ -1,4 +1,4 @@
-From 6c82208423d5a2c452f558eff28b841614dd4c60 Mon Sep 17 00:00:00 2001
+From 34fcb744944e651e0b26b019a3e69cbbc181a1ad Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 08/15] initialize setproctitle where needed
@@ -55,5 +55,5 @@ index a0da39adf7..7259bb6236 100644
  		switch (ch) {
  		case 'd':
 -- 
-2.26.0
+2.27.0
 
