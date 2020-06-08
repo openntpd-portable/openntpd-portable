@@ -1,0 +1,25 @@
+From cf2fec695318a130477875178d2f58de169306bd Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Mon, 8 Jun 2020 06:54:12 -0500
+Subject: [PATCH 18/18] initialize deadline
+
+---
+ src/usr.sbin/ntpd/ntpd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index 7ea24dc58c..68514de948 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -166,7 +166,7 @@ main(int argc, char *argv[])
+ 	int			argc0 = argc, logdest;
+ 	char			**argv0 = argv;
+ 	char			*pname = NULL;
+-	time_t			 settime_deadline;
++	time_t			 settime_deadline = 0;
+ 	int			 sopt = 0;
+ 
+ 	__progname = get_progname(argv[0]);
+-- 
+2.27.0
+

@@ -1,7 +1,7 @@
 From e75f69a1c7c6000b7a0b51ba4d00455013db80b6 Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Mon, 21 Dec 2015 05:53:20 -0600
-Subject: [PATCH 12/15] check result of ftello/ftruncate
+Subject: [PATCH 12/18] check result of ftello/ftruncate
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 7 +++++--

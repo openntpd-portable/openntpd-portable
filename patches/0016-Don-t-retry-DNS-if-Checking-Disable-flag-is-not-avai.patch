@@ -1,0 +1,70 @@
+From ea1afcebbc2e1a87dddee231b48da5a891461ff9 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Mon, 8 Jun 2020 06:53:10 -0500
+Subject: [PATCH 16/18] Don't retry DNS if Checking Disable flag is not
+ available.
+
+---
+ src/usr.sbin/ntpd/config.c  | 4 +++-
+ src/usr.sbin/ntpd/ntp_dns.c | 8 +++++---
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
+index 856c3147cc..fc9df84bc4 100644
+--- a/src/usr.sbin/ntpd/config.c
++++ b/src/usr.sbin/ntpd/config.c
+@@ -138,9 +138,10 @@ int
+ host_dns(const char *s, int synced, struct ntp_addr **hn)
+ {
+ 	int error, save_opts;
+-	
++
+ 	log_debug("trying to resolve %s", s);
+ 	error = host_dns1(s, hn, 0);
++#ifdef RES_USE_CD
+ 	if (!synced && error <= 0) {
+ 		log_debug("no luck, trying to resolve %s without checking", s);
+ 		save_opts = _res.options;
+@@ -148,6 +149,7 @@ host_dns(const char *s, int synced, struct ntp_addr **hn)
+ 		error = host_dns1(s, hn, 1);
+ 		_res.options = save_opts;
+ 	}
++#endif
+ 	log_debug("resolve %s done: %d", s, error);
+ 	return error;
+ }
+diff --git a/src/usr.sbin/ntpd/ntp_dns.c b/src/usr.sbin/ntpd/ntp_dns.c
+index 439e7ab8a9..e74a8abe4d 100644
+--- a/src/usr.sbin/ntpd/ntp_dns.c
++++ b/src/usr.sbin/ntpd/ntp_dns.c
+@@ -226,14 +226,16 @@ probe_root_ns(void)
+ 	old_options = _res.options;
+ 	_res.retrans = 1;
+ 	_res.retry = 1;
++#ifdef RES_USE_CD
+ 	_res.options |= RES_USE_CD;
+-		
++#endif
++
+ 	ret = res_query(".", C_IN, T_NS, buf, sizeof(buf));
+ 
+ 	_res.retrans = old_retrans;
+ 	_res.retry = old_retry;
+ 	_res.options = old_options;
+-	
++
+ 	return ret;
+ }
+ 
+@@ -242,7 +244,7 @@ probe_root(void)
+ {
+ 	int		n;
+ 
+-	n = probe_root_ns();	
++	n = probe_root_ns();
+ 	if (n < 0) {
+ 		/* give programs like unwind a second chance */
+ 		sleep(1);
+-- 
+2.27.0
+

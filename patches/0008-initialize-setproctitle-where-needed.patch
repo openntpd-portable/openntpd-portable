@@ -1,7 +1,7 @@
 From 34fcb744944e651e0b26b019a3e69cbbc181a1ad Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
-Subject: [PATCH 08/15] initialize setproctitle where needed
+Subject: [PATCH 08/18] initialize setproctitle where needed
 
 We need to save a copy of argv and __progname to avoid setproctitle
 clobbering them.
