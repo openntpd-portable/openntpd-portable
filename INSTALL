@@ -2,8 +2,8 @@
 ----------------
 
 You will need an entropy (randomness) source.  If your OS has arc4random or
-getentropy then that is ideal. Otherwise, you can use the builtin arc4random
-implementation or the one built into LibreSSL.
+getentropy then that is ideal. Otherwise, OpenNTPD will use its builtin
+arc4random implementation, which is also part of the LibreSSL project.
 
 2. Building / Installation
 --------------------------
@@ -128,4 +128,4 @@ configuration file uses a selection of publicly accessible "pool" servers
 ------------
 
 If you experience problems compiling, installing or running OpenNTPD,
-please report the problem to the address in the README file.
+please report the problem to the address in the README.md file.

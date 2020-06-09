@@ -18,7 +18,7 @@
 SUBDIRS = include compat src
 ACLOCAL_AMFLAGS = -I m4
 
-EXTRA_DIST = VERSION ntpd.conf
+EXTRA_DIST = README.md INSTALL VERSION ntpd.conf
 
 install-exec-hook:
 	@if [ ! -f "$(DESTDIR)$(sysconfdir)/ntpd.conf" ]; then \
