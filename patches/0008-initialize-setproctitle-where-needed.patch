@@ -1,4 +1,4 @@
-From 34fcb744944e651e0b26b019a3e69cbbc181a1ad Mon Sep 17 00:00:00 2001
+From 549bec923b5cdbd6baa83a67b7e625f1fa824539 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
 Subject: [PATCH 08/18] initialize setproctitle where needed

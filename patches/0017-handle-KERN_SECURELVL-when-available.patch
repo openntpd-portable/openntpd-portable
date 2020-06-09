@@ -1,4 +1,4 @@
-From 1d973b92dd29d8d466003718f5608ce802ce9d4b Mon Sep 17 00:00:00 2001
+From 063ba13b18c72994a3fdf9a3db04b56cc5a6738c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:53 -0500
 Subject: [PATCH 17/18] handle KERN_SECURELVL when available

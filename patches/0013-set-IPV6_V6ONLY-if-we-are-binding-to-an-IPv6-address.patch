@@ -1,4 +1,4 @@
-From ba37da3170bc54b8bff0a341229d8dd20034f18e Mon Sep 17 00:00:00 2001
+From a1b544e4c2f444bdeb29e335a498b7fb822db9c2 Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sat, 13 Aug 2016 14:22:02 -0500
 Subject: [PATCH 13/18] set IPV6_V6ONLY if we are binding to an IPv6 address

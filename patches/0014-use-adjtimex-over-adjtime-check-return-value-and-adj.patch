@@ -1,4 +1,4 @@
-From 9c40c5ecbbc4682a5f931a0723754a8340160860 Mon Sep 17 00:00:00 2001
+From f212e683592026fdfe40e24eca9afd21da54eafb Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 19 Jan 2019 04:25:44 -0600
 Subject: [PATCH 14/18] use adjtimex over adjtime, check return value and

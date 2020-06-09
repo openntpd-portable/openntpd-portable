@@ -1,4 +1,4 @@
-From 2359f4e6bc17e2924739cf4af4e21335ddd8508a Mon Sep 17 00:00:00 2001
+From 0bc7191cc87150509875af90298ca763df64a762 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 06/18] allow overriding default user and file locations
@@ -10,7 +10,7 @@ default user.
  1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 05493ad1b2..98f235be94 100644
+index 208d19ccdf..b360af9eac 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -36,10 +36,20 @@
@@ -35,8 +35,8 @@ index 05493ad1b2..98f235be94 100644
 +#define	DRIFTFILE	LOCALSTATEDIR "/db/ntpd.drift"
 +#define	CTLSOCKET	LOCALSTATEDIR "/run/ntpd.sock"
  
- #if defined(SO_SETFIB)
- #define	SO_RTABLE	SO_SETFIB
+ #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
+ #define	INTERVAL_QUERY_PATHETIC		60
 -- 
 2.27.0
 
