@@ -1,4 +1,4 @@
-From 0bc7191cc87150509875af90298ca763df64a762 Mon Sep 17 00:00:00 2001
+From 7d3379630a3a09b77dc8ac98eda7fe0119935f30 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
 Subject: [PATCH 06/18] allow overriding default user and file locations
@@ -10,7 +10,7 @@ default user.
  1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 208d19ccdf..b360af9eac 100644
+index 9305cf0cd9..fe22788005 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -36,10 +36,20 @@
@@ -38,5 +38,5 @@ index 208d19ccdf..b360af9eac 100644
  #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
  #define	INTERVAL_QUERY_PATHETIC		60
 -- 
-2.27.0
+2.29.2
 
