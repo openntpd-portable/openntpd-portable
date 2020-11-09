@@ -1,4 +1,4 @@
-From e809e7f516d3eb2dbd6c7bf250835aadff59b796 Mon Sep 17 00:00:00 2001
+From 81de07e152d7c0fc7ded997539756ec5c94b5049 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
 Subject: [PATCH 07/18] add -p option to create a pid file
@@ -134,7 +134,7 @@ index e015d1d093..a0da39adf7 100644
  			timeout = INFTIM;
  			break;
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index b360af9eac..3ea46ac064 100644
+index fe22788005..ced81b9ffc 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -261,6 +261,7 @@ struct ntpd_conf {
@@ -146,5 +146,5 @@ index b360af9eac..3ea46ac064 100644
  
  struct ctl_show_status {
 -- 
-2.27.0
+2.29.2
 

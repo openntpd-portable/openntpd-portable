@@ -1,4 +1,4 @@
-From f28be53d12e9bf3fd9eda1f8791ca6e40f3aeaeb Mon Sep 17 00:00:00 2001
+From fec26fc5d432a9298f137dc0bff8b92961ebcce2 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 13 Apr 2019 04:45:22 -0500
 Subject: [PATCH 15/18] increase buffer sizes potential truncation
@@ -9,7 +9,7 @@ Subject: [PATCH 15/18] increase buffer sizes potential truncation
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 5817fff78a..bae6abd00f 100644
+index 056e36339f..491ac52b8a 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -909,7 +909,7 @@ show_peer_msg(struct imsg *imsg, int calledfromshowall)
@@ -35,5 +35,5 @@ index be113ba856..65eb9018bb 100644
  	b[0] = 0;
  	if (r > 0)
 -- 
-2.27.0
+2.29.2
 

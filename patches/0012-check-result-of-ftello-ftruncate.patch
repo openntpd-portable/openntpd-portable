@@ -1,4 +1,4 @@
-From b750df031f9ab2309abe57dedbced389f765f0df Mon Sep 17 00:00:00 2001
+From 6b5f10342c5cdffa66d33632ccd0d0b7bf8211ce Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Mon, 21 Dec 2015 05:53:20 -0600
 Subject: [PATCH 12/18] check result of ftello/ftruncate
@@ -33,5 +33,5 @@ index 322b337a68..daa077dcda 100644
  }
  
 -- 
-2.27.0
+2.29.2
 

@@ -1,4 +1,4 @@
-From ccda13569b027cdcc391a6efa83e03793291bf25 Mon Sep 17 00:00:00 2001
+From 42b0875bb3fa699ccb7572a3895b0d615f2a45d6 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:04:08 -0600
 Subject: [PATCH 02/18] EAI_NODATA does not exist everywhere
@@ -36,5 +36,5 @@ index 0dd2978de3..e243818c25 100644
  		log_warnx("could not parse \"%s\": %s", s,
  		    gai_strerror(error));
 -- 
-2.27.0
+2.29.2
 

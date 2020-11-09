@@ -1,4 +1,4 @@
-From 30d5fa3841facc188d5332d385069cce394b4dcd Mon Sep 17 00:00:00 2001
+From b050de41f956fc4eda34d59453bdb5ce53eb6ccd Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
 Subject: [PATCH 03/18] conditionally fill in sin_len/sin6_len if they exist
@@ -33,5 +33,5 @@ index 81d19bbff4..ab87872cfe 100644
  				yyerror("invalid IPv4 or IPv6 address: %s\n",
  				    $3);
 -- 
-2.27.0
+2.29.2
 
