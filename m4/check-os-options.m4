@@ -76,7 +76,7 @@ case $host_os in
 		HOST_OS=solaris
 		HOST_ABI=elf
 		CPPFLAGS="$CPPFLAGS -D__EXTENSIONS__ -D_XOPEN_SOURCE=600 -DBSD_COMP"
-		AC_SUBST([PLATFORM_LDADD], ['-lnsl -lsocket'])
+		AC_SUBST([PLATFORM_LDADD], ['-lresolv -lsocket -lnsl'])
 		;;
 	*) ;;
 esac
