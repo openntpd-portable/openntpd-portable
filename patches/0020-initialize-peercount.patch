@@ -1,0 +1,27 @@
+From a47ce0edbf627841d73e22f39fe04b3d0125f9e0 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Mon, 16 Nov 2020 02:20:40 -0600
+Subject: [PATCH 20/22] initialize peercount
+
+gcc on several platforms complains about this. It might not be a problem
+but it's not clear from the state machine.
+---
+ src/usr.sbin/ntpd/ntp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
+index 12f96da5d0..690806dff6 100644
+--- a/src/usr.sbin/ntpd/ntp.c
++++ b/src/usr.sbin/ntpd/ntp.c
+@@ -545,7 +545,7 @@ ntp_dispatch_imsg_dns(void)
+ 	u_int16_t		 dlen;
+ 	u_char			*p;
+ 	struct ntp_addr		*h;
+-	size_t			 addrcount, peercount;
++	size_t			 addrcount, peercount = 0;
+ 	int			 n;
+ 
+ 	if (((n = imsg_read(ibuf_dns)) == -1 && errno != EAGAIN) || n == 0)
+-- 
+2.29.2
+

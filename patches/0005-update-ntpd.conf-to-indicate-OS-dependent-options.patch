@@ -1,7 +1,7 @@
 From dcc0bca52445f8b1ee5b0c64fa4832575f9bda4c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:20:03 -0600
-Subject: [PATCH 05/18] update ntpd.conf to indicate OS-dependent options
+Subject: [PATCH 05/22] update ntpd.conf to indicate OS-dependent options
 
 Also, clarify listening behavior based on a patch from
 Dererk <dererk@debian.org>

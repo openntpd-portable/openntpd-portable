@@ -1,7 +1,7 @@
 From 7bab118542527c0e6cf3486285c401e6acf15178 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 19 Jan 2019 04:25:44 -0600
-Subject: [PATCH 14/18] use adjtimex over adjtime, check return value and
+Subject: [PATCH 14/22] use adjtimex over adjtime, check return value and
  adjust offset as needed
 
 ---

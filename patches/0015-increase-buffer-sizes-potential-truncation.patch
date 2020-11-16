@@ -1,7 +1,7 @@
 From fec26fc5d432a9298f137dc0bff8b92961ebcce2 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 13 Apr 2019 04:45:22 -0500
-Subject: [PATCH 15/18] increase buffer sizes potential truncation
+Subject: [PATCH 15/22] increase buffer sizes potential truncation
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 2 +-

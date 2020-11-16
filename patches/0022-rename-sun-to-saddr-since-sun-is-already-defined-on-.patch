@@ -1,0 +1,43 @@
+From 0ac26edf4efcff1818cd290b0994f0b570036849 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Mon, 16 Nov 2020 02:23:22 -0600
+Subject: [PATCH 22/22] rename 'sun' to 'saddr' since sun is already defined on
+ Solaris
+
+This is a clearer name anyway.
+---
+ src/usr.sbin/ntpd/control.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/control.c b/src/usr.sbin/ntpd/control.c
+index 751e9cb4c6..d97740484d 100644
+--- a/src/usr.sbin/ntpd/control.c
++++ b/src/usr.sbin/ntpd/control.c
+@@ -39,19 +39,19 @@
+ int
+ control_check(char *path)
+ {
+-	struct sockaddr_un	 sun;
++	struct sockaddr_un	 saddr;
+ 	int			 fd;
+ 
+-	bzero(&sun, sizeof(sun));
+-	sun.sun_family = AF_UNIX;
+-	strlcpy(sun.sun_path, path, sizeof(sun.sun_path));
++	bzero(&saddr, sizeof(saddr));
++	saddr.sun_family = AF_UNIX;
++	strlcpy(saddr.sun_path, path, sizeof(saddr.sun_path));
+ 
+ 	if ((fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
+ 		log_debug("control_check: socket check");
+ 		return (-1);
+ 	}
+ 
+-	if (connect(fd, (struct sockaddr *)&sun, sizeof(sun)) == 0) {
++	if (connect(fd, (struct sockaddr *)&saddr, sizeof(saddr)) == 0) {
+ 		log_debug("control_check: socket in use");
+ 		close(fd);
+ 		return (-1);
+-- 
+2.29.2
+

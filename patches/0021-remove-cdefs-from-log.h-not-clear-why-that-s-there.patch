@@ -1,0 +1,24 @@
+From 97bbce469ae2a6c1ae3965c476b44a97aedbba48 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Mon, 16 Nov 2020 02:22:07 -0600
+Subject: [PATCH 21/22] remove cdefs from log.h (not clear why that's there)
+
+---
+ src/usr.sbin/ntpd/log.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/log.h b/src/usr.sbin/ntpd/log.h
+index c3221c373e..2933d0e691 100644
+--- a/src/usr.sbin/ntpd/log.h
++++ b/src/usr.sbin/ntpd/log.h
+@@ -20,7 +20,6 @@
+ #define LOG_H
+ 
+ #include <stdarg.h>
+-#include <sys/cdefs.h>
+ 
+ #define LOG_TO_STDERR	(1<<0)
+ #define LOG_TO_SYSLOG	(1<<1)
+-- 
+2.29.2
+
