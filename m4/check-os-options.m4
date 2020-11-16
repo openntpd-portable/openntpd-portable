@@ -25,6 +25,7 @@ case $host_os in
 		AC_DEFINE(BROKEN_SETREGID,[], [Broken setregid])
 		AC_DEFINE(YYSTYPE_IS_DECLARED,[], [Broken bison])
 		AC_DEFINE([SPT_TYPE], [SPT_REUSEARGV])
+		AC_SUBST([PROG_LDADD], ['-lresolv'])
 		;;
 	*freebsd*)
 		HOST_OS=freebsd
