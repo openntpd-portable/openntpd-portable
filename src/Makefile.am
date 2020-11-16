@@ -30,7 +30,9 @@ ntpd_CFLAGS += -DLOCALSTATEDIR=\"$(localstatedir)\"
 
 ntpd_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD) -lm
 ntpd_LDADD += $(top_builddir)/compat/libcompat.la
+if !HAVE_EXPLICIT_BZERO
 ntpd_LDADD += $(top_builddir)/compat/libcompatnoopt.la
+endif
 
 ntpd_SOURCES = client.c
 ntpd_SOURCES += config.c
