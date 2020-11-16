@@ -26,7 +26,6 @@
 
 #elif defined(__sun) || defined(_AIX) || defined(__hpux)
 #include <sys/types.h>
-#include <arpa/nameser_compat.h>
 
 #elif defined(__sgi)
 #include <standards.h>
