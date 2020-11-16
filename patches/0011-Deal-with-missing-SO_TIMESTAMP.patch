@@ -1,7 +1,7 @@
 From 565b2b5f30d5e37c35d813727078db760b53e717 Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sun, 6 Dec 2015 22:35:38 -0600
-Subject: [PATCH 11/18] Deal with missing SO_TIMESTAMP
+Subject: [PATCH 11/22] Deal with missing SO_TIMESTAMP
 
 from Paul B. Henson" <henson@acm.org>
 

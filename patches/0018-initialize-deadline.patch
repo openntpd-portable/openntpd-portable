@@ -1,7 +1,7 @@
 From 6ca7d492b98f60911c86bffcea1677c09343fbdc Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:54:12 -0500
-Subject: [PATCH 18/18] initialize deadline
+Subject: [PATCH 18/22] initialize deadline
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 2 +-

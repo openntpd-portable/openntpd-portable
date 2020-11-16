@@ -1,7 +1,7 @@
 From 27dbab939835addba3b1e08341ad47e67b61577a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:53 -0500
-Subject: [PATCH 17/18] handle KERN_SECURELVL when available
+Subject: [PATCH 17/22] handle KERN_SECURELVL when available
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 8 ++++++--
