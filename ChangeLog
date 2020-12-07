@@ -12,9 +12,7 @@ history is also available from Git.
 
 OpenNTPD Portable Release Notes:
 
-6.7p1 -  New release based on OpenBSD 6.7
-
-	* ntpd now does constraint validation against 9.9.9.9 and 2620:fe::fe by default.
+6.8p1 -  New release based on OpenBSD 6.8
 
 	* The ntpd daemon now gets and sets the clock in a secure way when booting
 	  even when a battery-backed clock is absent.
@@ -32,9 +30,17 @@ OpenNTPD Portable Release Notes:
 
 	* TLS certificates are now searched in TLS_CA_CERT_FILE.
 
-	The libtls library, as shipped with LibreSSL 3.1.0 or later, is
-	required to use the HTTPS constraint feature, though it is not
-	required to use OpenNTPD.
+	* The default ntpd.conf configuration file now uses 9.9.9.9 and
+	  2620:fe::fe, in addition to google.com, when performing time constraint
+	  validation.
+
+	* Improved handling unsynched mode when there is no replies from an NTP
+	  server, such as when there are network connectivity issues.
+
+	* To build OpenNTPD with time constraint support, libtls from LibreSSL
+	  3.2.2 or later are recommended. LibreSSL 3.2.2 and later include a
+	  self-contained libtls, which allows OpenNTPD to work with constraints
+	  even on systems even where libcrypto and libssl are not from LibreSSL.
 
 6.2p3 - Bug fixes
 
