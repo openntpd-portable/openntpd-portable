@@ -7,9 +7,15 @@ files from OpenBSD's ntpd:
 
 Henning Brauer
 Alexander Guy
+Mike Miller
+Reyk Floeter
+Markus Friedl
+Daniel Hartmeier
+Theo de Raadt
 
 and the portability layer:
 
+Brent Cook
 Darren Tucker
 Damien Miller
 Internet Software Consortium
