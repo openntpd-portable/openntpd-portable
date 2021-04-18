@@ -1,6 +1,8 @@
 This is the portable version of OpenBSD's native Network Time Protocol daemon,
 OpenNTPD http://www.openntpd.org/
 
+![Build Tests](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/test.yml/badge.svg)
+
 ## Platform Requirements
 
  - adjtime(2) and settimeofday(2) syscalls or equivalent.
