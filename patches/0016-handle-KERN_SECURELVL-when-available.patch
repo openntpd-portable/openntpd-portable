@@ -1,17 +1,17 @@
-From 27dbab939835addba3b1e08341ad47e67b61577a Mon Sep 17 00:00:00 2001
+From cd00cfdc68736d444c46722cd4c85bc214e16bdd Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:53 -0500
-Subject: [PATCH 17/22] handle KERN_SECURELVL when available
+Subject: [PATCH 16/21] handle KERN_SECURELVL when available
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 8 ++++++--
  1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 491ac52b8a..38dec02601 100644
+index 8aecad84f8..c498431a90 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -23,7 +23,9 @@
+@@ -20,7 +20,9 @@
  #include <sys/types.h>
  #include <sys/resource.h>
  #include <sys/socket.h>
@@ -21,7 +21,7 @@ index 491ac52b8a..38dec02601 100644
  #include <sys/wait.h>
  #include <sys/un.h>
  #include <netinet/in.h>
-@@ -123,12 +125,14 @@ usage(void)
+@@ -120,12 +122,14 @@ usage(void)
  int
  auto_preconditions(const struct ntpd_conf *cnf)
  {
@@ -39,5 +39,5 @@ index 491ac52b8a..38dec02601 100644
  	return !cnf->settime && (constraints || cnf->trusted_peers ||
  	    conf->trusted_sensors) && securelevel == 0;
 -- 
-2.29.2
+2.31.1
 

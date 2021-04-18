@@ -1,7 +1,7 @@
-From 2ac66ec94901bbe9f126dfcc6b33fcb6d3e65474 Mon Sep 17 00:00:00 2001
+From 78d5f5e37d2cb897bedc340c13e9ec59f17b329a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 16 Nov 2020 02:20:10 -0600
-Subject: [PATCH 19/22] cast mode to unsigned int for Solaris
+Subject: [PATCH 18/21] cast mode to unsigned int for Solaris
 
 ---
  src/usr.sbin/ntpd/ntp.c | 2 +-
@@ -21,5 +21,5 @@ index 42812df695..12f96da5d0 100644
  	if (chroot(pw->pw_dir) == -1)
  		fatal("chroot");
 -- 
-2.29.2
+2.31.1
 

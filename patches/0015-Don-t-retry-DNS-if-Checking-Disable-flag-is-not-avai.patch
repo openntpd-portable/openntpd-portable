@@ -1,7 +1,7 @@
-From 83337b9df9c8f5e86798e0a80c6bc81be61cafae Mon Sep 17 00:00:00 2001
+From 87048b692644bd82300ff93233735860f363e0cb Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:10 -0500
-Subject: [PATCH 16/22] Don't retry DNS if Checking Disable flag is not
+Subject: [PATCH 15/21] Don't retry DNS if Checking Disable flag is not
  available.
 
 ---
@@ -69,5 +69,5 @@ index 439e7ab8a9..e74a8abe4d 100644
  		/* give programs like unwind a second chance */
  		sleep(1);
 -- 
-2.29.2
+2.31.1
 

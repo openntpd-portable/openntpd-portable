@@ -1,7 +1,7 @@
-From 0ac26edf4efcff1818cd290b0994f0b570036849 Mon Sep 17 00:00:00 2001
+From 4ec1031ebc7f4446de320e648906fad1b42d08b9 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 16 Nov 2020 02:23:22 -0600
-Subject: [PATCH 22/22] rename 'sun' to 'saddr' since sun is already defined on
+Subject: [PATCH 21/21] rename 'sun' to 'saddr' since sun is already defined on
  Solaris
 
 This is a clearer name anyway.
@@ -39,5 +39,5 @@ index 751e9cb4c6..d97740484d 100644
  		close(fd);
  		return (-1);
 -- 
-2.29.2
+2.31.1
 

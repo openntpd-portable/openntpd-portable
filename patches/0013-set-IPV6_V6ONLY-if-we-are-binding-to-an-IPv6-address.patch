@@ -1,7 +1,7 @@
-From a1fa58aa212115d292a98dc65962b2c397012d6b Mon Sep 17 00:00:00 2001
+From e42bab1f9d4e0b83b069952030d4219763e11ad5 Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sat, 13 Aug 2016 14:22:02 -0500
-Subject: [PATCH 13/22] set IPV6_V6ONLY if we are binding to an IPv6 address
+Subject: [PATCH 13/21] set IPV6_V6ONLY if we are binding to an IPv6 address
 
 ---
  src/usr.sbin/ntpd/server.c | 9 +++++++++
@@ -35,5 +35,5 @@ index 8c18eb7610..9eab1a74bf 100644
  		if (la->rtable != -1 &&
  		    setsockopt(la->fd, SOL_SOCKET, SO_RTABLE, &la->rtable,
 -- 
-2.29.2
+2.31.1
 
