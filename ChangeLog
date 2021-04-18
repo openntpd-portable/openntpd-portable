@@ -12,7 +12,23 @@ history is also available from Git.
 
 OpenNTPD Portable Release Notes:
 
-6.8p1 -  New release based on OpenBSD 6.8
+6.9p1 - New release based on OpenBSD 6.9
+
+	* The ntpd client code corrects both T1 and T4 with the current offset
+	  returned by adjtime(2) from the kernel. T1 is local time when the NTP
+	  packet is sent and T4 when the response is received. If between these
+	  events a NTP reply from another server is received, it may change the
+	  kernel offset with adjtime(2). Then the calulation of the client offset
+	  was done with different bases, the result was wrong and the system time
+	  started moving around. So instead of correcting T1 and T4 individually
+	  at different events, correct their sum once. Error handling was missing
+	  if there is no timestamp in the response.  
+
+	* Portable no longer tries to use adjtimex with ntpd_adjtime, fixing a
+	  logic issue where STA_UNSYNC was always set regardless of the actual
+	  synchronization status.
+
+6.8p1 - New release based on OpenBSD 6.8
 
 	* The ntpd daemon now gets and sets the clock in a secure way when booting
 	  even when a battery-backed clock is absent.
