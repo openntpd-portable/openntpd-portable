@@ -1,14 +1,14 @@
-From 9ef075f07f1fdd622c8d0da93ccb011e76f92cbe Mon Sep 17 00:00:00 2001
+From 018c62acc656e309de1e8a5eb0e2f1d72445a34f Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
-Subject: [PATCH 03/21] conditionally fill in sin_len/sin6_len if they exist
+Subject: [PATCH 03/20] conditionally fill in sin_len/sin6_len if they exist
 
 ---
  src/usr.sbin/ntpd/parse.y | 8 +++++---
  1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/parse.y b/src/usr.sbin/ntpd/parse.y
-index 81d19bbff4..ab87872cfe 100644
+index 3aa8d95a9af..9130d938f41 100644
 --- a/src/usr.sbin/ntpd/parse.y
 +++ b/src/usr.sbin/ntpd/parse.y
 @@ -140,15 +140,17 @@ main		: LISTEN ON address listen_opts	{
@@ -33,5 +33,5 @@ index 81d19bbff4..ab87872cfe 100644
  				yyerror("invalid IPv4 or IPv6 address: %s\n",
  				    $3);
 -- 
-2.31.1
+2.37.3
 

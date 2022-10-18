@@ -1,7 +1,7 @@
-From 2823bd85d58e2818d308bce23ad3974f3762e5ab Mon Sep 17 00:00:00 2001
+From 4772afb3c5f126a89107d3df31e0b6dcc906e771 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
-Subject: [PATCH 07/21] add -p option to create a pid file
+Subject: [PATCH 07/20] add -p option to create a pid file
 
 This is used in both the Gentoo and Debian ports.
 
@@ -13,7 +13,7 @@ Origin: https://bugs.gentoo.org/show_bug.cgi?id=493082
  3 files changed, 33 insertions(+), 5 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.8 b/src/usr.sbin/ntpd/ntpd.8
-index f5fe1db9d8..98af025991 100644
+index f5fe1db9d8d..98af0259914 100644
 --- a/src/usr.sbin/ntpd/ntpd.8
 +++ b/src/usr.sbin/ntpd/ntpd.8
 @@ -25,6 +25,7 @@
@@ -35,7 +35,7 @@ index f5fe1db9d8..98af025991 100644
  .Pp
  .Nm
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index e015d1d093..a0da39adf7 100644
+index 8e6887435d6..0e7672433d2 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -90,6 +90,18 @@ sighdlr(int sig)
@@ -98,7 +98,7 @@ index e015d1d093..a0da39adf7 100644
  	} else {
  		settime_deadline = getmonotime();
  		timeout = 100;
-@@ -330,9 +347,11 @@ main(int argc, char *argv[])
+@@ -328,9 +345,11 @@ main(int argc, char *argv[])
  			log_init(logdest, lconf.verbose, LOG_DAEMON);
  			log_warnx("no reply received in time, skipping initial "
  			    "time setting");
@@ -111,7 +111,7 @@ index e015d1d093..a0da39adf7 100644
  		}
  
  		if (nfds > 0 && (pfd[PFD_PIPE].revents & POLLOUT))
-@@ -371,6 +390,8 @@ main(int argc, char *argv[])
+@@ -369,6 +388,8 @@ main(int argc, char *argv[])
  	msgbuf_clear(&ibuf->w);
  	free(ibuf);
  	log_info("Terminating");
@@ -120,7 +120,7 @@ index e015d1d093..a0da39adf7 100644
  	return (0);
  }
  
-@@ -431,9 +452,11 @@ dispatch_imsg(struct ntpd_conf *lconf, int argc, char **argv)
+@@ -429,9 +450,11 @@ dispatch_imsg(struct ntpd_conf *lconf, int argc, char **argv)
  			memcpy(&d, imsg.data, sizeof(d));
  			ntpd_settime(d);
  			/* daemonize now */
@@ -134,7 +134,7 @@ index e015d1d093..a0da39adf7 100644
  			timeout = INFTIM;
  			break;
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index fe22788005..ced81b9ffc 100644
+index 581434e86ed..31025fd4922 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -261,6 +261,7 @@ struct ntpd_conf {
@@ -146,5 +146,5 @@ index fe22788005..ced81b9ffc 100644
  
  struct ctl_show_status {
 -- 
-2.31.1
+2.37.3
 

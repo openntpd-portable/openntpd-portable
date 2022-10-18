@@ -1,14 +1,14 @@
-From 886db0330a32dba76de0ad2627c159c24615ffb1 Mon Sep 17 00:00:00 2001
+From e7a30157501ac66e8930130ec68ee360028ebe3a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:54:12 -0500
-Subject: [PATCH 17/21] initialize deadline
+Subject: [PATCH 17/20] initialize deadline
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index c498431a90..d767374081 100644
+index 73dea42f9da..bb3cc7c0bd7 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -163,7 +163,7 @@ main(int argc, char *argv[])
@@ -21,5 +21,5 @@ index c498431a90..d767374081 100644
  
  	__progname = get_progname(argv[0]);
 -- 
-2.31.1
+2.37.3
 

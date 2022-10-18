@@ -1,7 +1,7 @@
-From 703b80ac1f9772d916ddaec2e02ecff7ca170d9a Mon Sep 17 00:00:00 2001
+From bda7461e2b610b006869ae5ea8cc8f07929d3ae4 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 4 May 2015 04:27:29 -0500
-Subject: [PATCH 10/21] add a method for updating the realtime clock on sync
+Subject: [PATCH 10/20] add a method for updating the realtime clock on sync
 
 from Christian Weisgerber
 ---
@@ -9,7 +9,7 @@ from Christian Weisgerber
  1 file changed, 2 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 7259bb6236..322b337a68 100644
+index 5c7239f9c8b..99f866b44b1 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -58,6 +58,7 @@ const char     *ctl_lookup_option(char *, const char **);
@@ -20,7 +20,7 @@ index 7259bb6236..322b337a68 100644
  
  volatile sig_atomic_t	 quit = 0;
  volatile sig_atomic_t	 reconfig = 0;
-@@ -525,6 +526,7 @@ ntpd_adjtime(double d)
+@@ -523,6 +524,7 @@ ntpd_adjtime(double d)
  	else if (!firstadj && olddelta.tv_sec == 0 && olddelta.tv_usec == 0)
  		synced = 1;
  	firstadj = 0;
@@ -29,5 +29,5 @@ index 7259bb6236..322b337a68 100644
  }
  
 -- 
-2.31.1
+2.37.3
 

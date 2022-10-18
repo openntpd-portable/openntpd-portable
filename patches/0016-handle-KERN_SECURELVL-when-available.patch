@@ -1,14 +1,14 @@
-From cd00cfdc68736d444c46722cd4c85bc214e16bdd Mon Sep 17 00:00:00 2001
+From 61d9775f4378bbdcfca255de5a6f5a1f84fee349 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:53 -0500
-Subject: [PATCH 16/21] handle KERN_SECURELVL when available
+Subject: [PATCH 16/20] handle KERN_SECURELVL when available
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 8 ++++++--
  1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 8aecad84f8..c498431a90 100644
+index da96eac94a6..73dea42f9da 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -20,7 +20,9 @@
@@ -39,5 +39,5 @@ index 8aecad84f8..c498431a90 100644
  	return !cnf->settime && (constraints || cnf->trusted_peers ||
  	    conf->trusted_sensors) && securelevel == 0;
 -- 
-2.31.1
+2.37.3
 

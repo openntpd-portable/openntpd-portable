@@ -1,7 +1,7 @@
-From 87048b692644bd82300ff93233735860f363e0cb Mon Sep 17 00:00:00 2001
+From 1d654b9d2ad5ae7d0c671297f5115aa5328ce09e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:10 -0500
-Subject: [PATCH 15/21] Don't retry DNS if Checking Disable flag is not
+Subject: [PATCH 15/20] Don't retry DNS if Checking Disable flag is not
  available.
 
 ---
@@ -10,7 +10,7 @@ Subject: [PATCH 15/21] Don't retry DNS if Checking Disable flag is not
  2 files changed, 10 insertions(+), 5 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index 856c3147cc..f89742916a 100644
+index 856c3147cc5..f89742916a7 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
 @@ -137,17 +137,20 @@ host_dns1(const char *s, struct ntp_addr **hn, int notauth)
@@ -37,7 +37,7 @@ index 856c3147cc..f89742916a 100644
  	return error;
  }
 diff --git a/src/usr.sbin/ntpd/ntp_dns.c b/src/usr.sbin/ntpd/ntp_dns.c
-index 439e7ab8a9..e74a8abe4d 100644
+index 72a00deabc9..9fbc935c88e 100644
 --- a/src/usr.sbin/ntpd/ntp_dns.c
 +++ b/src/usr.sbin/ntpd/ntp_dns.c
 @@ -226,14 +226,16 @@ probe_root_ns(void)
@@ -69,5 +69,5 @@ index 439e7ab8a9..e74a8abe4d 100644
  		/* give programs like unwind a second chance */
  		sleep(1);
 -- 
-2.31.1
+2.37.3
 

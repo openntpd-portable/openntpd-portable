@@ -1,7 +1,7 @@
-From ec7234b6517daa244b90f02bab6f8b670052857f Mon Sep 17 00:00:00 2001
+From 90b002ee4dd6a552e0cd9c6ef8cf81153e96c0ce Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sun, 6 Dec 2015 22:35:38 -0600
-Subject: [PATCH 11/21] Deal with missing SO_TIMESTAMP
+Subject: [PATCH 11/20] Deal with missing SO_TIMESTAMP
 
 from Paul B. Henson" <henson@acm.org>
 
@@ -11,23 +11,23 @@ Fall back to the previous client.c implementation when it is not found.
  1 file changed, 9 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
-index 4a938a8bb5..841bb4b18d 100644
+index 1a5b22c63a3..95220289f21 100644
 --- a/src/usr.sbin/ntpd/client.c
 +++ b/src/usr.sbin/ntpd/client.c
-@@ -193,10 +193,12 @@ client_query(struct ntp_peer *p)
- 		if (p->addr->ss.ss_family == AF_INET && setsockopt(p->query->fd,
+@@ -192,10 +192,12 @@ client_query(struct ntp_peer *p)
+ 		if (p->addr->ss.ss_family == AF_INET && setsockopt(p->query.fd,
  		    IPPROTO_IP, IP_TOS, &val, sizeof(val)) == -1)
  			log_warn("setsockopt IPTOS_LOWDELAY");
 +#ifdef SO_TIMESTAMP
  		val = 1;
- 		if (setsockopt(p->query->fd, SOL_SOCKET, SO_TIMESTAMP,
+ 		if (setsockopt(p->query.fd, SOL_SOCKET, SO_TIMESTAMP,
  		    &val, sizeof(val)) == -1)
  			fatal("setsockopt SO_TIMESTAMP");
 +#endif
  	}
  
  	/*
-@@ -289,7 +291,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
+@@ -288,7 +290,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
  		struct cmsghdr	hdr;
  		char		buf[CMSG_SPACE(sizeof(tv))];
  	} cmsgbuf;
@@ -37,7 +37,7 @@ index 4a938a8bb5..841bb4b18d 100644
  	ssize_t			 size;
  	double			 T1, T2, T3, T4, offset, delay;
  	time_t			 interval;
-@@ -326,6 +330,8 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
+@@ -325,6 +329,8 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
  		return (0);
  	}
  
@@ -46,7 +46,7 @@ index 4a938a8bb5..841bb4b18d 100644
  	for (cmsg = CMSG_FIRSTHDR(&somsg); cmsg != NULL;
  	    cmsg = CMSG_NXTHDR(&somsg, cmsg)) {
  		if (cmsg->cmsg_level == SOL_SOCKET &&
-@@ -337,6 +343,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
+@@ -336,6 +342,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
  	}
  	if (cmsg == NULL)
  		fatal("SCM_TIMESTAMP");
@@ -57,5 +57,5 @@ index 4a938a8bb5..841bb4b18d 100644
  	ntp_getmsg((struct sockaddr *)&p->addr->ss, buf, size, &msg);
  
 -- 
-2.31.1
+2.37.3
 
