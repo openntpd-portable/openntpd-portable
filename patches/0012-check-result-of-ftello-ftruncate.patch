@@ -1,7 +1,7 @@
-From b04321d98694c20a3062a5628182bdfabbb3fac2 Mon Sep 17 00:00:00 2001
+From 5d1867a93bb35dbae519cdf19746235057ccccdb Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Mon, 21 Dec 2015 05:53:20 -0600
-Subject: [PATCH 12/20] check result of ftello/ftruncate
+Subject: [PATCH 12/21] check result of ftello/ftruncate
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 7 +++++--
@@ -33,5 +33,5 @@ index 99f866b44b1..fb9e2a6dce0 100644
  }
  
 -- 
-2.37.3
+2.42.0
 

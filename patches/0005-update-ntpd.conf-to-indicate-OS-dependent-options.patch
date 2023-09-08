@@ -1,7 +1,7 @@
-From d24e3072debf98b10de0dd2517e24acf59a08d11 Mon Sep 17 00:00:00 2001
+From 089929b2c15cec98e7f446a30f13d49989539904 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:20:03 -0600
-Subject: [PATCH 05/20] update ntpd.conf to indicate OS-dependent options
+Subject: [PATCH 05/21] update ntpd.conf to indicate OS-dependent options
 
 Also, clarify listening behavior based on a patch from
 Dererk <dererk@debian.org>
@@ -49,5 +49,5 @@ index 080dbc18bcc..ecc52fe6964 100644
  .Xr ntpd 8
  will use each given sensor that actually exists.
 -- 
-2.37.3
+2.42.0
 

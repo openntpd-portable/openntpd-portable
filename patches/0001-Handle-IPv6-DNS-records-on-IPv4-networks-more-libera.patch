@@ -1,7 +1,7 @@
-From 48abb94a8b660342c5a75d2e110590fa48f4032a Mon Sep 17 00:00:00 2001
+From c4831992ad38da8771d3e7056820ce7eb36281c6 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:10:22 -0600
-Subject: [PATCH 01/20] Handle IPv6 DNS records on IPv4 networks more liberally
+Subject: [PATCH 01/21] Handle IPv6 DNS records on IPv4 networks more liberally
 
 Rather than fail on IPv4 only networks when seeing an IPv6 DNS record,
 just give a warning.
@@ -37,5 +37,5 @@ index 10924fc1ce3..1a5b22c63a3 100644
  		if (p->addr->ss.ss_family == qa4->sa_family) {
  			if (bind(p->query.fd, qa4, SA_LEN(qa4)) == -1)
 -- 
-2.37.3
+2.42.0
 

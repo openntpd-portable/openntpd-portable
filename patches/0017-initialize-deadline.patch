@@ -1,7 +1,7 @@
-From e7a30157501ac66e8930130ec68ee360028ebe3a Mon Sep 17 00:00:00 2001
+From 543342d3075de33880eb6a775cb6febae4b66c53 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:54:12 -0500
-Subject: [PATCH 17/20] initialize deadline
+Subject: [PATCH 17/21] initialize deadline
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 2 +-
@@ -21,5 +21,5 @@ index 73dea42f9da..bb3cc7c0bd7 100644
  
  	__progname = get_progname(argv[0]);
 -- 
-2.37.3
+2.42.0
 

@@ -1,7 +1,7 @@
-From 018c62acc656e309de1e8a5eb0e2f1d72445a34f Mon Sep 17 00:00:00 2001
+From d12057cb557d8800a897a9aa416dc7f647283fa5 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:02:50 -0600
-Subject: [PATCH 03/20] conditionally fill in sin_len/sin6_len if they exist
+Subject: [PATCH 03/21] conditionally fill in sin_len/sin6_len if they exist
 
 ---
  src/usr.sbin/ntpd/parse.y | 8 +++++---
@@ -33,5 +33,5 @@ index 3aa8d95a9af..9130d938f41 100644
  				yyerror("invalid IPv4 or IPv6 address: %s\n",
  				    $3);
 -- 
-2.37.3
+2.42.0
 

@@ -1,7 +1,7 @@
-From 795ed25696dbb44c8aaf6a7d304e70df8019b0ac Mon Sep 17 00:00:00 2001
+From 85d572e229e750d34806060efc4a04ec5863f5ca Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 04/20] check if rdomain support is available.
+Subject: [PATCH 04/21] check if rdomain support is available.
 
 Handle FreeBSD's calling rdomain 'FIB'.
  - from naddy@openbsd.org
@@ -94,5 +94,5 @@ index 123b6939a2b..8c18eb7610d 100644
  		if (bind(la->fd, (struct sockaddr *)&la->sa,
  		    SA_LEN((struct sockaddr *)&la->sa)) == -1) {
 -- 
-2.37.3
+2.42.0
 
