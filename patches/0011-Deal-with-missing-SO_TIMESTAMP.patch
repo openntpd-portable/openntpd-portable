@@ -1,7 +1,7 @@
-From 90b002ee4dd6a552e0cd9c6ef8cf81153e96c0ce Mon Sep 17 00:00:00 2001
+From b94795d7f916a0c8dfb8c7f84431cf3a2af27b6d Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sun, 6 Dec 2015 22:35:38 -0600
-Subject: [PATCH 11/20] Deal with missing SO_TIMESTAMP
+Subject: [PATCH 11/21] Deal with missing SO_TIMESTAMP
 
 from Paul B. Henson" <henson@acm.org>
 
@@ -57,5 +57,5 @@ index 1a5b22c63a3..95220289f21 100644
  	ntp_getmsg((struct sockaddr *)&p->addr->ss, buf, size, &msg);
  
 -- 
-2.37.3
+2.42.0
 

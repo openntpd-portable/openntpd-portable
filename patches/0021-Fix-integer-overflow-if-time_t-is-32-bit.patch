@@ -1,0 +1,31 @@
+From df39ae6f676fc705b1def90c0765915db8b21dbf Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Michael=20La=C3=9F?= <bevan@bi-co.net>
+Date: Fri, 8 Sep 2023 21:06:05 +0200
+Subject: [PATCH 21/21] Fix integer overflow if time_t is 32 bit
+
+Adding two time_t values representing the current time overflows if the
+underlying type is a 32 bit integer. Use long long for the addition
+which should always consist of at least 64 bit.
+
+This fixes constraints erroneously considered invalid due to an
+incorrectly computed median.
+---
+ src/usr.sbin/ntpd/constraint.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
+index 8f54597a066..678916b967b 100644
+--- a/src/usr.sbin/ntpd/constraint.c
++++ b/src/usr.sbin/ntpd/constraint.c
+@@ -842,7 +842,7 @@ constraint_update(void)
+ 	/* calculate median */
+ 	i = cnt / 2;
+ 	if (cnt % 2 == 0)
+-		conf->constraint_median = (values[i - 1] + values[i]) / 2;
++		conf->constraint_median = ((long long)values[i - 1] + values[i]) / 2;
+ 	else
+ 		conf->constraint_median = values[i];
+ 
+-- 
+2.42.0
+

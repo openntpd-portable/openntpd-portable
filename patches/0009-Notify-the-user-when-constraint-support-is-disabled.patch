@@ -1,7 +1,7 @@
-From 85a6b49cd9ec737bc57e0c5b1baaf6e470b2d45d Mon Sep 17 00:00:00 2001
+From 72c7a629334822a96a787c89d5a510f15a833708 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
-Subject: [PATCH 09/20] Notify the user when constraint support is disabled.
+Subject: [PATCH 09/21] Notify the user when constraint support is disabled.
 
 Update the manpage and warn if constraints are
 configured but ntpd is built without libtls present.
@@ -66,5 +66,5 @@ index ecc52fe6964..07b731db866 100644
  .It Ic constraint from Ar url [ip...]
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.37.3
+2.42.0
 

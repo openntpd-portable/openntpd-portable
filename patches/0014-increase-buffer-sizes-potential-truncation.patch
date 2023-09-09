@@ -1,7 +1,7 @@
-From b3531dd93b6d3096287d17c4cba5898d0a279d52 Mon Sep 17 00:00:00 2001
+From b85625261bc1381a4f5f12f522c7ca2c65cd641c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sat, 13 Apr 2019 04:45:22 -0500
-Subject: [PATCH 14/20] increase buffer sizes potential truncation
+Subject: [PATCH 14/21] increase buffer sizes potential truncation
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 2 +-
@@ -35,5 +35,5 @@ index be113ba856b..65eb9018bb4 100644
  	b[0] = 0;
  	if (r > 0)
 -- 
-2.37.3
+2.42.0
 
