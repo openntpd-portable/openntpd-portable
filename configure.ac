@@ -152,7 +152,8 @@ AC_SUBST(PRIVSEP_USER)
 AC_ARG_WITH([cacert],
 	AS_HELP_STRING([--with-cacert=path],
 		       [CA certificate location for HTTPS constraint validation]),
-	[AC_DEFINE_UNQUOTED(CONSTRAINT_CA, "$withval", [CA certificate path])]
+	[AS_IF([test "x$withval" != xyes -a "x$withval" != xno],
+		[AC_DEFINE_UNQUOTED(CONSTRAINT_CA, "$withval", [CA certificate path])])]
 )
 
 AC_CONFIG_FILES([
