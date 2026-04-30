@@ -1,0 +1,36 @@
+From c2ae921127fcd290f4aca140819aebaf8753beb8 Mon Sep 17 00:00:00 2001
+From: henning <>
+Date: Tue, 21 Apr 2026 14:31:03 +0000
+Subject: [PATCH 03/30] newer gcc thinks it's smart (do they call it AI yet?)
+ and points out peercount may be used unitialized. of course it is utterly
+ wrong. move peercount = 0 initialization 2 lines up to shut gcc up pointed
+ out by bcook, dicussed with, gcc-checked by and ok bcook claudio
+
+---
+ src/usr.sbin/ntpd/ntp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
+index 5047baed25e..888a2ddcdf8 100644
+--- a/src/usr.sbin/ntpd/ntp.c
++++ b/src/usr.sbin/ntpd/ntp.c
+@@ -1,4 +1,4 @@
+-/*	$OpenBSD: ntp.c,v 1.181 2024/11/21 13:38:14 claudio Exp $ */
++/*	$OpenBSD: ntp.c,v 1.182 2026/04/21 14:31:03 henning Exp $ */
+ 
+ /*
+  * Copyright (c) 2003, 2004 Henning Brauer <henning@openbsd.org>
+@@ -577,9 +577,9 @@ ntp_dispatch_imsg_dns(void)
+ 				break;
+ 			}
+ 
++			peercount = 0;
+ 			if (peer->addr_head.pool) {
+ 				n = 0;
+-				peercount = 0;
+ 
+ 				TAILQ_FOREACH_SAFE(npeer, &conf->ntp_peers,
+ 				    entry, tmp) {
+-- 
+2.53.0
+

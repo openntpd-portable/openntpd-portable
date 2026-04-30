@@ -1,7 +1,7 @@
-From bc6048cf52ac579812a540ecf594563ced09ad60 Mon Sep 17 00:00:00 2001
+From 7dc485c4152b7f3cf70278cc4552bea1e57e190f Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 28 Apr 2026 21:44:56 -0500
-Subject: [PATCH 22/24] ensure kernel sync status is updated at startup and
+Subject: [PATCH 28/30] ensure kernel sync status is updated at startup and
  when clock goes unsynced
 
 Based on work by Chris Webb <chris@arachsys.com>

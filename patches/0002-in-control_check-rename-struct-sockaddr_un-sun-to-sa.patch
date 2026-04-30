@@ -1,0 +1,50 @@
+From 2fa5b412800c02aa82ce863ebae59103d1516460 Mon Sep 17 00:00:00 2001
+From: henning <>
+Date: Tue, 21 Apr 2026 14:20:00 +0000
+Subject: [PATCH 02/30] in control_check(), rename struct sockaddr_un sun to sa
+ - for consistency with control_init() just underneath, and because "sun"
+ causes problems for portable on solaris pretty much from bcook's portable
+ repo, but another name, ok bcook
+
+---
+ src/usr.sbin/ntpd/control.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/control.c b/src/usr.sbin/ntpd/control.c
+index 85057e2118f..ffe76568787 100644
+--- a/src/usr.sbin/ntpd/control.c
++++ b/src/usr.sbin/ntpd/control.c
+@@ -1,4 +1,4 @@
+-/*	$OpenBSD: control.c,v 1.27 2024/11/21 13:38:14 claudio Exp $ */
++/*	$OpenBSD: control.c,v 1.28 2026/04/21 14:20:00 henning Exp $ */
+ 
+ /*
+  * Copyright (c) 2003, 2004 Henning Brauer <henning@openbsd.org>
+@@ -39,19 +39,19 @@
+ int
+ control_check(char *path)
+ {
+-	struct sockaddr_un	 sun;
++	struct sockaddr_un	 sa;
+ 	int			 fd;
+ 
+-	bzero(&sun, sizeof(sun));
+-	sun.sun_family = AF_UNIX;
+-	strlcpy(sun.sun_path, path, sizeof(sun.sun_path));
++	bzero(&sa, sizeof(sa));
++	sa.sun_family = AF_UNIX;
++	strlcpy(sa.sun_path, path, sizeof(sa.sun_path));
+ 
+ 	if ((fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
+ 		log_debug("control_check: socket check");
+ 		return (-1);
+ 	}
+ 
+-	if (connect(fd, (struct sockaddr *)&sun, sizeof(sun)) == 0) {
++	if (connect(fd, (struct sockaddr *)&sa, sizeof(sa)) == 0) {
+ 		log_debug("control_check: socket in use");
+ 		close(fd);
+ 		return (-1);
+-- 
+2.53.0
+

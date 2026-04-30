@@ -1,7 +1,7 @@
 From 6d458ea430ef7d9b7f989244ad5d5a65d93b5dba Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
-Subject: [PATCH 06/24] allow overriding default user and file locations
+Subject: [PATCH 12/30] allow overriding default user and file locations
 
 Allow the build process to override the default ntpd file paths and
 default user. On some systems, runstatedir can be a tmpfs, so we need to

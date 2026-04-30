@@ -1,0 +1,31 @@
+From 20b5647b481be809b8e50de1bf40217e3dab1334 Mon Sep 17 00:00:00 2001
+From: henning <>
+Date: Tue, 21 Apr 2026 12:35:45 +0000
+Subject: [PATCH 01/30] we use clock_gettime() here and thus shall explicitely
+ include time.h from bcook's portable repo, ok bcook
+
+---
+ src/usr.sbin/ntpd/ntp_dns.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/ntp_dns.c b/src/usr.sbin/ntpd/ntp_dns.c
+index 1c709ff17a7..e3afec65b81 100644
+--- a/src/usr.sbin/ntpd/ntp_dns.c
++++ b/src/usr.sbin/ntpd/ntp_dns.c
+@@ -1,4 +1,4 @@
+-/*	$OpenBSD: ntp_dns.c,v 1.36 2024/11/21 13:38:14 claudio Exp $ */
++/*	$OpenBSD: ntp_dns.c,v 1.37 2026/04/21 12:35:45 henning Exp $ */
+ 
+ /*
+  * Copyright (c) 2003-2008 Henning Brauer <henning@openbsd.org>
+@@ -31,6 +31,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <syslog.h>
++#include <time.h>
+ #include <unistd.h>
+ 
+ #include "ntpd.h"
+-- 
+2.53.0
+
