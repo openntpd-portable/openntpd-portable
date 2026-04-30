@@ -140,15 +140,6 @@ AC_CHECK_MEMBERS([struct sockaddr_in.sin_len], , ,
 AS_IF([test "x$runstatedir" = x], [runstatedir='${localstatedir}/run'])
 AC_SUBST([runstatedir])
 
-AC_ARG_WITH([systemdunitdir],
-	AS_HELP_STRING([--with-systemdunitdir=DIR],
-		       [Directory for systemd unit files (default: no install)]),
-	[systemdunitdir=$withval],
-	[systemdunitdir='']
-)
-AM_CONDITIONAL([HAVE_SYSTEMD], [test -n "$systemdunitdir"])
-AC_SUBST([systemdunitdir])
-
 AC_ARG_WITH([privsep-user],
 	AS_HELP_STRING([--with-privsep-user=user],
 		       [Privilege separation user for ntpd to use]),
