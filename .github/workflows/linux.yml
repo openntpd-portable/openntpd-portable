@@ -94,3 +94,25 @@ jobs:
 
       - name: "make check"
         run: make check
+
+  test-out-of-tree:
+    name: "Out-of-tree build (ubuntu-24.04)"
+    runs-on: ubuntu-24.04
+    if: ${{ github.repository_owner == 'openntpd' || github.event_name != 'schedule' }}
+    permissions:
+      contents: read
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: "autogen"
+        run: ./autogen.sh
+
+      - name: "configure (out of tree)"
+        run: mkdir _build && cd _build && ../configure
+
+      - name: "make"
+        run: make -C _build
+
+      - name: "make check"
+        run: make -C _build check

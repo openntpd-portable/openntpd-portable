@@ -1,7 +1,7 @@
-From c2a247b6ab2be97b68d083fda7345c906d6bed33 Mon Sep 17 00:00:00 2001
+From 66fd4d57263e7a65f2c7e3b76a5e4bf78aa59549 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:10 -0500
-Subject: [PATCH 15/20] Don't retry DNS if Checking Disable flag is not
+Subject: [PATCH 14/24] Don't retry DNS if Checking Disable flag is not
  available.
 
 ---
@@ -37,10 +37,10 @@ index 856c3147cc5..f89742916a7 100644
  	return error;
  }
 diff --git a/src/usr.sbin/ntpd/ntp_dns.c b/src/usr.sbin/ntpd/ntp_dns.c
-index 1c709ff17a7..7cd97fe1baf 100644
+index e3afec65b81..a219c09b567 100644
 --- a/src/usr.sbin/ntpd/ntp_dns.c
 +++ b/src/usr.sbin/ntpd/ntp_dns.c
-@@ -223,14 +223,16 @@ probe_root_ns(void)
+@@ -224,14 +224,16 @@ probe_root_ns(void)
  	old_options = _res.options;
  	_res.retrans = 1;
  	_res.retry = 1;

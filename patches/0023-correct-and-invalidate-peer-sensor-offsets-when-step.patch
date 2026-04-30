@@ -1,0 +1,45 @@
+From c532203f3d64be315ad24864f8c1bda22ea8a4bb Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Tue, 28 Apr 2026 21:45:10 -0500
+Subject: [PATCH 23/24] correct and invalidate peer/sensor offsets when
+ stepping the clock
+
+Based on work by Chris Webb <chris@arachsys.com>
+https://github.com/arachsys/openntpd/commit/616970fe88fe2280046288721d328e46311e68f8
+---
+ src/usr.sbin/ntpd/ntp.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
+index ebcb4361556..81c12e5a5e6 100644
+--- a/src/usr.sbin/ntpd/ntp.c
++++ b/src/usr.sbin/ntpd/ntp.c
+@@ -856,8 +856,24 @@ offset_compare(const void *aa, const void *bb)
+ void
+ priv_settime(double offset, char *msg)
+ {
+-	if (offset == 0)
++	struct ntp_peer		*p;
++	struct ntp_sensor	*s;
++	int			 i;
++
++	if (offset == 0) {
+ 		log_info("cancel settime because %s", msg);
++	} else {
++		TAILQ_FOREACH(p, &conf->ntp_peers, entry) {
++			for (i = 0; i < OFFSET_ARRAY_SIZE; i++)
++				p->reply[i].offset -= offset;
++			p->update.good = 0;
++		}
++		TAILQ_FOREACH(s, &conf->ntp_sensors, entry) {
++			for (i = 0; i < SENSOR_OFFSETS; i++)
++				s->offsets[i].offset -= offset;
++			s->update.offset -= offset;
++		}
++	}
+ 	imsg_compose(ibuf_main, IMSG_SETTIME, 0, 0, -1,
+ 	    &offset, sizeof(offset));
+ 	conf->settime = 0;
+-- 
+2.53.0
+

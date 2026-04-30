@@ -12,7 +12,30 @@ history is also available from Git.
 
 OpenNTPD Portable Release Notes:
 
-6.9p1 - New release based on OpenBSD 6.9
+7.9p1 - New release based on OpenBSD 7.9
+
+	Upstream changes from OpenBSD:
+
+	* Avoid null pointer dereferences in constraint.c when logging peer
+	  addresses.
+
+	* Periodically reset constraint DNS info for constraints that have
+	  failed to reply.
+
+	* Corrected denominators when converting NTP fixed point values to
+	  double and vice-versa.
+
+	Portable-specific changes:
+
+	* Fixed --with-cacert: the configured CA path now correctly overrides
+	  tls_default_ca_cert_file() at runtime.
+
+	* Updated arc4random detection on macOS (10.12+) and FreeBSD (12+) to
+	  use the native implementation rather than the bundled one.
+
+	* Synced compiler hardening and build fixes from LibreSSL portable.
+
+6.9p1 - (unreleased)
 
 	* The ntpd client code corrects both T1 and T4 with the current offset
 	  returned by adjtime(2) from the kernel. T1 is local time when the NTP
@@ -22,7 +45,7 @@ OpenNTPD Portable Release Notes:
 	  was done with different bases, the result was wrong and the system time
 	  started moving around. So instead of correcting T1 and T4 individually
 	  at different events, correct their sum once. Error handling was missing
-	  if there is no timestamp in the response.  
+	  if there is no timestamp in the response.
 
 	* Portable no longer tries to use adjtimex with ntpd_adjtime, fixing a
 	  logic issue where STA_UNSYNC was always set regardless of the actual
@@ -156,7 +179,7 @@ OpenNTPD Portable Release Notes:
 	required to use the HTTPS constraint feature, though it is not
 	required to use OpenNTPD.
 
-5.7p4 - Bug fixes, HTTPS constraint support with LibreSSL 
+5.7p4 - Bug fixes, HTTPS constraint support with LibreSSL
 
 	* Added support for HTTPS constraints to validate NTP responses.
 	  See the man page and example config file for how to configure it.

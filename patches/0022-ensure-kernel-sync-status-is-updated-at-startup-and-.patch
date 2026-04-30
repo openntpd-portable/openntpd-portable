@@ -1,0 +1,58 @@
+From bc6048cf52ac579812a540ecf594563ced09ad60 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Tue, 28 Apr 2026 21:44:56 -0500
+Subject: [PATCH 22/24] ensure kernel sync status is updated at startup and
+ when clock goes unsynced
+
+Based on work by Chris Webb <chris@arachsys.com>
+https://github.com/arachsys/openntpd/commit/d8f531380b15f8e8082684483446926dcef339d5
+---
+ src/usr.sbin/ntpd/ntp.c  | 3 +++
+ src/usr.sbin/ntpd/ntpd.c | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
+index db94f132d7a..ebcb4361556 100644
+--- a/src/usr.sbin/ntpd/ntp.c
++++ b/src/usr.sbin/ntpd/ntp.c
+@@ -186,6 +186,7 @@ ntp_main(struct ntpd_conf *nconf, struct passwd *pw, int argc, char **argv)
+ 	conf->freq.overall_offset = 0.0;
+ 
+ 	conf->status.synced = 0;
++	imsg_compose(ibuf_main, IMSG_UNSYNCED, 0, 0, -1, NULL, 0);
+ 	clock_getres(CLOCK_REALTIME, &tp);
+ 	b = 1000000000 / tp.tv_nsec;	/* convert to Hz */
+ 	for (a = 0; b > 1; a--, b >>= 1)
+@@ -459,6 +460,7 @@ ntp_main(struct ntpd_conf *nconf, struct passwd *pw, int argc, char **argv)
+ 			conf->status.synced = 0;
+ 			conf->scale = 1;
+ 			priv_dns(IMSG_UNSYNCED, NULL, 0);
++			imsg_compose(ibuf_main, IMSG_UNSYNCED, 0, 0, -1, NULL, 0);
+ 		}
+ 	}
+ 
+@@ -501,6 +503,7 @@ ntp_dispatch_imsg(void)
+ 				log_info("clock is now unsynced");
+ 				conf->status.synced = 0;
+ 				priv_dns(IMSG_UNSYNCED, NULL, 0);
++				imsg_compose(ibuf_main, IMSG_UNSYNCED, 0, 0, -1, NULL, 0);
+ 			}
+ 			break;
+ 		case IMSG_CONSTRAINT_RESULT:
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index 5ec30d4fc38..ab612ae4abc 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -489,6 +489,9 @@ dispatch_imsg(struct ntpd_conf *lconf, int argc, char **argv)
+ 			lconf->settime = 0;
+ 			timeout = INFTIM;
+ 			break;
++		case IMSG_UNSYNCED:
++			update_time_sync_status(0);
++			break;
+ 		case IMSG_CONSTRAINT_QUERY:
+ 			priv_constraint_msg(imsg.hdr.peerid,
+ 			    imsg.data, imsg.hdr.len - IMSG_HEADER_SIZE,
+-- 
+2.53.0
+

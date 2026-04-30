@@ -31,6 +31,10 @@ libcompat_la_LIBADD = $(PLATFORM_LDADD)
 
 libcompat_la_SOURCES += socket.c
 
+if HAVE_ADJTIMEX
+libcompat_la_SOURCES += adjtime_adjtimex.c
+endif
+
 if !HAVE_ADJFREQ
 if HOST_FREEBSD
 libcompat_la_SOURCES += adjfreq_freebsd.c

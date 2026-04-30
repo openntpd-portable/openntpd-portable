@@ -1,14 +1,14 @@
-From bf8977db71f000fd1a385e915ebf0e571ed46f11 Mon Sep 17 00:00:00 2001
+From c3dce31d9d52dc53524badf873430c5449800dae Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 16 Nov 2020 02:20:10 -0600
-Subject: [PATCH 18/20] cast mode to unsigned int for Solaris
+Subject: [PATCH 16/24] cast mode to unsigned int for Solaris
 
 ---
  src/usr.sbin/ntpd/ntp.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index 5047baed25e..90aad820ffd 100644
+index 888a2ddcdf8..bf72f733f71 100644
 --- a/src/usr.sbin/ntpd/ntp.c
 +++ b/src/usr.sbin/ntpd/ntp.c
 @@ -121,7 +121,7 @@ ntp_main(struct ntpd_conf *nconf, struct passwd *pw, int argc, char **argv)

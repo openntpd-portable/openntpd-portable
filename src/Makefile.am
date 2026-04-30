@@ -19,14 +19,40 @@ AM_CPPFLAGS = -I$(top_srcdir)/include
 AM_CPPFLAGS += -DYYSTYPE_IS_DECLARED
 
 ACLOCAL_AMFLAGS = -Im4
-CLEANFILES = parse.c
+CLEANFILES = parse.c ntpctl.8 ntpd.8 ntpd.conf.5
+
+do_subst = sed \
+	-e 's,[@]sysconfdir[@],$(sysconfdir),g' \
+	-e 's,[@]localstatedir[@],$(localstatedir),g' \
+	-e 's,[@]runstatedir[@],$(runstatedir),g' \
+	-e 's,[@]sbindir[@],$(sbindir),g'
+
+ntpd.8: $(srcdir)/ntpd.8.in Makefile
+	$(do_subst) < $(srcdir)/ntpd.8.in > ntpd.8
+
+ntpd.conf.5: $(srcdir)/ntpd.conf.5.in Makefile
+	$(do_subst) < $(srcdir)/ntpd.conf.5.in > ntpd.conf.5
+
+ntpctl.8: $(srcdir)/ntpctl.8.in Makefile
+	$(do_subst) < $(srcdir)/ntpctl.8.in > ntpctl.8
+
+if HAVE_SYSTEMD
+systemdunitdir = @systemdunitdir@
+nodist_systemdunit_DATA = openntpd.service
+CLEANFILES += openntpd.service
+
+openntpd.service: openntpd.service.in Makefile
+	$(do_subst) < $< > $@
+endif
 
 sbin_PROGRAMS = ntpd
-dist_man_MANS = ntpctl.8 ntpd.8 ntpd.conf.5
+nodist_man_MANS = ntpctl.8 ntpd.8 ntpd.conf.5
+EXTRA_DIST = ntpctl.8.in ntpd.8.in ntpd.conf.5.in openntpd.service.in
 
 ntpd_CFLAGS = $(CFLAGS)
 ntpd_CFLAGS += -DSYSCONFDIR=\"$(sysconfdir)\"
 ntpd_CFLAGS += -DLOCALSTATEDIR=\"$(localstatedir)\"
+ntpd_CFLAGS += -DRUNSTATEDIR=\"$(runstatedir)\"
 
 ntpd_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD) -lm
 ntpd_LDADD += $(top_builddir)/compat/libcompat.la
@@ -64,11 +90,11 @@ install-exec-hook:
 	@if [ ! -d "$(DESTDIR)$(sysconfdir)" ]; then \
 		$(INSTALL) -m 755 -d "$(DESTDIR)$(sysconfdir)"; \
 	fi
-	@if [ ! -d "$(DESTDIR)$(localstatedir)/run" ]; then \
-		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/run"; \
+	@if [ ! -d "$(DESTDIR)$(localstatedir)" ]; then \
+		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)"; \
 	fi
-	@if [ ! -d "$(DESTDIR)$(localstatedir)/db" ]; then \
-		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/db"; \
+	@if [ ! -d "$(DESTDIR)$(runstatedir)" ]; then \
+		$(INSTALL) -m 755 -d "$(DESTDIR)$(runstatedir)"; \
 	fi
 	@if egrep "^$(PRIVSEP_USER):" /etc/group >/dev/null; then \
 		: ; \

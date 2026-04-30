@@ -71,4 +71,7 @@ for i in ../patches/*.patch; do
 	echo Patching ${i}
 	${PATCH} -p4 < "${i}"
 done
+mv ntpd.8 ntpd.8.in
+mv ntpd.conf.5 ntpd.conf.5.in
+mv ntpctl.8 ntpctl.8.in
 )

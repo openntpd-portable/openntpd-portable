@@ -1,27 +1,27 @@
-From 511e95f02b9fe8c0b2fa864fdf85e4fcdc13e48a Mon Sep 17 00:00:00 2001
+From 744376e0a488f7a0d594ea6b3d4b31ac684d4b7e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:53 -0500
-Subject: [PATCH 16/20] handle KERN_SECURELVL when available
+Subject: [PATCH 15/24] handle KERN_SECURELVL when available
 
 ---
  src/usr.sbin/ntpd/ntpd.c | 8 ++++++--
  1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index c8e5a53301c..83e6ce25f14 100644
+index eca3fa21e9b..5ec30d4fc38 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -20,7 +20,9 @@
- #include <sys/types.h>
+@@ -21,7 +21,9 @@
  #include <sys/resource.h>
  #include <sys/socket.h>
+ #include <sys/stat.h>
 +#ifdef KERN_SECURELVL
  #include <sys/sysctl.h>
 +#endif
  #include <sys/wait.h>
  #include <sys/un.h>
  #include <netinet/in.h>
-@@ -119,12 +121,14 @@ usage(void)
+@@ -120,12 +122,14 @@ usage(void)
  int
  auto_preconditions(const struct ntpd_conf *cnf)
  {

@@ -1,7 +1,7 @@
-From 43932dfe44e96a7e100ca4379160127c2e7e6530 Mon Sep 17 00:00:00 2001
+From 0b5ff85648f0518e113e9a3cc3c3609578df220e Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
-Subject: [PATCH 08/20] initialize setproctitle where needed
+Subject: [PATCH 08/24] initialize setproctitle where needed
 
 We need to save a copy of argv and __progname to avoid setproctitle
 clobbering them.
@@ -10,10 +10,10 @@ clobbering them.
  1 file changed, 20 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 86fb955b17e..4eb552f1a21 100644
+index a29fbe01425..624c51a27ec 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
-@@ -133,6 +133,13 @@ auto_preconditions(const struct ntpd_conf *cnf)
+@@ -134,6 +134,13 @@ auto_preconditions(const struct ntpd_conf *cnf)
  #define PFD_PIPE		0
  #define PFD_MAX			1
  
@@ -27,8 +27,8 @@ index 86fb955b17e..4eb552f1a21 100644
  int
  main(int argc, char *argv[])
  {
-@@ -153,6 +160,8 @@ main(int argc, char *argv[])
- 	time_t			 settime_deadline;
+@@ -154,6 +161,8 @@ main(int argc, char *argv[])
+ 	time_t			 settime_deadline = 0;
  	int			 sopt = 0;
  
 +	__progname = get_progname(argv[0]);
@@ -36,7 +36,7 @@ index 86fb955b17e..4eb552f1a21 100644
  	if (strcmp(__progname, "ntpctl") == 0) {
  		ctl_main(argc, argv);
  		/* NOTREACHED */
-@@ -162,6 +171,17 @@ main(int argc, char *argv[])
+@@ -163,6 +172,17 @@ main(int argc, char *argv[])
  
  	memset(&lconf, 0, sizeof(lconf));
  

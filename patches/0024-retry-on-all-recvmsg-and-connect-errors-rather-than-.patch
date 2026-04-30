@@ -1,0 +1,86 @@
+From fb3df9b9df5dacc47b69765747a44d4a4478831a Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Tue, 28 Apr 2026 21:45:20 -0500
+Subject: [PATCH 24/24] retry on all recvmsg and connect errors rather than
+ whitelisting errno values
+
+Based on work by Chris Webb <chris@arachsys.com>
+https://github.com/arachsys/openntpd/commit/400c28b6c4e7b94d0f3870ce060606f8cce5fcb5
+---
+ src/usr.sbin/ntpd/client.c | 32 ++++++++++----------------------
+ src/usr.sbin/ntpd/server.c |  9 ++-------
+ 2 files changed, 12 insertions(+), 29 deletions(-)
+
+diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
+index db9b62de71c..0a5c34ece18 100644
+--- a/src/usr.sbin/ntpd/client.c
++++ b/src/usr.sbin/ntpd/client.c
+@@ -174,19 +174,13 @@ client_query(struct ntp_peer *p)
+ 		}
+ 
+ 		if (connect(p->query.fd, sa, SA_LEN(sa)) == -1) {
+-			if (errno == ECONNREFUSED || errno == ENETUNREACH ||
+-			    errno == EHOSTUNREACH || errno == EADDRNOTAVAIL) {
+-				/* cycle through addresses, but do increase
+-				   senderrors */
+-				client_nextaddr(p);
+-				if (p->addr == NULL)
+-					p->addr = p->addr_head.a;
+-				set_next(p, MAXIMUM(SETTIME_TIMEOUT,
+-				    scale_interval(INTERVAL_QUERY_AGGRESSIVE)));
+-				p->senderrors++;
+-				return (-1);
+-			} else
+-				fatal("client_query connect");
++			client_nextaddr(p);
++			if (p->addr == NULL)
++				p->addr = p->addr_head.a;
++			set_next(p, MAXIMUM(SETTIME_TIMEOUT,
++			    scale_interval(INTERVAL_QUERY_AGGRESSIVE)));
++			p->senderrors++;
++			return (-1);
+ 		}
+ 		val = IPTOS_LOWDELAY;
+ 		if (p->addr->ss.ss_family == AF_INET && setsockopt(p->query.fd,
+@@ -306,15 +300,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
+ 	somsg.msg_controllen = sizeof(cmsgbuf.buf);
+ 
+ 	if ((size = recvmsg(p->query.fd, &somsg, 0)) == -1) {
+-		if (errno == EHOSTUNREACH || errno == EHOSTDOWN ||
+-		    errno == ENETUNREACH || errno == ENETDOWN ||
+-		    errno == ECONNREFUSED || errno == EADDRNOTAVAIL ||
+-		    errno == ENOPROTOOPT || errno == ENOENT) {
+-			client_log_error(p, "recvmsg", errno);
+-			set_next(p, error_interval());
+-			return (-1);
+-		} else
+-			fatal("recvfrom");
++		client_log_error(p, "recvmsg", errno);
++		set_next(p, error_interval());
++		return (-1);
+ 	}
+ 
+ 	if (somsg.msg_flags & MSG_TRUNC) {
+diff --git a/src/usr.sbin/ntpd/server.c b/src/usr.sbin/ntpd/server.c
+index 9eab1a74bfe..86bbf20d741 100644
+--- a/src/usr.sbin/ntpd/server.c
++++ b/src/usr.sbin/ntpd/server.c
+@@ -183,13 +183,8 @@ server_dispatch(int fd, struct ntpd_conf *lconf)
+ 	fsa_len = sizeof(fsa);
+ 	if ((size = recvfrom(fd, &buf, sizeof(buf), 0,
+ 	    (struct sockaddr *)&fsa, &fsa_len)) == -1) {
+-		if (errno == EHOSTUNREACH || errno == EHOSTDOWN ||
+-		    errno == ENETUNREACH || errno == ENETDOWN) {
+-			log_warn("recvfrom %s",
+-			    log_sockaddr((struct sockaddr *)&fsa));
+-			return (0);
+-		} else
+-			fatal("recvfrom");
++		log_warn("recvfrom");
++		return (0);
+ 	}
+ 
+ 	rectime = gettime_corrected();
+-- 
+2.53.0
+

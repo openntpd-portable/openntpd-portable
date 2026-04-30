@@ -1,0 +1,28 @@
+From c051af8789e55b58a7ca0d1e106555a129b01af8 Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Tue, 28 Apr 2026 21:41:42 -0500
+Subject: [PATCH 20/24] avoid returning zero from getmonotime on fast-booting
+ systems
+
+Based on work by Chris Webb <chris@arachsys.com>
+https://github.com/arachsys/openntpd/commit/90f7ed0d76f3fb89b6533209807664019adb2da6
+---
+ src/usr.sbin/ntpd/util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/usr.sbin/ntpd/util.c b/src/usr.sbin/ntpd/util.c
+index a0b64ee4b92..e7bf21f1197 100644
+--- a/src/usr.sbin/ntpd/util.c
++++ b/src/usr.sbin/ntpd/util.c
+@@ -70,7 +70,7 @@ getmonotime(void)
+ 	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0)
+ 		fatal("clock_gettime");
+ 
+-	return (ts.tv_sec);
++	return ts.tv_sec + 1; /* don't return zero at boot */
+ }
+ 
+ 
+-- 
+2.53.0
+

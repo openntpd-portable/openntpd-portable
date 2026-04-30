@@ -1,7 +1,7 @@
-From 0280727ccc2c36d829f1f89a4e7417c4a48167b2 Mon Sep 17 00:00:00 2001
+From d005bf53e19f79200621d28ddc2c968efd0b857f Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 16 Nov 2020 02:20:40 -0600
-Subject: [PATCH 19/20] initialize peercount
+Subject: [PATCH 17/24] initialize peercount
 
 gcc on several platforms complains about this. It might not be a problem
 but it's not clear from the state machine.
@@ -10,7 +10,7 @@ but it's not clear from the state machine.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index 90aad820ffd..8e10584572b 100644
+index bf72f733f71..db94f132d7a 100644
 --- a/src/usr.sbin/ntpd/ntp.c
 +++ b/src/usr.sbin/ntpd/ntp.c
 @@ -550,7 +550,7 @@ ntp_dispatch_imsg_dns(void)

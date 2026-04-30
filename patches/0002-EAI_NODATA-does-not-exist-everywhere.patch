@@ -1,7 +1,7 @@
-From 61bf4afd5ad9ab7961895f29e809f3eeb61baa0a Mon Sep 17 00:00:00 2001
+From 479b8cc1944e609ac3582a58d7ea94d7becca044 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:04:08 -0600
-Subject: [PATCH 02/20] EAI_NODATA does not exist everywhere
+Subject: [PATCH 02/24] EAI_NODATA does not exist everywhere
 
 FreeBSD says it is deprecated #ifdef's it out.
 

@@ -3,8 +3,7 @@ set -e
 
 ./update.sh
 mkdir -p m4
-rm -fr autom4te.cache
-autoreconf -i
+autoreconf -i -f
 
 # Patch libtool 2.4.2 to pass -fstack-protector as a linker argument
 sed 's/-fuse-linker-plugin)/-fuse-linker-plugin|-fstack-protector*)/' \

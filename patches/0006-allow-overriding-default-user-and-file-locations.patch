@@ -1,19 +1,43 @@
-From de675b05dc7a255be98b4eee6c00bd7b7e0136ce Mon Sep 17 00:00:00 2001
+From 6d458ea430ef7d9b7f989244ad5d5a65d93b5dba Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
-Subject: [PATCH 06/20] allow overriding default user and file locations
+Subject: [PATCH 06/24] allow overriding default user and file locations
 
 Allow the build process to override the default ntpd file paths and
-default user.
+default user. On some systems, runstatedir can be a tmpfs, so we need to
+create the parent path on start there.
 ---
- src/usr.sbin/ntpd/ntpd.h | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ src/usr.sbin/ntpd/ntpd.c |  4 ++++
+ src/usr.sbin/ntpd/ntpd.h | 13 ++++++++++---
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
+diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
+index 46a38aba8e0..550225283f0 100644
+--- a/src/usr.sbin/ntpd/ntpd.c
++++ b/src/usr.sbin/ntpd/ntpd.c
+@@ -20,6 +20,7 @@
+ #include <sys/types.h>
+ #include <sys/resource.h>
+ #include <sys/socket.h>
++#include <sys/stat.h>
+ #include <sys/sysctl.h>
+ #include <sys/wait.h>
+ #include <sys/un.h>
+@@ -258,6 +259,9 @@ main(int argc, char *argv[])
+ 	if (chdir("/") == -1)
+ 		fatal("chdir(\"/\")");
+ 
++	if (mkdir(RUNSTATEDIR, 0755) == -1 && errno != EEXIST)
++		fatal("mkdir %s", RUNSTATEDIR);
++
+ 	signal(SIGCHLD, sighdlr);
+ 
+ 	/* fork child process */
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index b09fc030133..77bbcd94f46 100644
+index b09fc030133..3c4399658e1 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
-@@ -36,10 +36,20 @@
+@@ -36,10 +36,17 @@
  
  #define MAXIMUM(a, b)	((a) > (b) ? (a) : (b))
  
@@ -29,11 +53,8 @@ index b09fc030133..77bbcd94f46 100644
 +#endif
 +#define	CONFFILE	SYSCONFDIR "/ntpd.conf"
 +
-+#ifndef	LOCALSTATEDIR
-+#define	LOCALSTATEDIR	"/var"
-+#endif
-+#define	DRIFTFILE	LOCALSTATEDIR "/db/ntpd.drift"
-+#define	CTLSOCKET	LOCALSTATEDIR "/run/ntpd.sock"
++#define	DRIFTFILE	LOCALSTATEDIR "/ntpd.drift"
++#define	CTLSOCKET	RUNSTATEDIR "/ntpd.sock"
  
  #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
  #define	INTERVAL_QUERY_PATHETIC		60

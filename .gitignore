@@ -1,4 +1,5 @@
 
+*~
 *.y
 *.5
 *.8
@@ -70,3 +71,6 @@ parse.c
 sensors.c
 server.c
 util.c
+
+src/*.in
+!src/openntpd.service.in

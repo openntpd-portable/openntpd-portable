@@ -59,13 +59,18 @@ AC_SEARCH_LIBS([clock_gettime],[rt posix4])
 AC_CHECK_FUNCS([adjfreq ntp_adjtime adjtimex])
 AC_CHECK_FUNCS([clock_gettime clock_getres])
 AM_CONDITIONAL([HAVE_ADJFREQ], [test "x$ac_cv_func_adjfreq" = xyes])
+AM_CONDITIONAL([HAVE_ADJTIMEX], [test "x$ac_cv_func_adjtimex" = xyes])
 AM_CONDITIONAL([HAVE_CLOCK_GETRES], [test "x$ac_cv_func_clock_getres" = xyes])
 AM_CONDITIONAL([HAVE_CLOCK_GETTIME], [test "x$ac_cv_func_clock_gettime" = xyes])
 
-# check for libtls
-AC_SEARCH_LIBS([tls_config_set_ca_mem],[tls],
-	       [LIBS="$LIBS -ltls -lssl -lcrypto"],,[-lssl -lcrypto])
+# check for libtls; explicitly add -ltls to LIBS so AC_CHECK_FUNCS and the
+# tls_write arity check below both link against it
+saved_LIBS="$LIBS"
+LIBS="$LIBS -ltls"
 AC_CHECK_FUNCS([tls_config_set_ca_mem])
+if test "x$ac_cv_func_tls_config_set_ca_mem" = xno; then
+	LIBS="$saved_LIBS"
+fi
 
 # check if libtls uses 3-argument tls_write
 AC_CACHE_CHECK([if tls_write takes 3 arguments], ac_cv_have_tls_write_3_arg, [
@@ -129,6 +134,20 @@ AC_CHECK_MEMBERS([struct sockaddr_in.sin_len], , ,
 	  #include <netinet/in.h>
 	  #include <sys/socket.h> ]
 )
+
+# runstatedir was added as a standard directory in autoconf 2.70; provide a
+# fallback for older versions so @runstatedir@ is always substituted.
+AS_IF([test "x$runstatedir" = x], [runstatedir='${localstatedir}/run'])
+AC_SUBST([runstatedir])
+
+AC_ARG_WITH([systemdunitdir],
+	AS_HELP_STRING([--with-systemdunitdir=DIR],
+		       [Directory for systemd unit files (default: no install)]),
+	[systemdunitdir=$withval],
+	[systemdunitdir='']
+)
+AM_CONDITIONAL([HAVE_SYSTEMD], [test -n "$systemdunitdir"])
+AC_SUBST([systemdunitdir])
 
 AC_ARG_WITH([privsep-user],
 	AS_HELP_STRING([--with-privsep-user=user],
