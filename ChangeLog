@@ -58,6 +58,9 @@ OpenNTPD Portable Release Notes:
 	* Allow setting initial time if constrants are not configured and the NTP
 	  pool is set to trusted.
 
+	* Fixed a crash on platforms where __progname is NULL
+	  (Android, older uCLibc)
+
 6.9p1 - (unreleased)
 
 	* The ntpd client code corrects both T1 and T4 with the current offset

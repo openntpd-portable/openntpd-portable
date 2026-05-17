@@ -29,8 +29,9 @@ char *get_progname(char *argv0)
 #ifdef HAVE___PROGNAME
 	extern char *__progname;
 
-	return strdup(__progname);
-#else
+	if (__progname)
+		return strdup(__progname);
+#endif
 	char *p;
 
 	if (argv0 == NULL)
@@ -42,5 +43,4 @@ char *get_progname(char *argv0)
 		p++;
 
 	return (strdup(p));
-#endif
 }
