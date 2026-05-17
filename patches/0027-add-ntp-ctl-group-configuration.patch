@@ -1,0 +1,43 @@
+From 2cd868c948803949fa8d96a46851342e0035987a Mon Sep 17 00:00:00 2001
+From: Brent Cook <busterb@gmail.com>
+Date: Sun, 17 May 2026 09:21:15 -0500
+Subject: [PATCH 27/27] add ntp ctl group configuration
+
+---
+ src/usr.sbin/ntpd/control.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/src/usr.sbin/ntpd/control.c b/src/usr.sbin/ntpd/control.c
+index ffe76568787..96efc9729db 100644
+--- a/src/usr.sbin/ntpd/control.c
++++ b/src/usr.sbin/ntpd/control.c
+@@ -22,6 +22,7 @@
+ #include <sys/socket.h>
+ #include <sys/un.h>
+ #include <errno.h>
++#include <grp.h>
+ #include <math.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -103,6 +104,18 @@ control_init(char *path)
+ 		return (-1);
+ 	}
+ 
++#ifdef NTPD_GROUP
++	struct group *gr;
++	if ((gr = getgrnam(NTPD_GROUP)) == NULL)
++		fatalx("unknown group %s", NTPD_GROUP);
++	if (chown(path, -1, gr->gr_gid) == -1) {
++		log_warn("control_init: chown");
++		close(fd);
++		(void)unlink(path);
++		return (-1);
++	}
++#endif
++
+ 	session_socket_nonblockmode(fd);
+ 
+ 	return (fd);
+-- 
+2.53.0
+

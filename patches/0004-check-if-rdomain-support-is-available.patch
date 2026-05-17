@@ -1,7 +1,7 @@
 From b8d86d85f1edee4f02ecfc6339e873fe9f535f7a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:05:46 -0600
-Subject: [PATCH 04/26] check if rdomain support is available.
+Subject: [PATCH 04/27] check if rdomain support is available.
 
 Handle FreeBSD's calling rdomain 'FIB'.
  - from naddy@openbsd.org

@@ -1,7 +1,7 @@
 From abf4b03adc1d50042ddb5101215663d1bfd09a5a Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 28 Apr 2026 21:44:15 -0500
-Subject: [PATCH 21/26] avoid time_t overflow when calculating constraint
+Subject: [PATCH 21/27] avoid time_t overflow when calculating constraint
  median
 
 Based on work by Chris Webb <chris@arachsys.com>

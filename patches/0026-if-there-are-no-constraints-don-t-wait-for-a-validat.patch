@@ -1,7 +1,7 @@
 From 2760aa01e2087ec3325a3607671895a15dd3e070 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sun, 17 May 2026 07:56:03 -0500
-Subject: [PATCH 26/26] if there are no constraints, don't wait for a validated
+Subject: [PATCH 26/27] if there are no constraints, don't wait for a validated
  reply
 
 ---

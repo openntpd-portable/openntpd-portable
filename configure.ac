@@ -149,6 +149,14 @@ AC_ARG_WITH([privsep-user],
 AC_DEFINE_UNQUOTED(NTPD_USER, "$PRIVSEP_USER", [Unprivileged user])
 AC_SUBST(PRIVSEP_USER)
 
+AC_ARG_WITH([ctl-group],
+	AS_HELP_STRING([--with-ctl-group=group],
+		[Set group ownership of ntpd control socket]),
+	[AS_IF([test "x$withval" != xyes -a "x$withval" != xno],
+		[AC_DEFINE_UNQUOTED(NTPD_GROUP, "$withval",
+		[Control socket group])])]
+)
+
 AC_ARG_WITH([cacert],
 	AS_HELP_STRING([--with-cacert=path],
 		       [CA certificate location for HTTPS constraint validation]),

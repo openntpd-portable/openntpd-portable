@@ -1,7 +1,7 @@
 From fd6d7d0cb7531d2863fe51aaaf4822a38fdae579 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sun, 17 May 2026 07:53:48 -0500
-Subject: [PATCH 25/26] if a pool is trusted, members of the pool are trusted
+Subject: [PATCH 25/27] if a pool is trusted, members of the pool are trusted
 
 ---
  src/usr.sbin/ntpd/ntp.c | 1 +
