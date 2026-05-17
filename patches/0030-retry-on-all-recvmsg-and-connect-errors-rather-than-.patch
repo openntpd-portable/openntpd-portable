@@ -1,7 +1,7 @@
 From 0973592f85bf8dda2abce8f0a6f3c94747479fbf Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 28 Apr 2026 21:45:20 -0500
-Subject: [PATCH 30/30] retry on all recvmsg and connect errors rather than
+Subject: [PATCH 30/32] retry on all recvmsg and connect errors rather than
  whitelisting errno values
 
 Based on work by Chris Webb <chris@arachsys.com>

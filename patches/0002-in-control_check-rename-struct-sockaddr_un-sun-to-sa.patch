@@ -1,7 +1,7 @@
 From 2fa5b412800c02aa82ce863ebae59103d1516460 Mon Sep 17 00:00:00 2001
 From: henning <>
 Date: Tue, 21 Apr 2026 14:20:00 +0000
-Subject: [PATCH 02/30] in control_check(), rename struct sockaddr_un sun to sa
+Subject: [PATCH 02/32] in control_check(), rename struct sockaddr_un sun to sa
  - for consistency with control_init() just underneath, and because "sun"
  causes problems for portable on solaris pretty much from bcook's portable
  repo, but another name, ok bcook

@@ -1,7 +1,7 @@
 From da90b2699ad432bae1e97acf9177e69b78840e57 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 28 Apr 2026 21:41:42 -0500
-Subject: [PATCH 26/30] avoid returning zero from getmonotime on fast-booting
+Subject: [PATCH 26/32] avoid returning zero from getmonotime on fast-booting
  systems
 
 Based on work by Chris Webb <chris@arachsys.com>

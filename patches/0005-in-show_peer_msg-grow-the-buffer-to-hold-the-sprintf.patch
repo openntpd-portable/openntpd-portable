@@ -1,7 +1,7 @@
 From 1cde2cae0b4483c3cbde6e2d1aae60470542fd6a Mon Sep 17 00:00:00 2001
 From: henning <>
 Date: Wed, 22 Apr 2026 13:54:50 +0000
-Subject: [PATCH 05/30] in show_peer_msg, grow the buffer to hold the sprintf'd
+Subject: [PATCH 05/32] in show_peer_msg, grow the buffer to hold the sprintf'd
  stratum by 1 byte. the previous buffer was large enough since startum is
  clamped to 0..15, however, it is a bit much to ask for analyzers - including
  those in compilers - to detect that, an extra byte on the stack costs us

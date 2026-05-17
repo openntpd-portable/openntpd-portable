@@ -1,7 +1,7 @@
 From 6e319580360199778f838643238f243730637e2c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Sun, 26 Apr 2026 04:06:18 -0500
-Subject: [PATCH 25/30] update file paths with template placeholders
+Subject: [PATCH 25/32] update file paths with template placeholders
 
 ---
  src/usr.sbin/ntpd/ntpctl.8    |  4 ++--

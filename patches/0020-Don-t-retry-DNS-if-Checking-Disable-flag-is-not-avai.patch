@@ -1,7 +1,7 @@
 From 66fd4d57263e7a65f2c7e3b76a5e4bf78aa59549 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 8 Jun 2020 06:53:10 -0500
-Subject: [PATCH 20/30] Don't retry DNS if Checking Disable flag is not
+Subject: [PATCH 20/32] Don't retry DNS if Checking Disable flag is not
  available.
 
 ---

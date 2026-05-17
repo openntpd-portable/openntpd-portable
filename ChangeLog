@@ -55,6 +55,9 @@ OpenNTPD Portable Release Notes:
 	  recvmsg(), as well as other errors that can occur on non-OpenBSD
 	  systems.  Patch from Chris Webb <chris@arachsys.com>
 
+	* Allow setting initial time if constrants are not configured and the NTP
+	  pool is set to trusted.
+
 6.9p1 - (unreleased)
 
 	* The ntpd client code corrects both T1 and T4 with the current offset

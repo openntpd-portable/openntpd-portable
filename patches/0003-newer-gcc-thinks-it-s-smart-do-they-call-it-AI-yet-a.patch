@@ -1,7 +1,7 @@
 From c2ae921127fcd290f4aca140819aebaf8753beb8 Mon Sep 17 00:00:00 2001
 From: henning <>
 Date: Tue, 21 Apr 2026 14:31:03 +0000
-Subject: [PATCH 03/30] newer gcc thinks it's smart (do they call it AI yet?)
+Subject: [PATCH 03/32] newer gcc thinks it's smart (do they call it AI yet?)
  and points out peercount may be used unitialized. of course it is utterly
  wrong. move peercount = 0 initialization 2 lines up to shut gcc up pointed
  out by bcook, dicussed with, gcc-checked by and ok bcook claudio

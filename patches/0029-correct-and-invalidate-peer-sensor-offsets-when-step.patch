@@ -1,7 +1,7 @@
 From 5c0bebcebec937301b2b28f174e18b3c3ffee384 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 28 Apr 2026 21:45:10 -0500
-Subject: [PATCH 29/30] correct and invalidate peer/sensor offsets when
+Subject: [PATCH 29/32] correct and invalidate peer/sensor offsets when
  stepping the clock
 
 Based on work by Chris Webb <chris@arachsys.com>

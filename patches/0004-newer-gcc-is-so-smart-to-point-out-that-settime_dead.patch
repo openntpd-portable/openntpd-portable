@@ -1,7 +1,7 @@
 From 91f351705c9e7b8d8754bfda485d59c9e4d0461f Mon Sep 17 00:00:00 2001
 From: henning <>
 Date: Tue, 21 Apr 2026 14:36:00 +0000
-Subject: [PATCH 04/30] newer gcc is so smart to point out that
+Subject: [PATCH 04/32] newer gcc is so smart to point out that
  settime_deadline may be used uninitialized. of course it is wrong. sprinkle a
  "= 0" to shut it up. pointed out by bcook, discussed with, gcc confronted by
  and ok claudio bcook

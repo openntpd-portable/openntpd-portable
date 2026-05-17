@@ -1,7 +1,7 @@
 From 958b2c6e2f0141e3d9ec67842331d7af97f2e2e5 Mon Sep 17 00:00:00 2001
 From: henning <>
 Date: Wed, 22 Apr 2026 13:57:58 +0000
-Subject: [PATCH 06/30] grow the buffer to hold the sprintf'd rtable id by 8
+Subject: [PATCH 06/32] grow the buffer to hold the sprintf'd rtable id by 8
  bytes so it can hold the full range an int can express. the previous buffer
  was large enough since the rtable id is clamped to 0.. RT_TABLEID_MAX which
  is 255, however, it is a bit much to ask for analyzers - including those in
