@@ -27,13 +27,33 @@ OpenNTPD Portable Release Notes:
 
 	Portable-specific changes:
 
-	* Fixed --with-cacert: the configured CA path now correctly overrides
+	* The configured CA path now correctly overrides
 	  tls_default_ca_cert_file() at runtime.
 
 	* Updated arc4random detection on macOS (10.12+) and FreeBSD (12+) to
 	  use the native implementation rather than the bundled one.
 
 	* Synced compiler hardening and build fixes from LibreSSL portable.
+
+	* Builds correctly honor --runstatedir and --localstatedir paths.
+
+	* Fix handling of monotonic time on fast-booting systems where openntpd is
+	  started within the first second of uptime.
+	  Patch from Chris Webb <chris@arachsys.com>
+
+	* Avoid time_t overflow when calculating constraint median.
+	  Patch from Chris Webb <chris@arachsys.com>
+
+	* Ensure kernel sync status is updated at startup and when clock goes
+	  unsynced. Patch from Chris Webb <chris@arachsys.com>
+
+	* Correct and invalidate offsets when setting time.
+	  Patch from Chris Webb <chris@arachsys.com>
+	  
+	* Retry on all recvmsg() and connect() errors
+	  This fixes an inappropriate abort on Linux when EACCES is returned by
+	  recvmsg(), as well as other errors that can occur on non-OpenBSD
+	  systems.  Patch from Chris Webb <chris@arachsys.com>
 
 6.9p1 - (unreleased)
 
