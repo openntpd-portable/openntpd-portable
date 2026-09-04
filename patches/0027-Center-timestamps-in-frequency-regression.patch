@@ -1,0 +1,36 @@
+From 8c107a93b71589151f5aa7c09ce2b2ffd835aac8 Mon Sep 17 00:00:00 2001
+From: Adam DePrince <adam.deprince@gmail.com>
+Date: Fri, 4 Sep 2026 10:32:52 -0400
+Subject: [PATCH 27/27] Center timestamps in frequency regression
+
+Subtract the first timestamp in each sample batch before accumulating the least-squares terms. This preserves the fitted slope while avoiding catastrophic cancellation between squared absolute Unix timestamps.
+---
+ src/usr.sbin/ntpd/ntp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
+index 88a4e235a..c2f05f3fa 100644
+--- a/src/usr.sbin/ntpd/ntp.c
++++ b/src/usr.sbin/ntpd/ntp.c
+@@ -709,6 +709,7 @@ peer_addr_head_clear(struct ntp_peer *p)
+ static void
+ priv_adjfreq(double offset)
+ {
++	static double time_origin;
+ 	double curtime, freq;
+ 
+ 	if (!conf->status.synced){
+@@ -725,6 +726,10 @@ priv_adjfreq(double offset)
+ 	offset = conf->freq.overall_offset;
+ 
+ 	curtime = gettime_corrected();
++	/* Center time to keep the regression sums numerically stable. */
++	if (conf->freq.samples == 1)
++		time_origin = curtime;
++	curtime -= time_origin;
+ 	conf->freq.xy += offset * curtime;
+ 	conf->freq.x += curtime;
+ 	conf->freq.y += offset;
+-- 
+2.50.1 (Apple Git-155)
+
