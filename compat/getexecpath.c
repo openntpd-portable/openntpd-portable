@@ -26,8 +26,8 @@ extern char **environ;
 #include <mach-o/dyld.h>
 #endif
 
-char execpath[PATH_MAX];
-size_t execpathlen = -1;
+static char execpath[PATH_MAX];
+static size_t execpathlen = -1;
 
 #if defined(__linux__) || defined(__CYGWIN__) || defined(__sun) || \
     defined(_AIX)
