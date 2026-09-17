@@ -55,10 +55,13 @@ getexecpath_readlink(const char *path)
 int
 getexecpath(char *buf, size_t buflen)
 {
+#if defined(__FreeBSD__) || defined(__sun) || defined(_AIX) || \
+    defined(__NetBSD__) || defined(__APPLE__)
 	char path[PATH_MAX];
 	size_t len = sizeof(path);
+#endif
 
-	if (execpathlen != -1)
+	if (execpathlen != (size_t)-1)
 		goto cached;
 
 #if defined(__FreeBSD__) && __FreeBSD_version >= 1300057
@@ -114,7 +117,7 @@ getexecpath(char *buf, size_t buflen)
 		execpathlen = strlen(execpath) + 1;
 #endif
 
-	if (execpathlen == -1)
+	if (execpathlen == (size_t)-1)
 		execpathlen = 0;
 
 cached:
