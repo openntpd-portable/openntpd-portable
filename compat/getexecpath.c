@@ -44,7 +44,6 @@ _getexecpath(void)
 {
 	char path[PATH_MAX];
 	size_t len = sizeof(path);
-
 #if __FreeBSD_version >= 1300057
 	if (elf_aux_info(AT_EXECPATH, path, len) == 0 && realpath(path, execpath))
 		execpathlen = strlen(execpath) + 1;
@@ -73,7 +72,6 @@ _getexecpath_readlink(const char *path)
 {
 	char buf[PATH_MAX];
 	ssize_t len;
-
 	len = readlink(path, buf, sizeof(buf) - 1);
 	if (len <= 0)
 		return -1;
@@ -83,7 +81,6 @@ _getexecpath_readlink(const char *path)
 	execpathlen = strlen(execpath) + 1;
 	return 0;
 }
-#endif
 
 #if defined(__linux__) || defined(__CYGWIN__)
 static void
@@ -114,6 +111,7 @@ _getexecpath(void)
 	_getexecpath_readlink(path);
 }
 #endif
+#endif /* _getexecpath_readlink */
 
 #if defined(__NetBSD__)
 #include <sys/param.h>
@@ -141,7 +139,6 @@ static void _getexecpath(void)
 {
 	char path[PATH_MAX];
 	uint32_t len = sizeof(path);
-
 	if (_NSGetExecutablePath(path, &len) == 0 &&
 		realpath(path, execpath))
 		execpathlen = strlen(execpath) + 1;
