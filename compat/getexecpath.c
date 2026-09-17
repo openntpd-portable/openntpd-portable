@@ -30,7 +30,9 @@ static size_t execpathlen = -1;
 
 #include <sys/param.h>
 #include <osreldate.h>
+
 extern char **environ;
+
 #if __FreeBSD_version >= 1300057
 #include <sys/auxv.h>
 #else
@@ -44,10 +46,8 @@ _getexecpath(void)
 	size_t len = sizeof(path);
 
 #if __FreeBSD_version >= 1300057
-	if (elf_aux_info(AT_EXECPATH, path, len) == 0 &&
-		realpath(path, execpath))
+	if (elf_aux_info(AT_EXECPATH, path, len) == 0 && realpath(path, execpath))
 		execpathlen = strlen(execpath) + 1;
-
 #else
 	char **p = environ;
 	while (*p++ != NULL)
@@ -60,8 +60,8 @@ _getexecpath(void)
 			break;
 		}
 	}
-}
 #endif
+}
 #endif /* __FreeBSD__ */
 
 #if defined(__linux__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX)
