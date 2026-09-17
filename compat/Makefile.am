@@ -96,6 +96,10 @@ if !HAVE_RECALLOCARRAY
 libcompat_la_SOURCES += recallocarray.c
 endif
 
+if !HAVE_GETEXECPATH
+libcompat_la_SOURCES += getexecpath.c
+endif
+
 if !HAVE_SETPROCTITLE
 libcompat_la_SOURCES += setproctitle.c
 endif

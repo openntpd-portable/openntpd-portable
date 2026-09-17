@@ -22,6 +22,10 @@ int getentropy(void *buf, size_t buflen);
 int closefrom(int fd);
 #endif
 
+#ifndef HAVE_GETEXECPATH
+int getexecpath(char *buf, size_t bufsize);
+#endif
+
 #ifndef HAVE_SETGROUPS
 int setgroups(int ngroups, const gid_t *gidset);
 #endif

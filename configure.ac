@@ -43,7 +43,7 @@ CHECK_CRYPTO_COMPAT
 
 # check functions that are expected to be in libc
 AC_CHECK_FUNCS([asprintf closefrom daemon freezero memmem poll reallocarray recallocarray])
-AC_CHECK_FUNCS([setproctitle setgroups])
+AC_CHECK_FUNCS([getexecpath setproctitle setgroups])
 AC_CHECK_FUNCS([setregid setresgid setreuid setresuid])
 AC_CHECK_FUNCS([strlcat strlcpy strtonum sysconf])
 
@@ -113,6 +113,7 @@ AM_CONDITIONAL([HAVE_RECALLOCARRAY], [test "x$ac_cv_func_recallocarray" = xyes])
 AM_CONDITIONAL([HAVE_SETGROUPS], [test "x$ac_cv_func_setgroups" = xyes])
 AM_CONDITIONAL([HAVE_SETRESGID], [test "x$ac_cv_func_setresgid" = xyes])
 AM_CONDITIONAL([HAVE_SETRESUID], [test "x$ac_cv_func_setresuid" = xyes])
+AM_CONDITIONAL([HAVE_GETEXECPATH], [test "x$ac_cv_func_getexecpath" = xyes])
 AM_CONDITIONAL([HAVE_SETPROCTITLE], [test "x$ac_cv_func_setproctitle" = xyes])
 AM_CONDITIONAL([HAVE_STRLCAT], [test "x$ac_cv_func_strlcat" = xyes])
 AM_CONDITIONAL([HAVE_STRLCPY], [test "x$ac_cv_func_strlcpy" = xyes])
