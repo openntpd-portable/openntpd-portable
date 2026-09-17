@@ -1,7 +1,5 @@
 #
-# Copyright (c) 2014-2015 Brent Cook
-# Parts based on Makefile.in from Portable OpenNTPD:
-# Copyright (c) 2004-2008 Darren Tucker.
+# Copyright (c) 2026 Brent Cook
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -15,21 +13,10 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-SUBDIRS = include compat src tests
-ACLOCAL_AMFLAGS = -I m4
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
-EXTRA_DIST = README.md INSTALL VERSION ntpd.conf
+check_PROGRAMS = getexecpath
+TESTS = $(check_PROGRAMS)
 
-install-exec-hook:
-	@if [ ! -f "$(DESTDIR)$(sysconfdir)/ntpd.conf" ]; then \
-		$(INSTALL) -m 644 "$(srcdir)/ntpd.conf" "$(DESTDIR)$(sysconfdir)/ntpd.conf"; \
-	else \
-		echo; \
-		echo " $(DESTDIR)$(sysconfdir)/ntpd.conf already exists, install will not overwrite"; \
-	fi
-
-uninstall-local:
-	@if cmp -s "$(DESTDIR)$(sysconfdir)/ntpd.conf" "$(srcdir)/ntpd.conf"; then \
-		rm -f "$(DESTDIR)$(sysconfdir)/ntpd.conf"; \
-	fi
-	@rm -f "$(DESTDIR)$(sbindir)/ntpctl"
+getexecpath_SOURCES = getexecpath.c
+getexecpath_LDADD = $(top_builddir)/compat/libcompat.la

@@ -29,6 +29,7 @@ libtool
 ltmain.sh
 m4/l*.m4
 missing
+test-driver
 ylwrap
 Makefile
 Makefile.in
@@ -73,3 +74,6 @@ server.c
 util.c
 
 src/*.in
+tests/*.log
+tests/*.trs
+tests/getexecpath
