@@ -23,7 +23,11 @@
 #include <string.h>
 #include <stdlib.h>
 
+static char execpath[PATH_MAX];
+static size_t execpathlen = -1;
+
 #if defined(__FreeBSD__)
+
 #include <sys/param.h>
 #include <osreldate.h>
 extern char **environ;
@@ -32,28 +36,40 @@ extern char **environ;
 #else
 #include <machine/elf.h>
 #endif
+
+static void
+_getexecpath(void)
+{
+	char path[PATH_MAX];
+	size_t len = sizeof(path);
+
+#if __FreeBSD_version >= 1300057
+	if (elf_aux_info(AT_EXECPATH, path, len) == 0 &&
+		realpath(path, execpath))
+		execpathlen = strlen(execpath) + 1;
+
+#else
+	char **p = environ;
+	while (*p++ != NULL)
+		;
+	for (Elf_Auxinfo *aux = (Elf_Auxinfo *)p;
+		aux->a_type != AT_NULL; aux++) {
+		if (aux->a_type == AT_EXECPATH &&
+			realpath((char *)aux->a_un.a_ptr, execpath)) {
+			execpathlen = strlen(execpath) + 1;
+			break;
+		}
+	}
+}
 #endif
+#endif /* __FreeBSD__ */
 
-#if defined(__NetBSD__)
-#include <sys/param.h>
-#include <sys/sysctl.h>
-#endif
-
-#if defined(__APPLE__)
-#include <mach-o/dyld.h>
-#endif
-
-static char execpath[PATH_MAX];
-static size_t execpathlen = -1;
-
-#if defined(__linux__) || defined(__CYGWIN__) || defined(__sun) || \
-    defined(_AIX)
+#if defined(__linux__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX)
 /*
  * Resolve a procfs symlink that points at the running executable.
- * Returns 0 and fills execpath/execpathlen on success, -1 otherwise.
  */
 static int
-getexecpath_readlink(const char *path)
+_getexecpath_readlink(const char *path)
 {
 	char buf[PATH_MAX];
 	ssize_t len;
@@ -69,70 +85,76 @@ getexecpath_readlink(const char *path)
 }
 #endif
 
-int
-getexecpath(char *buf, size_t buflen)
-{
-#if defined(__FreeBSD__) || defined(__sun) || defined(_AIX) || \
-    defined(__NetBSD__) || defined(__APPLE__)
-	char path[PATH_MAX];
-	size_t len = sizeof(path);
-#endif
-
-	if (execpathlen != (size_t)-1)
-		goto cached;
-
-#if defined(__FreeBSD__) && __FreeBSD_version >= 1300057
-	if (elf_aux_info(AT_EXECPATH, path, len) == 0 &&
-		realpath(path, execpath))
-		execpathlen = strlen(execpath) + 1;
-
-#elif defined(__FreeBSD__)
-	char **p = environ;
-	while (*p++ != NULL)
-		;
-	for (Elf_Auxinfo *aux = (Elf_Auxinfo *)p;
-		aux->a_type != AT_NULL; aux++) {
-		if (aux->a_type == AT_EXECPATH &&
-			realpath((char *)aux->a_un.a_ptr, execpath)) {
-			execpathlen = strlen(execpath) + 1;
-			break;
-		}
-	}
-#endif /* __FreeBSD__ */
-
 #if defined(__linux__) || defined(__CYGWIN__)
-	getexecpath_readlink("/proc/self/exe");
+static void
+_getexecpath(void)
+{
+	_getexecpath_readlink("/proc/self/exe");
+}
 #endif
 
 #if defined(__sun)
+static void
+_getexecpath(void)
+{
+	char path[PATH_MAX];
+	size_t len = sizeof(path);
 	snprintf(path, len, "/proc/%d/path/a.out", getpid());
-	getexecpath_readlink(path);
+	_getexecpath_readlink(path);
+}
 #endif
 
 #if defined(_AIX)
+static void
+_getexecpath(void)
+{
+	char path[PATH_MAX];
+	size_t len = sizeof(path);
 	snprintf(path, len, "/proc/%d/object/a.out", getpid());
-	getexecpath_readlink(path);
+	_getexecpath_readlink(path);
+}
 #endif
 
 #if defined(__NetBSD__)
-	int mib[4];
+#include <sys/param.h>
+#include <sys/sysctl.h>
+static void
+_getexecpath(void)
+{
+	char path[PATH_MAX];
+	size_t len = sizeof(path);
+	int mib[4] = {
+		CTL_KERN,
+		KERN_PROC_ARGS,
+		-1,
+		KERN_PROC_PATHNAME
+	};
 
-	mib[0] = CTL_KERN;
-	mib[1] = KERN_PROC_ARGS;
-	mib[2] = -1;
-	mib[3] = KERN_PROC_PATHNAME;
-	if (sysctl(mib, 4, path, &len, NULL, 0) == 0 &&
-		realpath(path, execpath))
+	if (sysctl(mib, 4, path, &len, NULL, 0) == 0 && realpath(path, execpath))
 		execpathlen = strlen(execpath) + 1;
+}
 #endif
 
 #if defined(__APPLE__)
-	uint32_t size = len;
+#include <mach-o/dyld.h>
+static void _getexecpath(void)
+{
+	char path[PATH_MAX];
+	uint32_t len = sizeof(path);
 
-	if (_NSGetExecutablePath(path, &size) == 0 &&
+	if (_NSGetExecutablePath(path, &len) == 0 &&
 		realpath(path, execpath))
 		execpathlen = strlen(execpath) + 1;
+}
 #endif
+
+int
+getexecpath(char *buf, size_t buflen)
+{
+	if (execpathlen != (size_t)-1)
+		goto cached;
+
+	_getexecpath();
 
 	if (execpathlen == (size_t)-1)
 		execpathlen = 0;
