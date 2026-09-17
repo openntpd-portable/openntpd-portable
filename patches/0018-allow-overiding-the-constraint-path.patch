@@ -1,14 +1,14 @@
-From e33efdd820329c9232f657032cb8b900a8a50d6b Mon Sep 17 00:00:00 2001
+From 2a800874c9f0fbe7984eaa5e1a1b05b58747b1f6 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 20 Apr 2026 21:40:43 -0500
-Subject: [PATCH 18/26] allow overiding the constraint path
+Subject: [PATCH 18/25] allow overiding the constraint path
 
 ---
  src/usr.sbin/ntpd/constraint.c | 7 ++++++-
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 5abaf27b279..e4b2c775697 100644
+index a33dd1ee3..5c4d6578d 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
 @@ -376,7 +376,12 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
@@ -26,5 +26,5 @@ index 5abaf27b279..e4b2c775697 100644
  		fatalx("failed to load constraint ca");
  #endif
 -- 
-2.53.0
+2.55.0
 

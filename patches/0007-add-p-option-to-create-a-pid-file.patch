@@ -1,7 +1,7 @@
-From 53b3386274d11d1258e586040b5992e470495284 Mon Sep 17 00:00:00 2001
+From 0ba361867905741d162178ba6ec15a09ad1d95d6 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Wed, 31 Dec 2014 08:26:41 -0600
-Subject: [PATCH 07/26] add -p option to create a pid file
+Subject: [PATCH 07/25] add -p option to create a pid file
 
 This is used in both the Gentoo and Debian ports.
 
@@ -13,7 +13,7 @@ Origin: https://bugs.gentoo.org/show_bug.cgi?id=493082
  3 files changed, 33 insertions(+), 5 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.8 b/src/usr.sbin/ntpd/ntpd.8
-index 6e7f515a4b0..b3f0e43f991 100644
+index 6e7f515a4..b3f0e43f9 100644
 --- a/src/usr.sbin/ntpd/ntpd.8
 +++ b/src/usr.sbin/ntpd/ntpd.8
 @@ -25,6 +25,7 @@
@@ -35,7 +35,7 @@ index 6e7f515a4b0..b3f0e43f991 100644
  .Pp
  .Nm
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 550225283f0..a29fbe01425 100644
+index 3e7475efe..eb2a1499d 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -90,6 +90,18 @@ sighdlr(int sig)
@@ -85,7 +85,7 @@ index 550225283f0..a29fbe01425 100644
  		case 's':
  		case 'S':
  			sopt = ch;
-@@ -244,9 +259,11 @@ main(int argc, char *argv[])
+@@ -247,9 +262,11 @@ main(int argc, char *argv[])
  	logdest = lconf.debug ? LOG_TO_STDERR : LOG_TO_SYSLOG;
  	if (!lconf.settime) {
  		log_init(logdest, lconf.verbose, LOG_DAEMON);
@@ -98,7 +98,7 @@ index 550225283f0..a29fbe01425 100644
  	} else {
  		settime_deadline = getmonotime();
  		timeout = 100;
-@@ -332,9 +349,11 @@ main(int argc, char *argv[])
+@@ -335,9 +352,11 @@ main(int argc, char *argv[])
  			log_init(logdest, lconf.verbose, LOG_DAEMON);
  			log_warnx("no reply received in time, skipping initial "
  			    "time setting");
@@ -111,7 +111,7 @@ index 550225283f0..a29fbe01425 100644
  		}
  
  		if (nfds > 0 && (pfd[PFD_PIPE].revents & POLLOUT))
-@@ -373,6 +392,8 @@ main(int argc, char *argv[])
+@@ -376,6 +395,8 @@ main(int argc, char *argv[])
  	imsgbuf_clear(ibuf);
  	free(ibuf);
  	log_info("Terminating");
@@ -120,7 +120,7 @@ index 550225283f0..a29fbe01425 100644
  	return (0);
  }
  
-@@ -435,9 +456,11 @@ dispatch_imsg(struct ntpd_conf *lconf, int argc, char **argv)
+@@ -437,9 +458,11 @@ dispatch_imsg(struct ntpd_conf *lconf, char *execpath, int argc, char **argv)
  			memcpy(&d, imsg.data, sizeof(d));
  			ntpd_settime(d);
  			/* daemonize now */
@@ -134,7 +134,7 @@ index 550225283f0..a29fbe01425 100644
  			timeout = INFTIM;
  			break;
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 3c4399658e1..d32feff6eef 100644
+index 4a3694428..13b61d7b5 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -259,6 +259,7 @@ struct ntpd_conf {
@@ -146,5 +146,5 @@ index 3c4399658e1..d32feff6eef 100644
  
  struct ctl_show_status {
 -- 
-2.53.0
+2.55.0
 

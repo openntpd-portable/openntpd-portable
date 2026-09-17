@@ -129,18 +129,18 @@ libcompat_la_SOURCES += getentropy_freebsd.c
 endif
 if HOST_LINUX
 libcompat_la_SOURCES += getentropy_linux.c
-libcompat_la_SOURCES += sha2.c
+libcompat_la_SOURCES += sha256.c
 endif
 if HOST_NETBSD
 libcompat_la_SOURCES += getentropy_netbsd.c
 endif
 if HOST_DARWIN
 libcompat_la_SOURCES += getentropy_osx.c
-libcompat_la_SOURCES += sha2.c
+libcompat_la_SOURCES += sha256.c
 endif
 if HOST_SOLARIS
 libcompat_la_SOURCES += getentropy_solaris.c
-libcompat_la_SOURCES += sha2.c
+libcompat_la_SOURCES += sha256.c
 endif
 endif
 endif

@@ -1,7 +1,7 @@
-From cdd2bf4d39808d43849399d1260f0a2a2eea93a5 Mon Sep 17 00:00:00 2001
+From d3ec25d337761f9369268c5aa3d264ce2a42352d Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Fri, 27 Mar 2015 23:14:15 -0500
-Subject: [PATCH 09/26] Notify the user when constraint support is disabled.
+Subject: [PATCH 09/25] Notify the user when constraint support is disabled.
 
 Update the manpage and warn if constraints are
 configured but ntpd is built without libtls present.
@@ -13,7 +13,7 @@ From Paul B. Henson.
  3 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/config.c b/src/usr.sbin/ntpd/config.c
-index e243818c255..856c3147cc5 100644
+index e243818c2..856c3147c 100644
 --- a/src/usr.sbin/ntpd/config.c
 +++ b/src/usr.sbin/ntpd/config.c
 @@ -187,6 +187,9 @@ new_constraint(void)
@@ -27,7 +27,7 @@ index e243818c255..856c3147cc5 100644
  }
  
 diff --git a/src/usr.sbin/ntpd/constraint.c b/src/usr.sbin/ntpd/constraint.c
-index 7ecbc18920f..5abaf27b279 100644
+index d3cd5084f..a33dd1ee3 100644
 --- a/src/usr.sbin/ntpd/constraint.c
 +++ b/src/usr.sbin/ntpd/constraint.c
 @@ -374,10 +374,12 @@ priv_constraint_child(const char *pw_dir, uid_t pw_uid, gid_t pw_gid)
@@ -44,7 +44,7 @@ index 7ecbc18920f..5abaf27b279 100644
  	if (chroot(pw_dir) == -1)
  		fatal("chroot");
 diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
-index 0eb75eb725c..9f5664cff21 100644
+index 0eb75eb72..9f5664cff 100644
 --- a/src/usr.sbin/ntpd/ntpd.conf.5
 +++ b/src/usr.sbin/ntpd/ntpd.conf.5
 @@ -216,8 +216,15 @@ authenticated constraint,
@@ -66,5 +66,5 @@ index 0eb75eb725c..9f5664cff21 100644
  .It Ic constraint from Ar url [ip...]
  Specify the URL, IP address or the hostname of an HTTPS server to
 -- 
-2.53.0
+2.55.0
 

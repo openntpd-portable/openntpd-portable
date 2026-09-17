@@ -1,17 +1,17 @@
-From c3dce31d9d52dc53524badf873430c5449800dae Mon Sep 17 00:00:00 2001
+From c7e0ba7f3d414a061eae743cdce6c4f46ec6b58c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 16 Nov 2020 02:20:10 -0600
-Subject: [PATCH 16/26] cast mode to unsigned int for Solaris
+Subject: [PATCH 16/25] cast mode to unsigned int for Solaris
 
 ---
  src/usr.sbin/ntpd/ntp.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index 888a2ddcdf8..bf72f733f71 100644
+index c746265be..b2c70cf6f 100644
 --- a/src/usr.sbin/ntpd/ntp.c
 +++ b/src/usr.sbin/ntpd/ntp.c
-@@ -121,7 +121,7 @@ ntp_main(struct ntpd_conf *nconf, struct passwd *pw, int argc, char **argv)
+@@ -126,7 +126,7 @@ ntp_main(struct ntpd_conf *nconf, struct passwd *pw, int argc, char **argv)
  	}
  	if (stb.st_uid != 0 || (stb.st_mode & (S_IWGRP|S_IWOTH)) != 0) {
  		fatalx("bad privsep dir %s permissions: %o",
@@ -21,5 +21,5 @@ index 888a2ddcdf8..bf72f733f71 100644
  	if (chroot(pw->pw_dir) == -1)
  		fatal("chroot");
 -- 
-2.53.0
+2.55.0
 

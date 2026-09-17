@@ -1,7 +1,7 @@
-From 6d458ea430ef7d9b7f989244ad5d5a65d93b5dba Mon Sep 17 00:00:00 2001
+From 3e98a54ea525b6f904592b01ed3cf0d21c0a22c9 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Thu, 1 Jan 2015 07:18:11 -0600
-Subject: [PATCH 06/26] allow overriding default user and file locations
+Subject: [PATCH 06/25] allow overriding default user and file locations
 
 Allow the build process to override the default ntpd file paths and
 default user. On some systems, runstatedir can be a tmpfs, so we need to
@@ -12,7 +12,7 @@ create the parent path on start there.
  2 files changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index 46a38aba8e0..550225283f0 100644
+index e70c87f25..3e7475efe 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -20,6 +20,7 @@
@@ -23,7 +23,7 @@ index 46a38aba8e0..550225283f0 100644
  #include <sys/sysctl.h>
  #include <sys/wait.h>
  #include <sys/un.h>
-@@ -258,6 +259,9 @@ main(int argc, char *argv[])
+@@ -261,6 +262,9 @@ main(int argc, char *argv[])
  	if (chdir("/") == -1)
  		fatal("chdir(\"/\")");
  
@@ -34,7 +34,7 @@ index 46a38aba8e0..550225283f0 100644
  
  	/* fork child process */
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index b09fc030133..3c4399658e1 100644
+index 895581696..4a3694428 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
 @@ -36,10 +36,17 @@
@@ -59,5 +59,5 @@ index b09fc030133..3c4399658e1 100644
  #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
  #define	INTERVAL_QUERY_PATHETIC		60
 -- 
-2.53.0
+2.55.0
 

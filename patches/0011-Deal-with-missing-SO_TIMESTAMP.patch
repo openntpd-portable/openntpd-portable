@@ -1,7 +1,7 @@
-From 835c94b80e32905b46729a8305fbacf966a40b9c Mon Sep 17 00:00:00 2001
+From 8c49ce34f2e1ddb3b7fef622ab7b7ac1b4385e33 Mon Sep 17 00:00:00 2001
 From: Brent Cook <bcook@openbsd.org>
 Date: Sun, 6 Dec 2015 22:35:38 -0600
-Subject: [PATCH 11/26] Deal with missing SO_TIMESTAMP
+Subject: [PATCH 11/25] Deal with missing SO_TIMESTAMP
 
 from Paul B. Henson" <henson@acm.org>
 
@@ -11,7 +11,7 @@ Fall back to the previous client.c implementation when it is not found.
  1 file changed, 9 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/client.c b/src/usr.sbin/ntpd/client.c
-index 86b18403a53..db9b62de71c 100644
+index 91d32c62a..bcda39335 100644
 --- a/src/usr.sbin/ntpd/client.c
 +++ b/src/usr.sbin/ntpd/client.c
 @@ -192,10 +192,12 @@ client_query(struct ntp_peer *p)
@@ -27,7 +27,7 @@ index 86b18403a53..db9b62de71c 100644
  	}
  
  	/*
-@@ -288,7 +290,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
+@@ -289,7 +291,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
  		struct cmsghdr	hdr;
  		char		buf[CMSG_SPACE(sizeof(tv))];
  	} cmsgbuf;
@@ -37,7 +37,7 @@ index 86b18403a53..db9b62de71c 100644
  	ssize_t			 size;
  	double			 T1, T2, T3, T4, offset, delay;
  	time_t			 interval;
-@@ -325,6 +329,8 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
+@@ -327,6 +331,8 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
  		return (0);
  	}
  
@@ -46,7 +46,7 @@ index 86b18403a53..db9b62de71c 100644
  	for (cmsg = CMSG_FIRSTHDR(&somsg); cmsg != NULL;
  	    cmsg = CMSG_NXTHDR(&somsg, cmsg)) {
  		if (cmsg->cmsg_level == SOL_SOCKET &&
-@@ -336,6 +342,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
+@@ -338,6 +344,9 @@ client_dispatch(struct ntp_peer *p, u_int8_t settime, u_int8_t automatic)
  	}
  	if (cmsg == NULL)
  		fatal("SCM_TIMESTAMP");
@@ -57,5 +57,5 @@ index 86b18403a53..db9b62de71c 100644
  	ntp_getmsg((struct sockaddr *)&p->addr->ss, buf, size, &msg);
  
 -- 
-2.53.0
+2.55.0
 

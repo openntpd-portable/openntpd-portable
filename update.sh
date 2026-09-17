@@ -52,7 +52,7 @@ ${CP_LIBC} "${libc_src}/crypt/arc4random.c" compat
 ${CP_LIBC} "${libc_src}/crypt/arc4random_uniform.c" compat
 ${CP_LIBC} "${libc_src}/crypt/chacha_private.h" compat
 ${CP_LIBC} "${libc_src}/hash/md5.c" compat
-${CP_LIBC} "${libc_src}/hash/sha2.c" compat
+${CP_LIBC} "${libc_src}/hash/sha256.c" compat
 for i in "${arc4random_src}"/getentropy_*.c; do
 	sed -e 's/openssl\/sha.h/sha2.h/' < "${i}" > compat/`basename "${i}"`
 done

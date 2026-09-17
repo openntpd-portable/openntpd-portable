@@ -1,7 +1,7 @@
-From d005bf53e19f79200621d28ddc2c968efd0b857f Mon Sep 17 00:00:00 2001
+From c0f5691c9da22e784f587083654189a7ca3a950c Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 16 Nov 2020 02:20:40 -0600
-Subject: [PATCH 17/26] initialize peercount
+Subject: [PATCH 17/25] initialize peercount
 
 gcc on several platforms complains about this. It might not be a problem
 but it's not clear from the state machine.
@@ -10,18 +10,18 @@ but it's not clear from the state machine.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/usr.sbin/ntpd/ntp.c b/src/usr.sbin/ntpd/ntp.c
-index bf72f733f71..db94f132d7a 100644
+index b2c70cf6f..9e72f14d3 100644
 --- a/src/usr.sbin/ntpd/ntp.c
 +++ b/src/usr.sbin/ntpd/ntp.c
-@@ -550,7 +550,7 @@ ntp_dispatch_imsg_dns(void)
+@@ -555,7 +555,7 @@ ntp_dispatch_imsg_dns(void)
  	u_int16_t		 dlen;
  	u_char			*p;
  	struct ntp_addr		*h;
--	size_t			 addrcount, peercount;
-+	size_t			 addrcount, peercount = 0;
- 	int			 n;
+-	size_t			 addrcount, peercount, excount;
++	size_t			 addrcount, peercount = 0, excount;
+ 	int			 n, probe;
  
  	if (imsgbuf_read(ibuf_dns) != 1)
 -- 
-2.53.0
+2.55.0
 

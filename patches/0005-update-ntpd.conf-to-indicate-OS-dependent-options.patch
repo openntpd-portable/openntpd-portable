@@ -1,7 +1,7 @@
-From c05c2f442ee633239d8dd88c0b2ddb53ec363040 Mon Sep 17 00:00:00 2001
+From 1e06ad642479080ee7cfa255cace1be84d289677 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Tue, 30 Dec 2014 09:20:03 -0600
-Subject: [PATCH 05/26] update ntpd.conf to indicate OS-dependent options
+Subject: [PATCH 05/25] update ntpd.conf to indicate OS-dependent options
 
 Also, clarify listening behavior based on a patch from
 Dererk <dererk@debian.org>
@@ -11,7 +11,7 @@ Debian bug ID: 575705
  1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.conf.5 b/src/usr.sbin/ntpd/ntpd.conf.5
-index 8ad372ad511..0eb75eb725c 100644
+index 8ad372ad5..0eb75eb72 100644
 --- a/src/usr.sbin/ntpd/ntpd.conf.5
 +++ b/src/usr.sbin/ntpd/ntpd.conf.5
 @@ -38,9 +38,14 @@ The basic configuration options are as follows:
@@ -49,5 +49,5 @@ index 8ad372ad511..0eb75eb725c 100644
  .Xr ntpd 8
  will use each given sensor that actually exists.
 -- 
-2.53.0
+2.55.0
 

@@ -1,7 +1,7 @@
-From 0b5ff85648f0518e113e9a3cc3c3609578df220e Mon Sep 17 00:00:00 2001
+From 9fdf43b0fe1b01382992d6e516914f5e2b8ded29 Mon Sep 17 00:00:00 2001
 From: Brent Cook <busterb@gmail.com>
 Date: Mon, 12 Jan 2015 06:18:31 -0600
-Subject: [PATCH 08/26] initialize setproctitle where needed
+Subject: [PATCH 08/25] initialize setproctitle where needed
 
 We need to save a copy of argv and __progname to avoid setproctitle
 clobbering them.
@@ -10,7 +10,7 @@ clobbering them.
  1 file changed, 20 insertions(+)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.c b/src/usr.sbin/ntpd/ntpd.c
-index a29fbe01425..624c51a27ec 100644
+index eb2a1499d..9ed60a1a0 100644
 --- a/src/usr.sbin/ntpd/ntpd.c
 +++ b/src/usr.sbin/ntpd/ntpd.c
 @@ -134,6 +134,13 @@ auto_preconditions(const struct ntpd_conf *cnf)
@@ -55,5 +55,5 @@ index a29fbe01425..624c51a27ec 100644
  		switch (ch) {
  		case 'd':
 -- 
-2.53.0
+2.55.0
 
