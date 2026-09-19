@@ -4,6 +4,8 @@ OpenNTPD http://www.openntpd.org/
 [![Linux](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/linux.yml/badge.svg)](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/linux.yml)
 [![macOS](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/macos.yml/badge.svg)](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/macos.yml)
 [![FreeBSD](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/freebsd.yml/badge.svg)](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/freebsd.yml)
+[![NetBSD](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/netbsd.yml/badge.svg)](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/netbsd.yml)
+[![DragonFlyBSD](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/dragonflybsd.yml/badge.svg)](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/dragonflybsd.yml)
 [![Solaris](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/solaris.yml/badge.svg)](https://github.com/openntpd-portable/openntpd-portable/actions/workflows/solaris.yml)
 
 ## Platform Requirements
@@ -25,6 +27,8 @@ OpenNTPD portable is known to build and work on:
  - OpenBSD (current)
  - Linux (Debian 12+, Ubuntu 22.04+)
  - FreeBSD (14.4, 15.0)
+ - NetBSD (9.4, 10.1)
+ - DragonFlyBSD (6.4.2)
  - macOS (14+)
  - Solaris 11
 

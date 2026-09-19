@@ -133,6 +133,26 @@ _getexecpath(void)
 }
 #endif
 
+#if defined(__DragonFly__)
+#include <sys/param.h>
+#include <sys/sysctl.h>
+static void
+_getexecpath(void)
+{
+	char path[PATH_MAX];
+	size_t len = sizeof(path);
+	int mib[4] = {
+		CTL_KERN,
+		KERN_PROC,
+		KERN_PROC_PATHNAME,
+		-1
+	};
+
+	if (sysctl(mib, 4, path, &len, NULL, 0) == 0 && realpath(path, execpath))
+		execpathlen = strlen(execpath) + 1;
+}
+#endif
+
 #if defined(__APPLE__)
 #include <mach-o/dyld.h>
 static void _getexecpath(void)

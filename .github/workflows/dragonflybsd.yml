@@ -1,0 +1,43 @@
+# GitHub Actions workflow to run tests on a DragonFlyBSD VM.
+name: "DragonFlyBSD"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # At 00:00 daily.
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: "DragonFlyBSD ${{ matrix.release }}"
+    runs-on: ubuntu-24.04
+    if: github.repository_owner == 'openntpd' || github.event_name != 'schedule'
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        release: ["6.4.2"]
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: "Setup"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y automake autoconf libtool
+          ./autogen.sh
+
+      - name: "Build on VM"
+        uses: vmactions/dragonflybsd-vm@7cd7c9b7f2b06e8e03d2337a9476995f3c112acf # v1.3.3
+        with:
+          release: "${{ matrix.release }}"
+          copyback: false
+          prepare: |
+            pkg install -y autoconf automake libtool
+          run: |
+            ./configure
+            make -j2 check || (cat tests/test-suite.log && exit 1)

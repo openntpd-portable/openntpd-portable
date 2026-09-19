@@ -1,0 +1,43 @@
+# GitHub Actions workflow to run tests on a NetBSD VM.
+name: "NetBSD"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # At 00:00 daily.
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: "NetBSD ${{ matrix.release }}"
+    runs-on: ubuntu-24.04
+    if: github.repository_owner == 'openntpd' || github.event_name != 'schedule'
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        release: ["9.4", "10.1"]
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: "Setup"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y automake autoconf libtool
+          ./autogen.sh
+
+      - name: "Build on VM"
+        uses: vmactions/netbsd-vm@20ee93a005c9fc78743e6e05269f4cb023b87413 # v1.5.0
+        with:
+          release: "${{ matrix.release }}"
+          copyback: false
+          prepare: |
+            /usr/sbin/pkg_add autoconf automake libtool
+          run: |
+            ./configure
+            make -j2 check || (cat tests/test-suite.log && exit 1)
