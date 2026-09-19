@@ -75,6 +75,10 @@ char buf[1]; getentropy(buf, 1);
 		AC_DEFINE([SPT_TYPE], [SPT_REUSEARGV])
 		AC_SUBST([PROG_LDADD], ['-lresolv'])
 		;;
+	*dragonfly*)
+		HOST_OS=dragonfly
+		HOST_ABI=elf
+		;;
 	*freebsd*)
 		HOST_OS=freebsd
 		HOST_ABI=elf
@@ -143,6 +147,7 @@ esac
 AM_CONDITIONAL([HOST_AIX],     [test x$HOST_OS = xaix])
 AM_CONDITIONAL([HOST_CYGWIN],  [test x$HOST_OS = xcygwin])
 AM_CONDITIONAL([HOST_DARWIN],  [test x$HOST_OS = xdarwin])
+AM_CONDITIONAL([HOST_DRAGONFLY], [test x$HOST_OS = xdragonfly])
 AM_CONDITIONAL([HOST_FREEBSD], [test x$HOST_OS = xfreebsd])
 AM_CONDITIONAL([HOST_HPUX],    [test x$HOST_OS = xhpux])
 AM_CONDITIONAL([HOST_LINUX],   [test x$HOST_OS = xlinux])

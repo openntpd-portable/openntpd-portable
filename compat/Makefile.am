@@ -39,6 +39,9 @@ if !HAVE_ADJFREQ
 if HOST_FREEBSD
 libcompat_la_SOURCES += adjfreq_freebsd.c
 endif
+if HOST_DRAGONFLY
+libcompat_la_SOURCES += adjfreq_freebsd.c
+endif
 if HOST_LINUX
 libcompat_la_SOURCES += adjfreq_linux.c
 endif
