@@ -2,9 +2,10 @@
 name: "DragonFlyBSD"
 
 on:
+  push:
+    branches: ["master"]
+  pull_request: {}
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *" # At 00:00 daily.
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"

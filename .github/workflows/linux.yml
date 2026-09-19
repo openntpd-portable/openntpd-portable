@@ -5,8 +5,7 @@ on:
   push:
     branches: ["master"]
   pull_request: {}
-  schedule:
-    - cron: "0 0 * * *" # At 00:00 daily.
+  workflow_dispatch:
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.event.number || github.ref }}"
