@@ -76,6 +76,10 @@ endif
 ntpd_SOURCES += server.c
 ntpd_SOURCES += util.c
 
+# don't ship the generated file.
+dist-hook:
+	rm -f $(distdir)/parse.c
+
 install-exec-hook:
 	@ln -f "$(DESTDIR)$(sbindir)/ntpd" "$(DESTDIR)$(sbindir)/ntpctl"
 	@if [ ! -d "$(DESTDIR)$(sysconfdir)" ]; then \
