@@ -69,6 +69,12 @@ saved_LIBS="$LIBS"
 LIBS="$LIBS -ltls"
 AC_CHECK_FUNCS([tls_config_set_ca_mem])
 if test "x$ac_cv_func_tls_config_set_ca_mem" = xno; then
+	# a static libtls needs its dependencies to be listed explicitly
+	AS_UNSET([ac_cv_func_tls_config_set_ca_mem])
+	LIBS="$saved_LIBS -ltls -lssl -lcrypto"
+	AC_CHECK_FUNCS([tls_config_set_ca_mem])
+fi
+if test "x$ac_cv_func_tls_config_set_ca_mem" = xno; then
 	LIBS="$saved_LIBS"
 fi
 
